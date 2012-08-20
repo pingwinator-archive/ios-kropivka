@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <NSXMLParserDelegate>
+@property (strong, nonatomic) IBOutlet UIButton *getButton;
+@property (strong, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+- (IBAction)updateTweets:(id)sender;
+
+- (void) startParsingTweets;
 
 @end
