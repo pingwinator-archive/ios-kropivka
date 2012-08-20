@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "SBJson.h"
+
 
 @interface ViewController () {
     NSURLConnection* m_connection;
@@ -31,7 +33,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
 
     
-    NSString *post = [[NSString alloc] initWithFormat:@"message=123456789&access_token=%@",key];
+    NSString *post = [[NSString alloc] initWithFormat:@"message=%@&access_token=%@",status.text,key];
     
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
@@ -69,9 +71,26 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    //NSString* str = SBJson
+    // Create new SBJSON parser object
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
 
+    NSString *json_string = [[NSString alloc] initWithData:m_resBuffer encoding:NSUTF8StringEncoding];
+    
+    // parse the JSON response into an object
+    // Here we're using NSArray since we're parsing an array of JSON status objects
+    //NSArray *result = 
+    
+    NSDictionary *answerID = [parser objectWithString:json_string error:nil];
+    
+        UIAlertView* alert = [[UIAlertView alloc] 
+                              initWithTitle:@"Title" 
+                                    message:[answerID objectForKey:@"id"] 
+                              delegate:self  
+                            cancelButtonTitle:@"Ok" 
+                            otherButtonTitles:nil];
+        [alert show];
 }
+
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     UIAlertView *errorAlert = [[UIAlertView alloc]
@@ -91,13 +110,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    
+    m_resBuffer = [[NSMutableData alloc] init];
 }
 
 - (void)viewDidUnload
 {
     self.status = nil;
     self.button = nil;
+    m_resBuffer = nil;
     
     [super viewDidUnload];
     // Release any retained subviews of the main view.
