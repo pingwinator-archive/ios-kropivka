@@ -10,4 +10,10 @@
 
 @interface ViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIButton *button;
+@property (strong, nonatomic) IBOutlet UITextField *status;
+
+
+- (IBAction)buttonPressed:(id)sender;
+
 @end
