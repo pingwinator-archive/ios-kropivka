@@ -15,6 +15,7 @@
 		4653DE1A15E35EA800B016A9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4653DE1915E35EA800B016A9 /* AppDelegate.m */; };
 		4653DE1D15E35EA800B016A9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4653DE1C15E35EA800B016A9 /* ViewController.m */; };
 		4653DE2015E35EA800B016A9 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4653DE1E15E35EA800B016A9 /* ViewController.xib */; };
+		4653DE2815E3658000B016A9 /* Worker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4653DE2715E3658000B016A9 /* Worker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,15 +23,17 @@
 		4653DE0915E35EA800B016A9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4653DE0B15E35EA800B016A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4653DE0D15E35EA800B016A9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4653DE1115E35EA800B016A9 /* Blocks-Info.plist */ = {isa = PBXFileReference; path = "Blocks-Info.plist"; sourceTree = "<group>"; };
+		4653DE1115E35EA800B016A9 /* Blocks-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Blocks-Info.plist"; sourceTree = "<group>"; };
 		4653DE1315E35EA800B016A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4653DE1515E35EA800B016A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4653DE1715E35EA800B016A9 /* Blocks-Prefix.pch */ = {isa = PBXFileReference; path = "Blocks-Prefix.pch"; sourceTree = "<group>"; };
-		4653DE1815E35EA800B016A9 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		4653DE1715E35EA800B016A9 /* Blocks-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blocks-Prefix.pch"; sourceTree = "<group>"; };
+		4653DE1815E35EA800B016A9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4653DE1915E35EA800B016A9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4653DE1B15E35EA800B016A9 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		4653DE1B15E35EA800B016A9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		4653DE1C15E35EA800B016A9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4653DE1F15E35EA800B016A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		4653DE2615E3658000B016A9 /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
+		4653DE2715E3658000B016A9 /* Worker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Worker.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 				4653DE1C15E35EA800B016A9 /* ViewController.m */,
 				4653DE1E15E35EA800B016A9 /* ViewController.xib */,
 				4653DE1015E35EA800B016A9 /* Supporting Files */,
+				4653DE2615E3658000B016A9 /* Worker.h */,
+				4653DE2715E3658000B016A9 /* Worker.m */,
 			);
 			path = Blocks;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 				4653DE1615E35EA800B016A9 /* main.m in Sources */,
 				4653DE1A15E35EA800B016A9 /* AppDelegate.m in Sources */,
 				4653DE1D15E35EA800B016A9 /* ViewController.m in Sources */,
+				4653DE2815E3658000B016A9 /* Worker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +214,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -226,7 +232,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

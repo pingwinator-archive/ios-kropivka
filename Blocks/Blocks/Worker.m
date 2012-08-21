@@ -10,4 +10,12 @@
 
 @implementation Worker
 
++ (void) repeatFromOneTo:(int)count withBlock:(ComputationBlock)block
+{
+    for (int i = 1; i < count + 1; ++i) {
+        
+        NSLog(@"i=%d, res=%d", i, block(i) );
+    }
+}
+
 @end

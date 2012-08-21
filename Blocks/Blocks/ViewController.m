@@ -7,54 +7,54 @@
 //
 
 #import "ViewController.h"
+#import "Worker.h"
 
 @implementation ViewController
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    
+    __block NSDate *date = [NSDate date];
+    NSLog(@"The date and time is %@", date);    
+    sleep(2);
+    date = [NSDate date];
+    void (^now)(void) = ^{
+        NSLog(@"The date and time is %@", date);
+    };
+    
+    now();
+    
+    int (^triple)(int) = ^(int x){
+        return x*3;
+    };
+    
+    int y = triple(4);
+    NSLog(@"%d",y);
+    
+    int (^multiply)(int,int) = ^(int x, int y) {
+        return x*y;
+    };
+    
+    NSLog(@"%d",multiply(5,6));
+    
+    ComputationBlock myBlock = ^(int x) {
+        return x*x;
+    };
+    
+    [Worker repeatFromOneTo:5 withBlock:myBlock];
+    
+    // Array
+    
+    void (^enumBlock)(id, NSUInteger, BOOL*) =  ^(id obj, NSUInteger idx, BOOL *stop) {
+        NSLog(@"idx = %d, value = %@", idx, obj);  
+    };
+    
+    NSArray *array = [[NSArray alloc] initWithObjects:@"who",@"are",@"you",@"?", nil];
+    [array enumerateObjectsUsingBlock:enumBlock];
+    
 }
 
 @end

@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+typedef int(^ComputationBlock)(int);
+
 @interface Worker : NSObject
+
++ (void) repeatFromOneTo:(int)count withBlock:(ComputationBlock)block;
 
 @end
