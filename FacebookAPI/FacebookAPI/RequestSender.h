@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 typedef void(^OnFinishLoading)(NSData*,NSError*);
+typedef void(^OnFinishLoading2)(NSURLResponse*, NSData*, NSError*);
 
-@interface RequestSender : NSObject <NSURLConnectionDataDelegate>
+@interface RequestSender : NSObject
 
 
 @property (strong, nonatomic) NSURLConnection* connection;
@@ -23,7 +24,7 @@ typedef void(^OnFinishLoading)(NSData*,NSError*);
 -(id)initWithURL:(NSURL *)url 
   withHTTPMethod:(NSString*)method 
   withParameters:(NSDictionary*)params 
-       withBlock:(OnFinishLoading)block;
+       withBlock:(OnFinishLoading2)block;
 
 
 @end

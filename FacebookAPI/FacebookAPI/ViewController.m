@@ -16,53 +16,54 @@
 @synthesize button;
 @synthesize status;
 @synthesize requestSender;
+
 - (IBAction)buttonPressed:(id)sender 
 {
-    NSString* key = @"AAACEdEose0cBACzGQihu4Razkv6avnVZASfBkMiNiQQgE5pyzI2JLDbNvYjOKVYSncvsUwYZAlMgOpeAh7BHeXZCMHcxEZCnVkyyWDauDEv3vMYuYbVa";
+    NSString* key = @"AAACEdEose0cBACZAVptZAdpPnCvIadnhlZB29GXTP4TH1Uerrb8Hrz1eCqSEJ9pRaXZCxzjpk4uUtPZAcNT9FVox2IJROgNwtZCUbZCjmX31wJ6GpMHUz6R";
     
     NSURL* url = [[NSURL alloc] initWithString:@"https://graph.facebook.com/me/feed"];
     
     //NSDIct
+       
+    NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
+    [params setObject:status.text   forKey:@"message"];
+    [params setObject:key           forKey:@"access_token"];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    
-    NSString *post = [[NSString alloc] initWithFormat:@"message=%@&access_token=%@", status.text ,key];
-    
-    NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
-    
-    [request setHTTPMethod:@"POST"];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:postData];
-    
-    
-    OnFinishLoading block = ^(NSData* data, NSError* error)
-    {
+    OnFinishLoading2 block = ^(NSURLResponse *response, NSData *data, NSError *error1) {
+        if ([data length] >0 && error1 == nil) 
+        {
         
-        //if (error)
-        //    return;
-        
-        // Create new SBJSON parser object
-        SBJsonParser *parser = [[SBJsonParser alloc] init];
-        
-        NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",json_string);
-
-        // parse the JSON response into an object      
-        NSDictionary *answerID = [parser objectWithString:json_string error:nil];
-        
-        UIAlertView* alert = [[UIAlertView alloc] 
-                              initWithTitle:@"Title" 
-                              message:[answerID objectForKey:@"id"] 
-                              delegate:self  
-                              cancelButtonTitle:@"Ok" 
-                              otherButtonTitles:nil];
-        [alert show];
+            SBJsonParser *parser = [[SBJsonParser alloc] init];
+            
+            NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            
+            NSLog(@"%@", json_string);
+            
+            // parse the JSON response into an object      
+            NSDictionary *answerID = [parser objectWithString:json_string error:nil];
+            
+            UIAlertView* alert = [[UIAlertView alloc] 
+                                  initWithTitle:@"Title" 
+                                  message:[answerID objectForKey:@"id"] 
+                                  delegate:self  
+                                  cancelButtonTitle:@"Ok" 
+                                  otherButtonTitles:nil];
+            [alert show];
+        } 
+        else if ([data length] == 0 && error1 == nil)
+        { 
+            NSLog(@"Nothing was downloaded.");
+        } 
+        else if (error1 != nil) 
+        {
+            NSLog(@"Error happened = %@", error1);
+        } 
     };
     
-    self.requestSender = [[RequestSender alloc] initWithRequest:request andWithBlock:block];
+    self.requestSender = [[RequestSender alloc] initWithURL:url 
+                                             withHTTPMethod:@"POST" 
+                                             withParameters:params 
+                                                  withBlock:block];
 }
 
 #pragma mark - View lifecycle

@@ -22,61 +22,34 @@
     self.resBuffer = nil;
 }
 
--(id)initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)blockIn
-{
-    self = [super init];
-    self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
-    self.resBuffer = [NSMutableData data];
-    self.block = blockIn;
-    self.error = nil;
-    return self;
-}
 
 -(id)initWithURL:(NSURL *)url 
   withHTTPMethod:(NSString*)method 
   withParameters:(NSDictionary*)params 
-       withBlock:(OnFinishLoading)block
+       withBlock:(OnFinishLoading2)blockIn
 {
     self = [super init];
+    
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url]; 
+    [urlRequest setHTTPMethod:method];
+    
+    NSData *postData = [[params asPOSTRequest] 
+                        dataUsingEncoding:NSASCIIStringEncoding 
+                        allowLossyConversion:YES];
+    
+    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    
+    [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest setHTTPBody:postData];
+
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
+    [NSURLConnection sendAsynchronousRequest:urlRequest 
+                                       queue:queue 
+                           completionHandler:blockIn];
     return self;
 }
-
-
-#pragma mark - NSURLConnectionDataDelegate
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    // cast the response to NSHTTPURLResponse so we can look for 404 etc
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    
-    if ([httpResponse statusCode] >= 400) {
-        // do error handling here
-        NSLog(@"remote url returned error %d %@",[httpResponse statusCode],[NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]]);
-        self.error = [NSError errorWithDomain:@"ups" code:123 userInfo:nil];
-    } else {
-        // start recieving data
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection1 didReceiveData:(NSData *)data
-{
-    if( connection1 == connection )
-    {
-        [resBuffer appendData:data];
-    }
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    self.block(self.resBuffer, self.error);
-    self.resBuffer = nil;
-    self.error = nil;
-}
-
-#pragma mark - NSURLConnectionDelegate
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)errorIn {
-    self.error = errorIn;
-}
-
 
 
 @end

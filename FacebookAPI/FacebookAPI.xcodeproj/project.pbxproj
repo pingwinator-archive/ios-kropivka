@@ -28,6 +28,7 @@
 		461A282015E283EC005A0813 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A281315E283EC005A0813 /* SBJsonUTF8Stream.m */; };
 		461A282115E283EC005A0813 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A281515E283EC005A0813 /* SBJsonWriter.m */; };
 		4653DE2F15E3720300B016A9 /* RequestSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4653DE2E15E3720300B016A9 /* RequestSender.m */; };
+		4653DE3315E3865900B016A9 /* NSDictionary+RequestAssitant.m in Sources */ = {isa = PBXBuildFile; fileRef = 4653DE3215E3865900B016A9 /* NSDictionary+RequestAssitant.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,8 @@
 		461A281515E283EC005A0813 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		4653DE2D15E3720300B016A9 /* RequestSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestSender.h; sourceTree = "<group>"; };
 		4653DE2E15E3720300B016A9 /* RequestSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestSender.m; sourceTree = "<group>"; };
+		4653DE3115E3865900B016A9 /* NSDictionary+RequestAssitant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RequestAssitant.h"; sourceTree = "<group>"; };
+		4653DE3215E3865900B016A9 /* NSDictionary+RequestAssitant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RequestAssitant.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,8 @@
 				461A27D115E270B0005A0813 /* Supporting Files */,
 				4653DE2D15E3720300B016A9 /* RequestSender.h */,
 				4653DE2E15E3720300B016A9 /* RequestSender.m */,
+				4653DE3115E3865900B016A9 /* NSDictionary+RequestAssitant.h */,
+				4653DE3215E3865900B016A9 /* NSDictionary+RequestAssitant.m */,
 			);
 			path = FacebookAPI;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				461A282015E283EC005A0813 /* SBJsonUTF8Stream.m in Sources */,
 				461A282115E283EC005A0813 /* SBJsonWriter.m in Sources */,
 				4653DE2F15E3720300B016A9 /* RequestSender.m in Sources */,
+				4653DE3315E3865900B016A9 /* NSDictionary+RequestAssitant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
