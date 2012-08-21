@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class RequestSender;
+
 @interface ViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIButton *button;
 @property (strong, nonatomic) IBOutlet UITextField *status;
-
+@property (strong, nonatomic) RequestSender* requestSender;
 
 - (IBAction)buttonPressed:(id)sender;
 
