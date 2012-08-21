@@ -16,19 +16,17 @@
 @synthesize button;
 @synthesize status;
 @synthesize requestSender;
-
 - (IBAction)buttonPressed:(id)sender 
 {
-    NSString* key = @"AAACEdEose0cBAFsFZBcCmDKqMCIau8Rfo2s6tNFAbAUT8bNKYtvZAF9vCSLzTonVw9k9ZBf62FRCC9AeW43j2ZBrTjn7BAZC5Q0pOUqj88VaL4l7YhxRC";
+    NSString* key = @"AAACEdEose0cBACzGQihu4Razkv6avnVZASfBkMiNiQQgE5pyzI2JLDbNvYjOKVYSncvsUwYZAlMgOpeAh7BHeXZCMHcxEZCnVkyyWDauDEv3vMYuYbVa";
     
     NSURL* url = [[NSURL alloc] initWithString:@"https://graph.facebook.com/me/feed"];
     
-    
+    //NSDIct
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-
     
-    NSString *post = [[NSString alloc] initWithFormat:@"message=%@&access_token=%@",status.text,key];
+    NSString *post = [[NSString alloc] initWithFormat:@"message=%@&access_token=%@", status.text ,key];
     
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
@@ -40,17 +38,19 @@
     [request setHTTPBody:postData];
     
     
-    OnFinishLoading block = ^(NSData* data)
+    OnFinishLoading block = ^(NSData* data, NSError* error)
     {
+        
+        //if (error)
+        //    return;
+        
         // Create new SBJSON parser object
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         
         NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-        // parse the JSON response into an object
-        // Here we're using NSArray since we're parsing an array of JSON status objects
-        //NSArray *result = 
-        
+        NSLog(@"%@",json_string);
+
+        // parse the JSON response into an object      
         NSDictionary *answerID = [parser objectWithString:json_string error:nil];
         
         UIAlertView* alert = [[UIAlertView alloc] 
@@ -63,7 +63,6 @@
     };
     
     self.requestSender = [[RequestSender alloc] initWithRequest:request andWithBlock:block];
-    
 }
 
 #pragma mark - View lifecycle

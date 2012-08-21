@@ -8,16 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^OnFinishLoading)(NSData*);
+typedef void(^OnFinishLoading)(NSData*,NSError*);
 
 @interface RequestSender : NSObject <NSURLConnectionDataDelegate>
 
 
-@property (strong, nonatomic) NSURLConnection* m_connection;
-@property (strong, nonatomic) NSMutableData* m_resBuffer;
-@property (strong, nonatomic) OnFinishLoading m_block;
+@property (strong, nonatomic) NSURLConnection* connection;
+@property (strong, nonatomic) NSMutableData* resBuffer;
+@property (copy, nonatomic) OnFinishLoading block;
+@property (strong, nonatomic) NSError* error;
 
 
 -(id)initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block;
+-(id)initWithURL:(NSURL *)url 
+  withHTTPMethod:(NSString*)method 
+  withParameters:(NSDictionary*)params 
+       withBlock:(OnFinishLoading)block;
+
 
 @end
