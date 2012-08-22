@@ -10,18 +10,29 @@
 
 @implementation RequestSender
 
-@synthesize connection;
+@synthesize myConnection;
 @synthesize resBuffer;
-@synthesize block;
+@synthesize myBlock;
 @synthesize error;
 
--(void)dealloc{
-    self.connection = nil;
-    self.block = nil;
+-(void)dealloc {
+    self.myConnection = nil;
+    self.myBlock = nil;
     self.error = nil;
     self.resBuffer = nil;
 }
 
+-(id)initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block
+{
+    self = [self init];
+    
+    self.myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    self.resBuffer = [NSMutableData data];
+    self.myBlock = block;
+    self.error = nil;
+    
+    return self;
+}
 
 -(id)initWithURL:(NSURL *)url 
   withHTTPMethod:(NSString*)method 
@@ -48,8 +59,37 @@
     [NSURLConnection sendAsynchronousRequest:urlRequest 
                                        queue:queue 
                            completionHandler:blockIn];
+    
     return self;
 }
 
+#pragma mark - NSURLConnectionDataDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    if(self.myConnection != connection)
+        return;
+    
+    if ( [(NSHTTPURLResponse*)response statusCode] > 400 ) 
+    {
+        self.error = [[NSError alloc] initWithDomain:@"error" code:123 userInfo:nil];
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    if(self.myConnection != connection)
+        return;
+    
+    [self.resBuffer appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    if(self.myConnection != connection)
+        return;
+    
+    if( self.myBlock ) {
+        self.myBlock( self.resBuffer, self.error );
+    }
+        
+}
 
 @end

@@ -11,5 +11,6 @@
 @interface NSDictionary (RequestAssitant)
 
 -(NSString*)asPOSTRequest;
+-(NSString*)asGETRequest;
 
 @end

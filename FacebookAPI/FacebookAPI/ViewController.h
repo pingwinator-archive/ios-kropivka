@@ -17,5 +17,6 @@
 @property (strong, nonatomic) RequestSender* requestSender;
 
 - (IBAction)buttonPressed:(id)sender;
+- (IBAction)showProfilePressed:(id)sender;
 
 @end

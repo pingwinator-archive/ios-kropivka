@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "RequestSender.h"
 #import "SBJson.h"
+#import "UserInfoViewController.h"
 
 
 @implementation ViewController
@@ -19,15 +20,13 @@
 
 - (IBAction)buttonPressed:(id)sender 
 {
-    NSString* key = @"AAACEdEose0cBACZAVptZAdpPnCvIadnhlZB29GXTP4TH1Uerrb8Hrz1eCqSEJ9pRaXZCxzjpk4uUtPZAcNT9FVox2IJROgNwtZCUbZCjmX31wJ6GpMHUz6R";
-    
     NSURL* url = [[NSURL alloc] initWithString:@"https://graph.facebook.com/me/feed"];
     
     //NSDIct
        
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setObject:status.text   forKey:@"message"];
-    [params setObject:key           forKey:@"access_token"];
+    [params setObject:kKey           forKey:@"access_token"];
     
     OnFinishLoading2 block = ^(NSURLResponse *response, NSData *data, NSError *error1) {
         if ([data length] >0 && error1 == nil) 
@@ -66,14 +65,18 @@
                                                   withBlock:block];
 }
 
+- (IBAction)showProfilePressed:(id)sender {
+    
+    UserInfoViewController* infoView = [[UserInfoViewController alloc] initWithNibName:@"UserInfoViewController" bundle:nil];
+    [self.navigationController pushViewController:infoView animated:YES];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-
 }
 
 - (void)viewDidUnload

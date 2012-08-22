@@ -29,6 +29,8 @@
 		461A282115E283EC005A0813 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A281515E283EC005A0813 /* SBJsonWriter.m */; };
 		4653DE2F15E3720300B016A9 /* RequestSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4653DE2E15E3720300B016A9 /* RequestSender.m */; };
 		4653DE3315E3865900B016A9 /* NSDictionary+RequestAssitant.m in Sources */ = {isa = PBXBuildFile; fileRef = 4653DE3215E3865900B016A9 /* NSDictionary+RequestAssitant.m */; };
+		4679291915E4B000008D0E99 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679291715E4B000008D0E99 /* UserInfoViewController.m */; };
+		4679291A15E4B000008D0E99 /* UserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4679291815E4B000008D0E99 /* UserInfoViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +76,9 @@
 		4653DE2E15E3720300B016A9 /* RequestSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestSender.m; sourceTree = "<group>"; };
 		4653DE3115E3865900B016A9 /* NSDictionary+RequestAssitant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RequestAssitant.h"; sourceTree = "<group>"; };
 		4653DE3215E3865900B016A9 /* NSDictionary+RequestAssitant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RequestAssitant.m"; sourceTree = "<group>"; };
+		4679291615E4B000008D0E99 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
+		4679291715E4B000008D0E99 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		4679291815E4B000008D0E99 /* UserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +136,9 @@
 				4653DE2E15E3720300B016A9 /* RequestSender.m */,
 				4653DE3115E3865900B016A9 /* NSDictionary+RequestAssitant.h */,
 				4653DE3215E3865900B016A9 /* NSDictionary+RequestAssitant.m */,
+				4679291615E4B000008D0E99 /* UserInfoViewController.h */,
+				4679291715E4B000008D0E99 /* UserInfoViewController.m */,
+				4679291815E4B000008D0E99 /* UserInfoViewController.xib */,
 			);
 			path = FacebookAPI;
 			sourceTree = "<group>";
@@ -238,6 +246,7 @@
 			files = (
 				461A27D515E270B0005A0813 /* InfoPlist.strings in Resources */,
 				461A27E115E270B0005A0813 /* ViewController.xib in Resources */,
+				4679291A15E4B000008D0E99 /* UserInfoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +274,7 @@
 				461A282115E283EC005A0813 /* SBJsonWriter.m in Sources */,
 				4653DE2F15E3720300B016A9 /* RequestSender.m in Sources */,
 				4653DE3315E3865900B016A9 /* NSDictionary+RequestAssitant.m in Sources */,
+				4679291915E4B000008D0E99 /* UserInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
