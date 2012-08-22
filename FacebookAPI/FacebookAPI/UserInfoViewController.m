@@ -87,7 +87,6 @@
                 return;
 
             UIImage * img = [UIImage imageWithData:data];
-            //safeSelf.avatar.image = img;
 
             dispatch_async(dispatch_get_main_queue(),^(void){
                 safeSelf.avatar.image = img;

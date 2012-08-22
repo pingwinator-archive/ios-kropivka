@@ -21,13 +21,13 @@
 - (IBAction)buttonPressed:(id)sender 
 {
     [self.status resignFirstResponder];
-    
+    self.button.enabled = NO;
     NSString* url = @"https://graph.facebook.com/me/feed";
 
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setObject:status.text   forKey:@"message"];
     [params setObject:kKey           forKey:@"access_token"];
-    
+    __block ViewController* safeSelf = self;
     OnFinishLoading block = ^(NSData *data, NSError *error1) {
         
         NSString* message = nil;
@@ -67,6 +67,7 @@
                               cancelButtonTitle:@"Ok" 
                               otherButtonTitles:nil];
         [alert show];
+        safeSelf.button.enabled = YES;
     };
     
     self.requestSender = [[RequestSender alloc] initWithURL:url 
