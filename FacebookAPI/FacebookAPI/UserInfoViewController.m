@@ -45,10 +45,8 @@
 {
     [super viewDidLoad];
     
-    NSString* urlstr = [NSString stringWithFormat:@"https://graph.facebook.com/me?access_token=%@", kKey];
-    NSURL* url = [NSURL URLWithString:urlstr];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url]; 
-    
+    NSString* url = [NSString stringWithFormat:@"https://graph.facebook.com/me?access_token=%@", kKey];
+
     __block UserInfoViewController* safeSelf = self;
     OnFinishLoading block = ^(NSData* data, NSError* error)
     {
@@ -69,7 +67,7 @@
         
     };
     
-    self.requestSender = [[RequestSender alloc] initWithRequest:urlRequest andWithBlock:block];
+    self.requestSender = [[RequestSender alloc] initWithURL:url andWithBlock:block];
     
     [self loadImage];
 }
@@ -78,9 +76,9 @@
     
     dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
     
-    dispatch_async(q,^(void){
-        NSString* urlstr = [NSString stringWithFormat:@"https://graph.facebook.com/me/picture?access_token=%@", kKey];
-        NSURL* url = [NSURL URLWithString:urlstr];
+    dispatch_sync(q,^(void){
+        
+        NSString* url = [NSString stringWithFormat:@"https://graph.facebook.com/me/picture?access_token=%@", kKey];
 
         __block UserInfoViewController* safeSelf = self;
         OnFinishLoading block = ^(NSData* data, NSError* error)
@@ -100,9 +98,7 @@
                                                  withHTTPMethod:@"GET" 
                                                  withParameters:nil 
                                                       withBlock:block];
-    });
-    
-    NSLog(@"123");
+   });
 }
 
 @end

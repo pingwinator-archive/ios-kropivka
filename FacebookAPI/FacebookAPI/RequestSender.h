@@ -21,9 +21,11 @@ typedef void(^OnFinishLoading)(NSData*,NSError*);
 @property (strong, nonatomic) NSError* error;
 
 
--(id)initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block;
+//-(id)initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block;
 
--(id)initWithURL:(NSURL *)url 
+-(id)initWithURL:(NSString *)url andWithBlock:(OnFinishLoading)blockIn;
+
+-(id)initWithURL:(NSString *)url 
   withHTTPMethod:(NSString*)method 
   withParameters:(NSDictionary*)params 
        withBlock:(OnFinishLoading)block;

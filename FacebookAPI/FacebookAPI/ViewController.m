@@ -20,7 +20,7 @@
 
 - (IBAction)buttonPressed:(id)sender 
 {
-    NSURL* url = [[NSURL alloc] initWithString:@"https://graph.facebook.com/me/feed"];
+    NSString* url = @"https://graph.facebook.com/me/feed";
     
     //NSDIct
        

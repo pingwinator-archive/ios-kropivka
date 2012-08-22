@@ -15,14 +15,15 @@
 @synthesize myBlock;
 @synthesize error;
 
--(void)dealloc {
+- (void) dealloc {
     self.myConnection = nil;
     self.myBlock = nil;
     self.error = nil;
     self.resBuffer = nil;
 }
 
--(id)initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block
+/*
+- (id) initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block
 {
     self = [self init];
     
@@ -33,28 +34,34 @@
     
     return self;
 }
+*/
 
--(id)initWithURL:(NSURL *)url 
+- initWithURL:(NSString *)url andWithBlock:(OnFinishLoading)blockIn
+{
+    self = [super init];
+    return [self initWithURL:url withHTTPMethod:@"GET" withParameters:nil withBlock:(OnFinishLoading)blockIn];
+}
+
+
+- (id) initWithURL:(NSString *)url 
   withHTTPMethod:(NSString*)method 
   withParameters:(NSDictionary*)params 
        withBlock:(OnFinishLoading)blockIn
 {
     self = [super init];
     
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url]; 
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]]; 
     [urlRequest setHTTPMethod:method];
     
     if( [method isEqualToString:@"POST"] ) 
     {
-        NSData *postData = [[params asPOSTRequest] 
-                            dataUsingEncoding:NSASCIIStringEncoding 
-                            allowLossyConversion:YES];
-    
-        NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
-    
-        [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [urlRequest setHTTPBody:postData];
+        if( params ){
+            NSData *postData = [[params asPOSTRequest] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+            NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+            [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+            [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+            [urlRequest setHTTPBody:postData];
+        }
     }
     else
     {
@@ -71,7 +78,7 @@
 
 #pragma mark - NSURLConnectionDataDelegate
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     if(self.myConnection != connection)
         return;
     
@@ -81,14 +88,14 @@
     }
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     if(self.myConnection != connection)
         return;
     
     [self.resBuffer appendData:data];
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+- (void) connectionDidFinishLoading:(NSURLConnection *)connection {
     if(self.myConnection != connection)
         return;
     
