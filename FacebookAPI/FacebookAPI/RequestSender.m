@@ -8,6 +8,16 @@
 
 #import "RequestSender.h"
 
+@interface RequestSender () <NSURLConnectionDataDelegate>
+
+@property (strong, nonatomic) NSURLConnection* myConnection;
+@property (strong, nonatomic) NSMutableData* resBuffer;
+@property (copy, nonatomic) OnFinishLoading myBlock;
+@property (strong, nonatomic) NSError* error;
+
+@end
+
+
 @implementation RequestSender
 
 @synthesize myConnection;
@@ -21,20 +31,6 @@
     self.error = nil;
     self.resBuffer = nil;
 }
-
-/*
-- (id) initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block
-{
-    self = [self init];
-    
-    self.myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    self.resBuffer = [NSMutableData data];
-    self.myBlock = block;
-    self.error = nil;
-    
-    return self;
-}
-*/
 
 - initWithURL:(NSString *)url andWithBlock:(OnFinishLoading)blockIn
 {
