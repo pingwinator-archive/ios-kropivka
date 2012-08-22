@@ -17,7 +17,6 @@
 
 @end
 
-
 @implementation RequestSender
 
 @synthesize myConnection;
@@ -32,9 +31,22 @@
     self.resBuffer = nil;
 }
 
-- initWithURL:(NSString *)url andWithBlock:(OnFinishLoading)blockIn
+- (id) initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block
+{
+    self = [self init];
+    
+    self.myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    self.resBuffer = [NSMutableData data];
+    self.myBlock = block;
+    self.error = nil;
+    
+    return self;
+}
+
+- (id) initWithURL:(NSString *)url andWithBlock:(OnFinishLoading)blockIn
 {
     self = [super init];
+    
     return [self initWithURL:url withHTTPMethod:@"GET" withParameters:nil withBlock:(OnFinishLoading)blockIn];
 }
 
@@ -62,12 +74,11 @@
     {
         //TODO params
     }
-    
+
     self.myConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
     self.resBuffer = [NSMutableData data];
     self.myBlock = blockIn;
     self.error = nil;    
-    
     return self;
 }
 

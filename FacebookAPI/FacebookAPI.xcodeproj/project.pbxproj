@@ -31,6 +31,7 @@
 		4653DE3315E3865900B016A9 /* NSDictionary+RequestAssitant.m in Sources */ = {isa = PBXBuildFile; fileRef = 4653DE3215E3865900B016A9 /* NSDictionary+RequestAssitant.m */; };
 		4679291915E4B000008D0E99 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679291715E4B000008D0E99 /* UserInfoViewController.m */; };
 		4679291A15E4B000008D0E99 /* UserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4679291815E4B000008D0E99 /* UserInfoViewController.xib */; };
+		4679291E15E52121008D0E99 /* pict.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 4679291D15E52121008D0E99 /* pict.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		4679291615E4B000008D0E99 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		4679291715E4B000008D0E99 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		4679291815E4B000008D0E99 /* UserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoViewController.xib; sourceTree = "<group>"; };
+		4679291D15E52121008D0E99 /* pict.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pict.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 		461A27D015E270B0005A0813 /* FacebookAPI */ = {
 			isa = PBXGroup;
 			children = (
+				4679291C15E520FF008D0E99 /* Resources */,
 				461A27D915E270B0005A0813 /* AppDelegate.h */,
 				461A27DA15E270B0005A0813 /* AppDelegate.m */,
 				461A27DC15E270B0005A0813 /* ViewController.h */,
@@ -194,6 +197,14 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		4679291C15E520FF008D0E99 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4679291D15E52121008D0E99 /* pict.jpeg */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -247,6 +258,7 @@
 				461A27D515E270B0005A0813 /* InfoPlist.strings in Resources */,
 				461A27E115E270B0005A0813 /* ViewController.xib in Resources */,
 				4679291A15E4B000008D0E99 /* UserInfoViewController.xib in Resources */,
+				4679291E15E52121008D0E99 /* pict.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

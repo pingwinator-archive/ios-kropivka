@@ -14,9 +14,12 @@ typedef void(^OnFinishLoading)(NSData*,NSError*);
 
 @interface RequestSender : NSObject
 
--(id)initWithURL:(NSString *)url andWithBlock:(OnFinishLoading)blockIn;
 
--(id)initWithURL:(NSString *)url 
+- (id) initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block;
+
+- (id) initWithURL:(NSString *)url andWithBlock:(OnFinishLoading)blockIn;
+
+- (id) initWithURL:(NSString *)url 
   withHTTPMethod:(NSString*)method 
   withParameters:(NSDictionary*)params 
        withBlock:(OnFinishLoading)block;

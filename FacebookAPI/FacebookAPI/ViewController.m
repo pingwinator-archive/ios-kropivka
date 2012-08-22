@@ -13,6 +13,7 @@
 
 
 @implementation ViewController
+@synthesize sentPhoto;
 
 @synthesize button;
 @synthesize status;
@@ -74,6 +75,7 @@
                                              withHTTPMethod:@"POST" 
                                              withParameters:params 
                                                   withBlock:block];
+    
 }
 
 - (IBAction)showProfilePressed:(id)sender {
@@ -84,6 +86,13 @@
 
 - (IBAction)tapIn:(id)sender {
     [self.status resignFirstResponder];
+}
+
+- (IBAction)sentPhoto:(id)sender {
+    
+    UIImage *testImage = [UIImage imageNamed:@"pict.jpeg"];
+    NSString* url = @"https://graph.facebook.com/me/photos";
+  
 }
 
 #pragma mark - View lifecycle
@@ -100,6 +109,7 @@
     self.button = nil;
     self.requestSender = nil;
     
+    [self setSentPhoto:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
