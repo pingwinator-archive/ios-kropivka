@@ -9,9 +9,8 @@
 #import <Foundation/Foundation.h>
 
 typedef void(^OnFinishLoading)(NSData*,NSError*);
-typedef void(^OnFinishLoading2)(NSURLResponse*, NSData*, NSError*);
 
-#define kKey @"AAACEdEose0cBABFpsfGFR6slc4LmEMAMZAU6WfCO2bVlOIo47ZAb5fVJTc8vfg4LIh7iVG7xG1aEAgBNUEKDeFdwPHECepWUoGiyQc316ah4UCjszj"
+#define kKey @"AAACEdEose0cBAOyPROgB7J7DEHwbBzijrekaWKIlb8qnPPZCnuHeqv6iCKZBeZAEZBhhupeOXeW8ErtgP0bd3d1udV10EvGFGGVvU7Yd8HkLdQXmWTvw"
 
 @interface RequestSender : NSObject <NSURLConnectionDataDelegate>
 
@@ -27,7 +26,7 @@ typedef void(^OnFinishLoading2)(NSURLResponse*, NSData*, NSError*);
 -(id)initWithURL:(NSURL *)url 
   withHTTPMethod:(NSString*)method 
   withParameters:(NSDictionary*)params 
-       withBlock:(OnFinishLoading2)block;
+       withBlock:(OnFinishLoading)block;
 
 
 @end

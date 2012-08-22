@@ -28,7 +28,7 @@
     [params setObject:status.text   forKey:@"message"];
     [params setObject:kKey           forKey:@"access_token"];
     
-    OnFinishLoading2 block = ^(NSURLResponse *response, NSData *data, NSError *error1) {
+    OnFinishLoading block = ^(NSData *data, NSError *error1) {
         if ([data length] >0 && error1 == nil) 
         {
             SBJsonParser *parser = [[SBJsonParser alloc] init];

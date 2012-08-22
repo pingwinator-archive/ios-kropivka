@@ -37,28 +37,34 @@
 -(id)initWithURL:(NSURL *)url 
   withHTTPMethod:(NSString*)method 
   withParameters:(NSDictionary*)params 
-       withBlock:(OnFinishLoading2)blockIn
+       withBlock:(OnFinishLoading)blockIn
 {
     self = [super init];
     
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url]; 
     [urlRequest setHTTPMethod:method];
     
-    NSData *postData = [[params asPOSTRequest] 
-                        dataUsingEncoding:NSASCIIStringEncoding 
-                        allowLossyConversion:YES];
+    if( [method isEqualToString:@"POST"] ) 
+    {
+        NSData *postData = [[params asPOSTRequest] 
+                            dataUsingEncoding:NSASCIIStringEncoding 
+                            allowLossyConversion:YES];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+        NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
     
-    [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [urlRequest setHTTPBody:postData];
-
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+        [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [urlRequest setHTTPBody:postData];
+    }
+    else
+    {
+        //TODO params
+    }
     
-    [NSURLConnection sendAsynchronousRequest:urlRequest 
-                                       queue:queue 
-                           completionHandler:blockIn];
+    self.myConnection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+    self.resBuffer = [NSMutableData data];
+    self.myBlock = blockIn;
+    self.error = nil;    
     
     return self;
 }

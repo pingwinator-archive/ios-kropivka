@@ -66,10 +66,12 @@
         
         safeSelf.nameLable.text = [answerID objectForKey:@"name"];
         safeSelf.linkLable.text = [answerID objectForKey:@"link"];
-        [self loadImage];
+        
     };
     
     self.requestSender = [[RequestSender alloc] initWithRequest:urlRequest andWithBlock:block];
+    
+    [self loadImage];
 }
 
 - (void) loadImage {
@@ -79,9 +81,7 @@
     dispatch_async(q,^(void){
         NSString* urlstr = [NSString stringWithFormat:@"https://graph.facebook.com/me/picture?access_token=%@", kKey];
         NSURL* url = [NSURL URLWithString:urlstr];
-        NSLog(@"%@",urlstr);
-        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url]; 
-        
+
         __block UserInfoViewController* safeSelf = self;
         OnFinishLoading block = ^(NSData* data, NSError* error)
         {
@@ -94,13 +94,15 @@
             dispatch_async(dispatch_get_main_queue(),^(void){
                 safeSelf.avatar.image = img;
             });
- 
         };
         
-        self.requestSender2 = [[RequestSender alloc] initWithRequest:urlRequest andWithBlock:block];
-
+        self.requestSender2 = [[RequestSender alloc] initWithURL:url 
+                                                 withHTTPMethod:@"GET" 
+                                                 withParameters:nil 
+                                                      withBlock:block];
     });
     
+    NSLog(@"123");
 }
 
 @end
