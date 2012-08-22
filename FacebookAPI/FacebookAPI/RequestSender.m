@@ -81,9 +81,10 @@
     if(self.myConnection != connection)
         return;
     
-    if ( [(NSHTTPURLResponse*)response statusCode] > 400 ) 
+    NSInteger code = [(NSHTTPURLResponse*)response statusCode];
+    if ( code > 400 ) 
     {
-        self.error = [[NSError alloc] initWithDomain:@"error" code:123 userInfo:nil];
+        self.error = [[NSError alloc] initWithDomain:[NSString stringWithFormat:@"error code %d",code] code:123 userInfo:nil];
     }
 }
 

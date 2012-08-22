@@ -29,6 +29,9 @@
     [params setObject:kKey           forKey:@"access_token"];
     
     OnFinishLoading block = ^(NSData *data, NSError *error1) {
+        
+        NSString* message = nil;
+        
         if ([data length] >0 && error1 == nil) 
         {
             SBJsonParser *parser = [[SBJsonParser alloc] init];
@@ -41,31 +44,29 @@
             NSDictionary *answerID = [parser objectWithString:json_string error:nil];
             
             // check for correct json
-            NSString* message = [answerID objectForKey:@"id"];
+            message = [answerID objectForKey:@"id"];
             if( [[answerID allKeys] count] > 0 && [(NSString*)[[answerID allKeys] objectAtIndex:0] isEqualToString:@"error"])
             {
-                
-                NSLog(@"ERROR");
                 message = json_string;
             }
-            
-            
-            UIAlertView* alert = [[UIAlertView alloc] 
-                                  initWithTitle:@"Result" 
-                                  message:message
-                                  delegate:self  
-                                  cancelButtonTitle:@"Ok" 
-                                  otherButtonTitles:nil];
-            [alert show];
+
         } 
         else if ([data length] == 0 && error1 == nil)
         { 
-            NSLog(@"Nothing was downloaded.");
+            message = @"Nothing was downloaded.";
         }
         else if (error1 != nil) 
         {
-            NSLog(@"Error happened = %@", error1);
+            message = [NSString stringWithFormat:@"Error happened = %@", error1.domain ];
         } 
+        
+        UIAlertView* alert = [[UIAlertView alloc] 
+                              initWithTitle:@"Result" 
+                              message:message
+                              delegate:self  
+                              cancelButtonTitle:@"Ok" 
+                              otherButtonTitles:nil];
+        [alert show];
     };
     
     self.requestSender = [[RequestSender alloc] initWithURL:url 
