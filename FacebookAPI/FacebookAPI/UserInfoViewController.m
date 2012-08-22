@@ -16,6 +16,7 @@
 @synthesize nameLable;
 @synthesize linkLable;
 @synthesize requestSender;
+@synthesize requestSender2;
 
 - (void)viewDidUnload
 {
@@ -24,7 +25,8 @@
     [self setLinkLable:nil];
     
     self.requestSender = nil;
-    
+    self.requestSender2 = nil;
+
     [super viewDidUnload];
 }
 
@@ -42,21 +44,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
-
-    NSString* urlstr = [[NSString alloc] initWithFormat:@"https://graph.facebook.com/me?access_token=%@",kKey];
-    // get user info
+    NSString* urlstr = [NSString stringWithFormat:@"https://graph.facebook.com/me?access_token=%@", kKey];
     NSURL* url = [NSURL URLWithString:urlstr];
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url]; 
-    [urlRequest setHTTPMethod:@"GET"];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url]; 
     
-    //__block = nil;
     __block UserInfoViewController* safeSelf = self;
-    
     OnFinishLoading block = ^(NSData* data, NSError* error)
     {
-        if (error)
+        if (error) 
             return;
         
         // Create new SBJSON parser object
@@ -70,10 +66,41 @@
         
         safeSelf.nameLable.text = [answerID objectForKey:@"name"];
         safeSelf.linkLable.text = [answerID objectForKey:@"link"];
+        [self loadImage];
     };
     
     self.requestSender = [[RequestSender alloc] initWithRequest:urlRequest andWithBlock:block];
-   
+}
+
+- (void) loadImage {
+    
+    dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+    
+    dispatch_async(q,^(void){
+        NSString* urlstr = [NSString stringWithFormat:@"https://graph.facebook.com/me/picture?access_token=%@", kKey];
+        NSURL* url = [NSURL URLWithString:urlstr];
+        NSLog(@"%@",urlstr);
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url]; 
+        
+        __block UserInfoViewController* safeSelf = self;
+        OnFinishLoading block = ^(NSData* data, NSError* error)
+        {
+            if (error)
+                return;
+
+            UIImage * img = [UIImage imageWithData:data];
+            //safeSelf.avatar.image = img;
+
+            dispatch_async(dispatch_get_main_queue(),^(void){
+                safeSelf.avatar.image = img;
+            });
+ 
+        };
+        
+        self.requestSender2 = [[RequestSender alloc] initWithRequest:urlRequest andWithBlock:block];
+
+    });
+    
 }
 
 @end

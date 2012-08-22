@@ -16,5 +16,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *linkLable;
 
 @property (strong, nonatomic) RequestSender* requestSender;
+@property (strong, nonatomic) RequestSender* requestSender2;
 
+- (void) loadImage;
 @end

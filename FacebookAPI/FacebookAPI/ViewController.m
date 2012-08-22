@@ -31,7 +31,6 @@
     OnFinishLoading2 block = ^(NSURLResponse *response, NSData *data, NSError *error1) {
         if ([data length] >0 && error1 == nil) 
         {
-        
             SBJsonParser *parser = [[SBJsonParser alloc] init];
             
             NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
