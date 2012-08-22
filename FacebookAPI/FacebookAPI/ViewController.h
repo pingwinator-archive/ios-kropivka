@@ -18,5 +18,6 @@
 
 - (IBAction)buttonPressed:(id)sender;
 - (IBAction)showProfilePressed:(id)sender;
+- (IBAction)tapIn:(id)sender;
 
 @end

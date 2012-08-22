@@ -42,7 +42,6 @@
     return [self initWithURL:url withHTTPMethod:@"GET" withParameters:nil withBlock:(OnFinishLoading)blockIn];
 }
 
-
 - (id) initWithURL:(NSString *)url 
   withHTTPMethod:(NSString*)method 
   withParameters:(NSDictionary*)params 

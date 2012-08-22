@@ -20,10 +20,10 @@
 
 - (IBAction)buttonPressed:(id)sender 
 {
-    NSString* url = @"https://graph.facebook.com/me/feed";
+    [self.status resignFirstResponder];
     
-    //NSDIct
-       
+    NSString* url = @"https://graph.facebook.com/me/feed";
+
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
     [params setObject:status.text   forKey:@"message"];
     [params setObject:kKey           forKey:@"access_token"];
@@ -40,9 +40,19 @@
             // parse the JSON response into an object      
             NSDictionary *answerID = [parser objectWithString:json_string error:nil];
             
+            // check for correct json
+            NSString* message = [answerID objectForKey:@"id"];
+            if( [[answerID allKeys] count] > 0 && [(NSString*)[[answerID allKeys] objectAtIndex:0] isEqualToString:@"error"])
+            {
+                
+                NSLog(@"ERROR");
+                message = json_string;
+            }
+            
+            
             UIAlertView* alert = [[UIAlertView alloc] 
-                                  initWithTitle:@"Title" 
-                                  message:[answerID objectForKey:@"id"] 
+                                  initWithTitle:@"Result" 
+                                  message:message
                                   delegate:self  
                                   cancelButtonTitle:@"Ok" 
                                   otherButtonTitles:nil];
@@ -51,7 +61,7 @@
         else if ([data length] == 0 && error1 == nil)
         { 
             NSLog(@"Nothing was downloaded.");
-        } 
+        }
         else if (error1 != nil) 
         {
             NSLog(@"Error happened = %@", error1);
@@ -68,6 +78,10 @@
     
     UserInfoViewController* infoView = [[UserInfoViewController alloc] initWithNibName:@"UserInfoViewController" bundle:nil];
     [self.navigationController pushViewController:infoView animated:YES];
+}
+
+- (IBAction)tapIn:(id)sender {
+    [self.status resignFirstResponder];
 }
 
 #pragma mark - View lifecycle
