@@ -18,7 +18,7 @@
 @property (nonatomic, assign) CGFloat currentScale;
 @property (nonatomic, assign) CGFloat rotationAngleInRadians;
 
-- (void) handlePinch:(UIPinchGestureRecognizer*)paramSender;
-- (void) handleRotation:(UIRotationGestureRecognizer*)paramSender;
+- (void) handleGesture:(UIGestureRecognizer*)recognizer;
+- (CGAffineTransform)applyRecognizer:(UIGestureRecognizer *)recognizer toTransform:(CGAffineTransform)transform;
 
 @end

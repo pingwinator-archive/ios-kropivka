@@ -7,6 +7,10 @@
 //
 
 #import "ViewController.h"
+@interface ViewController ()
+@property (retain, nonatomic) NSMutableSet* activeRecognizers;
+
+@end
 
 @implementation ViewController
 
@@ -16,6 +20,8 @@
 @synthesize currentScale;
 @synthesize rotationAngleInRadians;
 @synthesize img;
+
+@synthesize activeRecognizers;
 
 #pragma mark - View lifecycle
 
@@ -28,7 +34,7 @@
 
 - (void) viewDidLoad
 {
-        [super viewDidLoad];
+    [super viewDidLoad];
     
     UIImage* img1 = [UIImage imageNamed:@"pict1.jpeg"];
     
@@ -38,42 +44,56 @@
     
     self.img = imgView;
     
-    self.pinch = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)] autorelease];
+    self.pinch = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)] autorelease];
     [self.view addGestureRecognizer:self.pinch];
     
-    self.rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotations:)]; 
+    self.rotation = [[[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)] autorelease]; 
     [self.view addGestureRecognizer:self.rotation];
+    
+    self.activeRecognizers = [NSMutableSet set];
 }
 
-- (void) handlePinch:(UIPinchGestureRecognizer*)paramSender {
-    
-    NSLog(@"Pinch");
-    if (paramSender.state == UIGestureRecognizerStateEnded) 
-    { 
-        self.currentScale = paramSender.scale;
-    } 
-    else if (paramSender.state == UIGestureRecognizerStateBegan && self.currentScale != 0.0f)
-    {
-        paramSender.scale = self.currentScale;
-    }
-    
-    if (paramSender.scale != NAN && paramSender.scale != 0.0)
-    { 
-        self.img.transform =
-        CGAffineTransformMakeScale(paramSender.scale, paramSender.scale);
+- (void) handleGesture:(UIGestureRecognizer*)recognizer {
+        
+    switch (recognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            if (self.activeRecognizers.count == 0)
+                
+            [self.activeRecognizers addObject:recognizer];
+            break;
+            
+        case UIGestureRecognizerStateEnded:
+            self.img.transform = [self applyRecognizer:recognizer toTransform:self.img.transform];
+            [self.activeRecognizers removeObject:recognizer];
+            break;
+            
+        case UIGestureRecognizerStateChanged: {
+            CGAffineTransform transform = self.img.transform;
+            for (UIGestureRecognizer *recognizer in self.activeRecognizers)
+                transform = [self applyRecognizer:recognizer toTransform:transform];
+            self.img.transform = transform;
+            break;
+        }
+            
+        default:
+            break;
     }
 }
 
-- (void) handleRotations:(UIRotationGestureRecognizer *)paramSender {
-    NSLog(@"Roration");
-    /* Take the previous rotation and add the current rotation to it */ 
-    self.img.transform = CGAffineTransformMakeRotation(self.rotationAngleInRadians + paramSender.rotation);
-    
-    /* At the end of the rotation, keep the angle for later use */ 
-    if (paramSender.state == UIGestureRecognizerStateEnded) 
+- (CGAffineTransform)applyRecognizer:(UIGestureRecognizer *)recognizer toTransform:(CGAffineTransform)transform
+{
+    if ([recognizer respondsToSelector:@selector(rotation)])
     {
-        self.rotationAngleInRadians += paramSender.rotation;
+        return CGAffineTransformRotate(transform, [(UIRotationGestureRecognizer *)recognizer rotation]);
     }
+    else if ([recognizer respondsToSelector:@selector(scale)]) 
+    {
+        CGFloat scale = [(UIPinchGestureRecognizer *)recognizer scale];
+        return CGAffineTransformScale(transform, scale, scale);
+    }
+    else
+        return transform;
 }
+
 
 @end
