@@ -15,12 +15,11 @@
 @property (strong, nonatomic) IBOutlet UIButton *button;
 @property (strong, nonatomic) IBOutlet UITextField *status;
 @property (strong, nonatomic) RequestSender* requestSender;
-@property (strong, nonatomic) IBOutlet UIButton *sentPhoto;
+@property (strong, nonatomic) IBOutlet UIButton *sendPhoto;
 
 - (IBAction)buttonPressed:(id)sender;
 - (IBAction)showProfilePressed:(id)sender;
 - (IBAction)tapIn:(id)sender;
-- (IBAction)sentPhoto:(id)sender;
-
+- (IBAction)sendPhoto:(id)sender;
 
 @end

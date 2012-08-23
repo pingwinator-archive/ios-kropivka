@@ -10,7 +10,7 @@
 
 typedef void(^OnFinishLoading)(NSData*,NSError*);
 
-#define kKey @"AAACEdEose0cBAG3Wu3xlM43WzXeRICTU9CcOEwbpFAkGPV7V7P9xcq60DCMn8eglnDA8D4CGg4r4ypY7ybRUYs0pcspJ6Jii69faaodUEI180YB6"
+#define kKey @"AAACEdEose0cBAL34dKnZCyZCx083TcOHy0DVhVtMjXmDWaGc2ZAl21rLmltxgNCbx3G3HadkftWGhciQ2ZA8nhUb88jXEsZC86vNF8WrtTX1NeHMaHJsj"
 
 @interface RequestSender : NSObject
 

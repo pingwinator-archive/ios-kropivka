@@ -27,6 +27,7 @@
 		461A281F15E283EC005A0813 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A281115E283EC005A0813 /* SBJsonTokeniser.m */; };
 		461A282015E283EC005A0813 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A281315E283EC005A0813 /* SBJsonUTF8Stream.m */; };
 		461A282115E283EC005A0813 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A281515E283EC005A0813 /* SBJsonWriter.m */; };
+		461C196C15E629F500A5A4D5 /* chrysler.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 461C196B15E629F500A5A4D5 /* chrysler.jpeg */; };
 		4653DE2F15E3720300B016A9 /* RequestSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 4653DE2E15E3720300B016A9 /* RequestSender.m */; };
 		4653DE3315E3865900B016A9 /* NSDictionary+RequestAssitant.m in Sources */ = {isa = PBXBuildFile; fileRef = 4653DE3215E3865900B016A9 /* NSDictionary+RequestAssitant.m */; };
 		4679291915E4B000008D0E99 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4679291715E4B000008D0E99 /* UserInfoViewController.m */; };
@@ -73,6 +74,7 @@
 		461A281315E283EC005A0813 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		461A281415E283EC005A0813 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		461A281515E283EC005A0813 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		461C196B15E629F500A5A4D5 /* chrysler.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = chrysler.jpeg; sourceTree = "<group>"; };
 		4653DE2D15E3720300B016A9 /* RequestSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestSender.h; sourceTree = "<group>"; };
 		4653DE2E15E3720300B016A9 /* RequestSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestSender.m; sourceTree = "<group>"; };
 		4653DE3115E3865900B016A9 /* NSDictionary+RequestAssitant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RequestAssitant.h"; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 		4679291C15E520FF008D0E99 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				461C196B15E629F500A5A4D5 /* chrysler.jpeg */,
 				4679291D15E52121008D0E99 /* pict.jpeg */,
 			);
 			name = Resources;
@@ -259,6 +262,7 @@
 				461A27E115E270B0005A0813 /* ViewController.xib in Resources */,
 				4679291A15E4B000008D0E99 /* UserInfoViewController.xib in Resources */,
 				4679291E15E52121008D0E99 /* pict.jpeg in Resources */,
+				461C196C15E629F500A5A4D5 /* chrysler.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
