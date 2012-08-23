@@ -12,26 +12,22 @@
 #import "UserInfoViewController.h"
 
 @interface ViewController ()
-
-- (OnFinishLoading)getOnFinishBlock;
-
+- (OnFinishLoading) getOnFinishBlock;
 @end
 
 @implementation ViewController
-@synthesize sendPhoto;
 
+@synthesize sendPhoto;
 @synthesize button;
 @synthesize status;
 @synthesize requestSender;
 
-- (IBAction)buttonPressed:(id)sender 
+- (IBAction) buttonPressed:(id)sender 
 {
     [self.status resignFirstResponder];
     self.button.enabled = NO;
     
-    
     // Post status
-    
     NSString* url = @"https://graph.facebook.com/me/feed";
     
     NSMutableDictionary * params = [[NSMutableDictionary alloc] init];
@@ -45,26 +41,22 @@
     self.button.enabled = YES;
 }
 
-- (IBAction)showProfilePressed:(id)sender {
+- (IBAction) showProfilePressed:(id)sender {
     
     UserInfoViewController* infoView = [[UserInfoViewController alloc] initWithNibName:@"UserInfoViewController" bundle:nil];
     [self.navigationController pushViewController:infoView animated:YES];
 }
 
-- (IBAction)tapIn:(id)sender {
+- (IBAction) tapIn:(id)sender {
+    
     [self.status resignFirstResponder];
 }
 
-- (NSMutableURLRequest *)makeRequesrWithPicture:(NSData *)imageData url:(NSString *)url {
-    
-    //----------
-    // create request
-    
+- (NSMutableURLRequest*) makeRequesrWithPicture:(NSData *)imageData url:(NSString *)url {
+
     NSMutableDictionary* _params = [NSMutableDictionary dictionary];
     
     [_params setObject:kKey forKey:@"access_token"];
-    //[_params setObject:@"NONONONO" forKey:@"message"];
-    
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];                                    
     [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
@@ -110,7 +102,8 @@
     return request;
 }
 
-- (OnFinishLoading)getOnFinishBlock {
+- (OnFinishLoading) getOnFinishBlock {
+    
     return ^(NSData *data, NSError *error1) {
         
         NSString* message = nil;
@@ -152,7 +145,7 @@
     };
 }
 
-- (IBAction)sendPhoto:(id)sender {
+- (IBAction) sendPhoto:(id)sender {
     
     UIImage *testImage = [UIImage imageNamed:@"chrysler.jpeg"];
     NSData *imageData = UIImagePNGRepresentation(testImage);
@@ -160,8 +153,7 @@
 
     NSString* url = @"https://graph.facebook.com/me/photos";
 
-    NSMutableURLRequest *request;
-    request = [self makeRequesrWithPicture:imageData url:url];
+    NSMutableURLRequest *request = [self makeRequesrWithPicture:imageData url:url];
     
     self.requestSender = [[RequestSender alloc] initWithRequest:request andWithBlock:[self getOnFinishBlock]];
     self.sendPhoto.enabled = YES;
@@ -169,22 +161,19 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void) viewDidLoad {
+    
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)viewDidUnload
-{
+- (void) viewDidUnload {
+    
     self.status = nil;
     self.button = nil;
     self.requestSender = nil;
+    self.sendPhoto = nil;
     
-    [self setSendPhoto:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 @end

@@ -10,8 +10,8 @@
 
 @implementation NSDictionary (RequestAssitant)
 
--(NSString*)asPOSTRequest
-{
+- (NSString*) asPOSTRequest {
+    
     __block NSString* paramsStr = @"";
     __block int idx = 0;
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -24,8 +24,8 @@
     return paramsStr;
 }
 
--(NSString*)asGETRequest
-{
+- (NSString*) asGETRequest {
+    
     return [@"?" stringByAppendingString:[self asPOSTRequest]];;
 }
 

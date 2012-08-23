@@ -18,8 +18,8 @@
 @synthesize requestSender;
 @synthesize requestSender2;
 
-- (void)viewDidUnload
-{
+- (void) viewDidUnload {
+    
     [self setAvatar:nil];
     [self setNameLable:nil];
     [self setLinkLable:nil];
@@ -30,8 +30,8 @@
     [super viewDidUnload];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -41,8 +41,8 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     __block UserInfoViewController* safeSelf = self;

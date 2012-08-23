@@ -11,6 +11,7 @@
 @class RequestSender;
 
 @interface UserInfoViewController : UIViewController
+
 @property (strong, nonatomic) IBOutlet UIImageView *avatar;
 @property (strong, nonatomic) IBOutlet UILabel *nameLable;
 @property (strong, nonatomic) IBOutlet UILabel *linkLable;
@@ -19,4 +20,5 @@
 @property (strong, nonatomic) RequestSender* requestSender2;
 
 - (void) loadImage;
+
 @end

@@ -17,9 +17,9 @@
 @property (strong, nonatomic) RequestSender* requestSender;
 @property (strong, nonatomic) IBOutlet UIButton *sendPhoto;
 
-- (IBAction)buttonPressed:(id)sender;
-- (IBAction)showProfilePressed:(id)sender;
-- (IBAction)tapIn:(id)sender;
-- (IBAction)sendPhoto:(id)sender;
+- (IBAction) buttonPressed:(id)sender;
+- (IBAction) showProfilePressed:(id)sender;
+- (IBAction) tapIn:(id)sender;
+- (IBAction) sendPhoto:(id)sender;
 
 @end

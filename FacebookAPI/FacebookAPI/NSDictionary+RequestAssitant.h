@@ -10,7 +10,7 @@
 
 @interface NSDictionary (RequestAssitant)
 
--(NSString*)asPOSTRequest;
--(NSString*)asGETRequest;
+- (NSString*) asPOSTRequest;
+- (NSString*) asGETRequest;
 
 @end
