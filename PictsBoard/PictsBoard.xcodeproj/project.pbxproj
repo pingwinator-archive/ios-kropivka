@@ -1,0 +1,293 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		461A775A15E64B1E0091EE3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461A775915E64B1E0091EE3E /* UIKit.framework */; };
+		461A775C15E64B1E0091EE3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461A775B15E64B1E0091EE3E /* Foundation.framework */; };
+		461A775E15E64B1E0091EE3E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461A775D15E64B1E0091EE3E /* CoreGraphics.framework */; };
+		461A776415E64B1E0091EE3E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 461A776215E64B1E0091EE3E /* InfoPlist.strings */; };
+		461A776615E64B1E0091EE3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A776515E64B1E0091EE3E /* main.m */; };
+		461A776A15E64B1E0091EE3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A776915E64B1E0091EE3E /* AppDelegate.m */; };
+		461A776D15E64B1E0091EE3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A776C15E64B1E0091EE3E /* ViewController.m */; };
+		461A777015E64B1E0091EE3E /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 461A776E15E64B1E0091EE3E /* ViewController.xib */; };
+		461A777815E64E4A0091EE3E /* pict1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 461A777715E64E4A0091EE3E /* pict1.jpeg */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		461A775515E64B1E0091EE3E /* PictsBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PictsBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		461A775915E64B1E0091EE3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		461A775B15E64B1E0091EE3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		461A775D15E64B1E0091EE3E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		461A776115E64B1E0091EE3E /* PictsBoard-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PictsBoard-Info.plist"; sourceTree = "<group>"; };
+		461A776315E64B1E0091EE3E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		461A776515E64B1E0091EE3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		461A776715E64B1E0091EE3E /* PictsBoard-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PictsBoard-Prefix.pch"; sourceTree = "<group>"; };
+		461A776815E64B1E0091EE3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		461A776915E64B1E0091EE3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		461A776B15E64B1E0091EE3E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		461A776C15E64B1E0091EE3E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		461A776F15E64B1E0091EE3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		461A777715E64E4A0091EE3E /* pict1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pict1.jpeg; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		461A775215E64B1E0091EE3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				461A775A15E64B1E0091EE3E /* UIKit.framework in Frameworks */,
+				461A775C15E64B1E0091EE3E /* Foundation.framework in Frameworks */,
+				461A775E15E64B1E0091EE3E /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		461A774A15E64B1E0091EE3E = {
+			isa = PBXGroup;
+			children = (
+				461A775F15E64B1E0091EE3E /* PictsBoard */,
+				461A775815E64B1E0091EE3E /* Frameworks */,
+				461A775615E64B1E0091EE3E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		461A775615E64B1E0091EE3E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				461A775515E64B1E0091EE3E /* PictsBoard.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		461A775815E64B1E0091EE3E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				461A775915E64B1E0091EE3E /* UIKit.framework */,
+				461A775B15E64B1E0091EE3E /* Foundation.framework */,
+				461A775D15E64B1E0091EE3E /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		461A775F15E64B1E0091EE3E /* PictsBoard */ = {
+			isa = PBXGroup;
+			children = (
+				461A777615E64E370091EE3E /* Resources */,
+				461A776815E64B1E0091EE3E /* AppDelegate.h */,
+				461A776915E64B1E0091EE3E /* AppDelegate.m */,
+				461A776B15E64B1E0091EE3E /* ViewController.h */,
+				461A776C15E64B1E0091EE3E /* ViewController.m */,
+				461A776E15E64B1E0091EE3E /* ViewController.xib */,
+				461A776015E64B1E0091EE3E /* Supporting Files */,
+			);
+			path = PictsBoard;
+			sourceTree = "<group>";
+		};
+		461A776015E64B1E0091EE3E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				461A776115E64B1E0091EE3E /* PictsBoard-Info.plist */,
+				461A776215E64B1E0091EE3E /* InfoPlist.strings */,
+				461A776515E64B1E0091EE3E /* main.m */,
+				461A776715E64B1E0091EE3E /* PictsBoard-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		461A777615E64E370091EE3E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				461A777715E64E4A0091EE3E /* pict1.jpeg */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		461A775415E64B1E0091EE3E /* PictsBoard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 461A777315E64B1E0091EE3E /* Build configuration list for PBXNativeTarget "PictsBoard" */;
+			buildPhases = (
+				461A775115E64B1E0091EE3E /* Sources */,
+				461A775215E64B1E0091EE3E /* Frameworks */,
+				461A775315E64B1E0091EE3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PictsBoard;
+			productName = PictsBoard;
+			productReference = 461A775515E64B1E0091EE3E /* PictsBoard.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		461A774C15E64B1E0091EE3E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 461A774F15E64B1E0091EE3E /* Build configuration list for PBXProject "PictsBoard" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 461A774A15E64B1E0091EE3E;
+			productRefGroup = 461A775615E64B1E0091EE3E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				461A775415E64B1E0091EE3E /* PictsBoard */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		461A775315E64B1E0091EE3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				461A776415E64B1E0091EE3E /* InfoPlist.strings in Resources */,
+				461A777015E64B1E0091EE3E /* ViewController.xib in Resources */,
+				461A777815E64E4A0091EE3E /* pict1.jpeg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		461A775115E64B1E0091EE3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				461A776615E64B1E0091EE3E /* main.m in Sources */,
+				461A776A15E64B1E0091EE3E /* AppDelegate.m in Sources */,
+				461A776D15E64B1E0091EE3E /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		461A776215E64B1E0091EE3E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				461A776315E64B1E0091EE3E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		461A776E15E64B1E0091EE3E /* ViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				461A776F15E64B1E0091EE3E /* en */,
+			);
+			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		461A777115E64B1E0091EE3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		461A777215E64B1E0091EE3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		461A777415E64B1E0091EE3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PictsBoard/PictsBoard-Prefix.pch";
+				INFOPLIST_FILE = "PictsBoard/PictsBoard-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		461A777515E64B1E0091EE3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PictsBoard/PictsBoard-Prefix.pch";
+				INFOPLIST_FILE = "PictsBoard/PictsBoard-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		461A774F15E64B1E0091EE3E /* Build configuration list for PBXProject "PictsBoard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				461A777115E64B1E0091EE3E /* Debug */,
+				461A777215E64B1E0091EE3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		461A777315E64B1E0091EE3E /* Build configuration list for PBXNativeTarget "PictsBoard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				461A777415E64B1E0091EE3E /* Debug */,
+				461A777515E64B1E0091EE3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 461A774C15E64B1E0091EE3E /* Project object */;
+}
