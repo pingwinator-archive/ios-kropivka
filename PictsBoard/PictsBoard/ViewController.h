@@ -11,5 +11,7 @@
 @interface ViewController : UIViewController
 
 @property (nonatomic, assign) UIImageView* img;
+@property (nonatomic, assign) CGPoint startPoint;
+@property (nonatomic, assign) CGFloat distance;
 
 @end
