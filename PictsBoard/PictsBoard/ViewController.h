@@ -10,15 +10,6 @@
 
 @interface ViewController : UIViewController
 
-@property (nonatomic, retain) NSArray* images;
 @property (nonatomic, assign) UIImageView* img;
-
-@property (nonatomic, retain) UIPinchGestureRecognizer* pinch;
-@property (nonatomic, retain) UIRotationGestureRecognizer* rotation;
-@property (nonatomic, assign) CGFloat currentScale;
-@property (nonatomic, assign) CGFloat rotationAngleInRadians;
-
-- (void) handleGesture:(UIGestureRecognizer*)recognizer;
-- (CGAffineTransform)applyRecognizer:(UIGestureRecognizer *)recognizer toTransform:(CGAffineTransform)transform;
 
 @end
