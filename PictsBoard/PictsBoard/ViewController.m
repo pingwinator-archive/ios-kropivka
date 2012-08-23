@@ -17,25 +17,27 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
+- (void)viewDidUnload {
     
-    [self.pinch release];
+    [pinch release];
+    [super viewDidUnload];
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+        [super viewDidLoad];
     
     UIImage* img1 = [UIImage imageNamed:@"pict1.jpeg"];
-    UIImageView* imgView = [[UIImageView alloc] initWithImage:img1];
+    
+    UIImageView* imgView = [[[UIImageView alloc] initWithImage:img1] autorelease];
+    
     [self.view addSubview:imgView];
     
     self.img = imgView;
     
     self.pinch = 
-    [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchHandler:)];
+    [[[UIPinchGestureRecognizer alloc] initWithTarget:self 
+                                               action:@selector(pinchHandler:)] autorelease];
     
     [self.view addGestureRecognizer: self.pinch];
 }
@@ -52,7 +54,6 @@
         self.img.transform =
         CGAffineTransformMakeScale(paramSender.scale, paramSender.scale);
     }
-    
 }
 
 @end
