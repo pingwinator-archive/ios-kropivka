@@ -8,6 +8,15 @@
 
 #import "ViewController.h"
 
+#define degreesToRadians(x) (M_PI * x / 180.0)
+
+
+@interface ViewController ()
+
+@property (retain, nonatomic) NSArray* activeTouches;
+
+@end
+
 
 @implementation ViewController
 
@@ -15,71 +24,104 @@
 @synthesize startPoint;
 @synthesize distance;
 
+@synthesize activeTouches;
+
 #pragma mark - View lifecycle
 
 - (void) viewDidUnload {
 
     [super viewDidUnload];
+    
+    [activeTouches release];
 }
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
     
+    self.view.multipleTouchEnabled = YES;
+    
     UIImage* img1 = [UIImage imageNamed:@"pict1.jpeg"];
-    
     UIImageView* imgView = [[[UIImageView alloc] initWithImage:img1] autorelease];
-    
     [self.view addSubview:imgView];
     
-    self.img = imgView;
+    self.img = imgView; // TODO -> array
+    activeTouches = [NSArray array];
+    self.distance = 0;
 }
+
+#pragma mark - Touches
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event 
 {
     UITouch* touch = [touches anyObject];
+    
     self.startPoint = [touch locationInView:self.view];
-    
-    
-    NSLog(@"%@",touches);
+    self.distance = 0;
+
     NSLog(@"touchesBegan");
 }
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"touchesMoved");
     
-    UITouch* touch = [touches anyObject];
-    CGPoint point = [touch locationInView:self.view];
-    //self.distance = sqrt( pow((self.startPoint.x - point.x),2) + pow((self.startPoint.y - point.y),2) );
-    self.distance = (self.startPoint.x - point.x)/400;
-    
-    // Single-tap: decrease image size by 10%"
-    CGRect myFrame = self.img.frame;
-    myFrame.size.width -= self.img.frame.size.width * self.distance;
-    myFrame.size.height -= self.img.frame.size.height * self.distance;
-    myFrame.origin.x += (self.img.frame.origin.x * self.distance) / 2.0;
-    myFrame.origin.y += (self.img.frame.origin.y * self.distance) / 2.0;
-    [UIView beginAnimations:nil context:NULL];
-    [self.img setFrame:myFrame];
-    [UIView commitAnimations];
+    if ([touches count] == 2)
+    {
+        NSArray* objects = [touches allObjects];
+        
+        UITouch* touch1 = [objects objectAtIndex:0];
+        CGPoint point1 = [touch1 locationInView:self.view];
+
+        UITouch* touch2 = [objects objectAtIndex:1];
+        CGPoint point2 = [touch2 locationInView:self.view];
+
+        // ZOOMING
+        
+        CGFloat oldDistance = self.distance;
+        self.distance = sqrt( pow((point1.x - point2.x),2) + pow((point1.y - point2.y),2) );
+        if( oldDistance != 0 )
+        {
+            CGRect myFrame = self.img.frame;
+            CGFloat zoom = self.distance/oldDistance;
+            
+            myFrame.size.width *= zoom;
+            myFrame.size.height *= zoom;
+            
+            myFrame.origin.x += (1.0/zoom - 1)*myFrame.size.width/2;
+            myFrame.origin.y += (1.0/zoom - 1)*myFrame.size.height/2;
+
+            [UIView beginAnimations:nil context:NULL];
+            [self.img setFrame:myFrame];
+            [UIView commitAnimations];
+        }
+      
+    }
+    else if([touches count] == 1)
+    {
+        UITouch* touch = [touches anyObject];
+
+        CGFloat xmove = [touch previousLocationInView:self.view].x - [touch locationInView:self.view].x;
+        CGFloat ymove = [touch previousLocationInView:self.view].y - [touch locationInView:self.view].y;
+
+        CGRect myFrame = self.img.frame;
+
+        myFrame.origin.x -= xmove;
+        myFrame.origin.y -= ymove;
+        
+        [UIView beginAnimations:nil context:NULL];
+        [self.img setFrame:myFrame];
+        [UIView commitAnimations];
+    }
 }
 
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"touchesEnded");
-    for (UITouch *touch in touches) {
-        if (touch.tapCount >= 2) {
-            //[self.superview bringSubviewToFront:self];
-        }
-    }
+    self.distance = 0;
 }
 
 - (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
     NSLog(@"touchesCancelled");
 }
 
-- (void)handleSingleTap:(NSDictionary *)touches {
-    NSLog(@"handleSingleTap");
-
-}
 
 @end
