@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		460FE69115EB824D00F05FD4 /* MovingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 460FE69015EB824D00F05FD4 /* MovingImageView.m */; };
 		461A775A15E64B1E0091EE3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461A775915E64B1E0091EE3E /* UIKit.framework */; };
 		461A775C15E64B1E0091EE3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461A775B15E64B1E0091EE3E /* Foundation.framework */; };
 		461A775E15E64B1E0091EE3E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461A775D15E64B1E0091EE3E /* CoreGraphics.framework */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		460FE68F15EB824D00F05FD4 /* MovingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovingImageView.h; sourceTree = "<group>"; };
+		460FE69015EB824D00F05FD4 /* MovingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovingImageView.m; sourceTree = "<group>"; };
 		461A775515E64B1E0091EE3E /* PictsBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PictsBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		461A775915E64B1E0091EE3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		461A775B15E64B1E0091EE3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -86,6 +89,8 @@
 				461A776C15E64B1E0091EE3E /* ViewController.m */,
 				461A776E15E64B1E0091EE3E /* ViewController.xib */,
 				461A776015E64B1E0091EE3E /* Supporting Files */,
+				460FE68F15EB824D00F05FD4 /* MovingImageView.h */,
+				460FE69015EB824D00F05FD4 /* MovingImageView.m */,
 			);
 			path = PictsBoard;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 				461A776615E64B1E0091EE3E /* main.m in Sources */,
 				461A776A15E64B1E0091EE3E /* AppDelegate.m in Sources */,
 				461A776D15E64B1E0091EE3E /* ViewController.m in Sources */,
+				460FE69115EB824D00F05FD4 /* MovingImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +292,7 @@
 				461A777515E64B1E0091EE3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
