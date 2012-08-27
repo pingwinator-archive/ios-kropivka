@@ -8,26 +8,6 @@
 
 #import "MovingImageView.h"
 
-static inline CGFloat angleBetweenLinesInRadians2(CGPoint line1Start, CGPoint line1End) 
-{
-    CGFloat dx = 0, dy = 0;
-    
-    dx = line1End.x - line1Start.x;
-    dy = line1End.y - line1Start.y;
-    
-    CGFloat rads = dx < dy ? atan2(dy, dx) : atan2(dx, dy);
-    
-    /*
-    if (rads < 0)
-    {
-        rads += (2*M_PI);
-    }*/
-     
-    
-    return rads;
-}
-
-
 @implementation MovingImageView
 
 @synthesize degrees;
@@ -35,7 +15,6 @@ static inline CGFloat angleBetweenLinesInRadians2(CGPoint line1Start, CGPoint li
 
 @synthesize angle;
 @synthesize position;
-
 
 - (id)initWithImage:(UIImage *)image
 { 
@@ -48,7 +27,6 @@ static inline CGFloat angleBetweenLinesInRadians2(CGPoint line1Start, CGPoint li
     self.multipleTouchEnabled = YES;
 
     self.position = CGPointMake( self.frame.origin.x, self.frame.origin.y );
-    
     return self;
 }
 
@@ -77,7 +55,6 @@ static inline CGFloat angleBetweenLinesInRadians2(CGPoint line1Start, CGPoint li
         
         // TODO SWAP on
         
-        
         // ZOOMING
         
         CGFloat oldDistance = self.distance;
@@ -99,23 +76,14 @@ static inline CGFloat angleBetweenLinesInRadians2(CGPoint line1Start, CGPoint li
         
         
         // Rotation 
-        if(0)
+        if(1)
         {
-            CGFloat oldDegrees = self.degrees;
-            
-            self.degrees = angleBetweenLinesInRadians2(point1, point2);
-            
-            CGFloat rad = self.degrees - oldDegrees;
-            self.angle = self.degrees;
-            
-            NSLog(@"angle = %f, rad = %f", self.angle, rad);
-            
-            self.transform = CGAffineTransformMakeRotation( rad );
+  
 
         }
         
     }
-    else if([touches count] == 1)
+    else if([touches count] == 1 )
     {
         UITouch* touch = [touches anyObject];
         
