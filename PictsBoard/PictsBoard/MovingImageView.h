@@ -10,10 +10,17 @@
 
 @interface MovingImageView : UIImageView
 
+
 @property (nonatomic, assign) CGFloat distance;
-@property (nonatomic, assign) CGFloat degrees;
 
 @property (nonatomic, assign) CGFloat angle;
 @property (nonatomic, assign) CGPoint position;
+
+@property (nonatomic, retain) UIRotationGestureRecognizer* rotation;
+@property (nonatomic, retain) UIPinchGestureRecognizer* pinch;
+
+
+- (IBAction)handleGesture:(UIGestureRecognizer *)recognizer;
+- (CGAffineTransform)applyRecognizer:(UIGestureRecognizer *)recognizer toTransform:(CGAffineTransform)transform;
 
 @end
