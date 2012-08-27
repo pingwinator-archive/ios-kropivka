@@ -18,7 +18,7 @@
 
 @property (nonatomic, retain) UIRotationGestureRecognizer* rotation;
 @property (nonatomic, retain) UIPinchGestureRecognizer* pinch;
-
+@property (nonatomic, retain) UIPanGestureRecognizer* pan;
 
 - (IBAction)handleGesture:(UIGestureRecognizer *)recognizer;
 - (CGAffineTransform)applyRecognizer:(UIGestureRecognizer *)recognizer toTransform:(CGAffineTransform)transform;

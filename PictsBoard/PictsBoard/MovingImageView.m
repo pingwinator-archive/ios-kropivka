@@ -23,13 +23,17 @@
 @synthesize position;
 @synthesize rotation;
 @synthesize pinch;
-@synthesize activeRecognizers;
+@synthesize pan;
 
+@synthesize activeRecognizers;
 @synthesize referenceTransform;
 
 -(void) dealloc {
     [rotation release];
     [pinch release];
+    [pan release];
+    
+    [super dealloc];
 }
 
 - (id)initWithImage:(UIImage *)image
@@ -51,46 +55,16 @@
     self.pinch.delegate = self;
     [self addGestureRecognizer:self.pinch];
     
+    self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+    self.pan.delegate = self;
+    [self addGestureRecognizer:self.pan];
+    
     self.activeRecognizers = [[NSMutableSet alloc] init];
     
     return self;
 }
 
-+ (CGFloat) distanceFrom:(CGPoint)point1 to:(CGPoint) point2
-{
-    return sqrt( pow((point1.x - point2.x),2) + pow((point1.y - point2.y),2) );
-}
-
-#pragma mark - Touches
-
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event 
-{
-}
-
-
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    NSLog(@"touchesMoved");
-    
-    if([touches count] == 1)
-    {
-        UITouch* touch = [touches anyObject];
-        
-        CGFloat xmove = [touch previousLocationInView:self].x - [touch locationInView:self].x;
-        CGFloat ymove = [touch previousLocationInView:self].y - [touch locationInView:self].y;
-        
-        self.position = CGPointMake(self.position.x - xmove, self.position.y - ymove);
-        
-        self.referenceTransform = CGAffineTransformTranslate(self.transform, self.position.x, self.position.y);
-        self.transform = self.referenceTransform;
-    }
-}
-
-- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-}
-
-- (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-}
-
+#pragma mark - Gestures
 
 - (IBAction)handleGesture:(UIGestureRecognizer *)recognizer
 {
@@ -123,10 +97,18 @@
 - (CGAffineTransform)applyRecognizer:(UIGestureRecognizer *)recognizer toTransform:(CGAffineTransform)transform
 {
     if ([recognizer respondsToSelector:@selector(rotation)])
+    {
         return CGAffineTransformRotate(transform, [(UIRotationGestureRecognizer *)recognizer rotation]);
-    else if ([recognizer respondsToSelector:@selector(scale)]) {
+    }
+    else if ([recognizer respondsToSelector:@selector(scale)]) 
+    {
         CGFloat scale = [(UIPinchGestureRecognizer *)recognizer scale];
         return CGAffineTransformScale(transform, scale, scale);
+    }
+    else if( [recognizer isKindOfClass:[UIPanGestureRecognizer class]])
+    {
+        CGPoint point = [(UIPanGestureRecognizer*)recognizer translationInView:self];
+        return CGAffineTransformTranslate(transform, point.x, point.y);  
     }
     else
         return transform;
