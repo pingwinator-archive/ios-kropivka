@@ -7,6 +7,7 @@
 //
 
 #import "MovingImageView.h"
+#import "GalochkaGestureRecognizer.h"
 
 @interface MovingImageView ()<UIGestureRecognizerDelegate>
 
@@ -24,14 +25,18 @@
 @synthesize rotation;
 @synthesize pinch;
 @synthesize pan;
+@synthesize galochka;
 
 @synthesize activeRecognizers;
 @synthesize referenceTransform;
 
 -(void) dealloc {
-    [rotation release];
-    [pinch release];
-    [pan release];
+    self.rotation = nil;
+    self.pinch = nil;
+    self.pan = nil;
+    self.galochka = nil;
+    
+    [activeRecognizers release], activeRecognizers = nil;
     
     [super dealloc];
 }
@@ -40,35 +45,49 @@
 { 
     self = [super initWithImage:image];
     
-    self.angle = 0;
-    
-    self.userInteractionEnabled = YES;
-    self.multipleTouchEnabled = YES;
-
-    self.position = CGPointMake( self.frame.origin.x, self.frame.origin.y );
-    
-    self.rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]; 
-    self.rotation.delegate = self;
-    [self addGestureRecognizer:self.rotation];
-    
-    self.pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    self.pinch.delegate = self;
-    [self addGestureRecognizer:self.pinch];
-    
-    self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    self.pan.delegate = self;
-    [self addGestureRecognizer:self.pan];
-    
-    self.activeRecognizers = [[NSMutableSet alloc] init];
+    if (self) {
+        self.angle = 0;
+        
+        self.userInteractionEnabled = YES;
+        self.multipleTouchEnabled = YES;
+        
+        self.position = CGPointMake( self.frame.origin.x, self.frame.origin.y );
+        
+        self.rotation = [[[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease]; 
+        self.rotation.delegate = self;
+        [self addGestureRecognizer:self.rotation];
+        
+        self.pinch = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease];
+        self.pinch.delegate = self;
+        [self addGestureRecognizer:self.pinch];
+        
+        self.pan = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease];
+        self.pan.minimumNumberOfTouches = 2;
+        self.pan.maximumNumberOfTouches = 2;
+        self.pan.delegate = self;
+        [self addGestureRecognizer:self.pan];
+        
+        self.galochka = [[[GalochkaGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestureGalochka:)]autorelease];
+        self.galochka.delegate = self;
+        [self addGestureRecognizer:self.galochka];
+        
+        self.activeRecognizers = [[NSMutableSet alloc] init];
+    }
     
     return self;
 }
 
 #pragma mark - Gestures
 
+- (void) handleGestureGalochka:(id)sender
+{
+        [UIView animateWithDuration:10 animations:^(void){
+            self.alpha = self.alpha - 0.2;
+        }];
+}
+
 - (IBAction)handleGesture:(UIGestureRecognizer *)recognizer
 {
-    
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
             if ([activeRecognizers count] == 0)
@@ -88,7 +107,7 @@
             self.transform = transform;
             break;
         }
-            
+
         default:
             break;
     }
@@ -109,6 +128,16 @@
     {
         CGPoint point = [(UIPanGestureRecognizer*)recognizer translationInView:self];
         return CGAffineTransformTranslate(transform, point.x, point.y);  
+    }
+    else if( [recognizer isKindOfClass:[GalochkaGestureRecognizer class]] )
+    {
+        NSLog(@"Gal recognized");
+        
+        
+
+        
+        return transform; 
+        
     }
     else
         return transform;
