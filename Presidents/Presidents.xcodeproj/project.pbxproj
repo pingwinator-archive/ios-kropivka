@@ -19,6 +19,7 @@
 		4627F0A915ECCD89003AAB73 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4627F0A715ECCD89003AAB73 /* DetailViewController.xib */; };
 		4627F0B215ECCDAE003AAB73 /* Presidents.m in Sources */ = {isa = PBXBuildFile; fileRef = 4627F0B015ECCDAE003AAB73 /* Presidents.m */; };
 		4647BFF015ECD7EB0040C4F5 /* Presidents.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4647BFEF15ECD7EB0040C4F5 /* Presidents.plist */; };
+		4647BFF415ECEE7F0040C4F5 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4647BFF315ECEE7E0040C4F5 /* ListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,8 @@
 		4627F0AF15ECCDAE003AAB73 /* Presidents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Presidents.h; sourceTree = "<group>"; };
 		4627F0B015ECCDAE003AAB73 /* Presidents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Presidents.m; sourceTree = "<group>"; };
 		4647BFEF15ECD7EB0040C4F5 /* Presidents.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Presidents.plist; sourceTree = "<group>"; };
+		4647BFF215ECEE7E0040C4F5 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		4647BFF315ECEE7E0040C4F5 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,8 @@
 				4627F0A415ECCD89003AAB73 /* MasterViewController.xib */,
 				4627F0A715ECCD89003AAB73 /* DetailViewController.xib */,
 				4627F09315ECCD89003AAB73 /* Supporting Files */,
+				4647BFF215ECEE7E0040C4F5 /* ListViewController.h */,
+				4647BFF315ECEE7E0040C4F5 /* ListViewController.m */,
 			);
 			path = Presidents;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 				4627F0A015ECCD89003AAB73 /* MasterViewController.m in Sources */,
 				4627F0A315ECCD89003AAB73 /* DetailViewController.m in Sources */,
 				4627F0B215ECCDAE003AAB73 /* Presidents.m in Sources */,
+				4647BFF415ECEE7F0040C4F5 /* ListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

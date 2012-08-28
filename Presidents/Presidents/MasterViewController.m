@@ -10,7 +10,7 @@
 
 #import "DetailViewController.h"
 #import "Presidents.h"
-
+#import "ListViewController.h"
 
 @implementation MasterViewController
 
@@ -48,8 +48,28 @@
     self.list = array;
     [unarchiver finishDecoding];
     
+    UIBarButtonItem *pButton = [[UIBarButtonItem alloc] initWithTitle:@"Parties"
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:self 
+                                                                    action:@selector(showParties:)];
+    self.navigationItem.leftBarButtonItem = pButton;
+    
     
     NSLog(@"%@", self.list);
+}
+
+- (void)showParties:(id)sender
+{
+    __block NSMutableArray *array = [NSMutableArray array];  
+    
+    [self.list enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+        BIDPresident* president = (BIDPresident*)obj;
+        [array addObject:president.party];
+    }];
+    
+    ListViewController *listView = [[ListViewController alloc] init];
+    listView.list = [[NSSet setWithArray:array] allObjects];
+    [self.navigationController pushViewController:listView animated:YES];
 }
 
 - (void)viewDidUnload
@@ -79,7 +99,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle 
                                       reuseIdentifier:CellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
 
     // Configure the cell.
