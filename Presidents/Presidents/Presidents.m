@@ -16,6 +16,10 @@
 @synthesize toYear; 
 @synthesize party;
 
+-(NSString*)description{
+    return self.name;
+}
+
 #pragma mark - #pragma mark NSCoding 
 - (void)encodeWithCoder:(NSCoder *)coder {
     

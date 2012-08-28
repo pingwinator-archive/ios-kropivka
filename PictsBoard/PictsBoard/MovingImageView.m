@@ -81,7 +81,7 @@
 
 - (void) handleGestureGalochka:(id)sender
 {
-        [UIView animateWithDuration:10 animations:^(void){
+        [UIView animateWithDuration:2 animations:^(void){
             self.alpha = self.alpha - 0.2;
         }];
 }
@@ -132,10 +132,7 @@
     else if( [recognizer isKindOfClass:[GalochkaGestureRecognizer class]] )
     {
         NSLog(@"Gal recognized");
-        
-        
 
-        
         return transform; 
         
     }
