@@ -7,6 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "MyEntity.h"
+#import "AppDelegate.h"
+
 
 @implementation ViewController
 
@@ -16,7 +19,44 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.list = [[NSArray alloc] initWithObjects:@"one",@"two",@"tree", nil];
+    self.list = [[NSArray alloc] init];
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate]; 
+    NSManagedObjectContext *context = [appDelegate managedObjectContext]; 
+    
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:NSStringFromClass([MyEntity class]) 
+                                                         inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    
+    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(lineNum = %d)", i];
+    
+    [request setEntity:entityDescription];
+    NSError *error; 
+    NSArray *objects = [context executeFetchRequest:request error:&error]; 
+    
+    if ( objects == nil ) {
+        NSLog(@"There was an error!"); // Do whatever error handling is appropriate
+    } else {
+        
+        
+        if ([objects count] > 0) 
+            self.list = objects;
+        else
+        {
+            //for (int i = 0; i < 8; ++i) {
+
+            MyEntity* entity = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([MyEntity class]) inManagedObjectContext:context];
+            
+            entity.number = [[NSNumber alloc] initWithInt:rand()];
+            entity.date = [NSDate date];
+            
+            [context save:&error];
+                
+            //}
+        }
+    }
+    
 }
 
 - (void)viewDidUnload
@@ -45,8 +85,9 @@
     
     // Configure the cell.
 
-    cell.textLabel.text = [self.list objectAtIndex:[indexPath row]];
-
+    MyEntity * entity = [self.list objectAtIndex:[indexPath row]];
+    cell.textLabel.text = [entity.number stringValue];
+    cell.detailTextLabel.text = [entity.date description];
     return cell;
 }
 
