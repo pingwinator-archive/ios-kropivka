@@ -26,11 +26,6 @@
     return self;
 }
 							
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
 
 #pragma mark - View lifecycle
 
@@ -54,7 +49,6 @@
                                                                     action:@selector(showParties:)];
     self.navigationItem.leftBarButtonItem = pButton;
     
-    
     NSLog(@"%@", self.list);
 }
 
@@ -68,7 +62,7 @@
     }];
     
     ListViewController *listView = [[ListViewController alloc] init];
-    listView.list = [[NSSet setWithArray:array] allObjects];
+    listView.list = [[[NSSet setWithArray:array] allObjects] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     [self.navigationController pushViewController:listView animated:YES];
 }
 
