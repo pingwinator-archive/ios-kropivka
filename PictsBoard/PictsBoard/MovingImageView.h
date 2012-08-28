@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MovingImageView : UIImageView
+@class GalochkaGestureRecognizer;
 
+@interface MovingImageView : UIImageView
 
 @property (nonatomic, assign) CGFloat distance;
 
@@ -19,6 +20,7 @@
 @property (nonatomic, retain) UIRotationGestureRecognizer* rotation;
 @property (nonatomic, retain) UIPinchGestureRecognizer* pinch;
 @property (nonatomic, retain) UIPanGestureRecognizer* pan;
+@property (nonatomic, retain) GalochkaGestureRecognizer* galochka;
 
 - (IBAction)handleGesture:(UIGestureRecognizer *)recognizer;
 - (CGAffineTransform)applyRecognizer:(UIGestureRecognizer *)recognizer toTransform:(CGAffineTransform)transform;

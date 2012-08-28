@@ -7,6 +7,7 @@
 //
 
 #import "MovingImageView.h"
+#import "GalochkaGestureRecognizer.h"
 
 @interface MovingImageView ()<UIGestureRecognizerDelegate>
 
@@ -24,14 +25,16 @@
 @synthesize rotation;
 @synthesize pinch;
 @synthesize pan;
+@synthesize galochka;
 
 @synthesize activeRecognizers;
 @synthesize referenceTransform;
 
 -(void) dealloc {
-    [rotation release];
-    [pinch release];
-    [pan release];
+    self.rotation = nil;
+    self.pinch = nil;
+    [pan release], pan = nil;
+    [activeRecognizers release], activeRecognizers = nil;
     
     [super dealloc];
 }
@@ -40,26 +43,28 @@
 { 
     self = [super initWithImage:image];
     
-    self.angle = 0;
-    
-    self.userInteractionEnabled = YES;
-    self.multipleTouchEnabled = YES;
-
-    self.position = CGPointMake( self.frame.origin.x, self.frame.origin.y );
-    
-    self.rotation = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]; 
-    self.rotation.delegate = self;
-    [self addGestureRecognizer:self.rotation];
-    
-    self.pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    self.pinch.delegate = self;
-    [self addGestureRecognizer:self.pinch];
-    
-    self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-    self.pan.delegate = self;
-    [self addGestureRecognizer:self.pan];
-    
-    self.activeRecognizers = [[NSMutableSet alloc] init];
+    if (self) {
+        self.angle = 0;
+        
+        self.userInteractionEnabled = YES;
+        self.multipleTouchEnabled = YES;
+        
+        self.position = CGPointMake( self.frame.origin.x, self.frame.origin.y );
+        
+        self.rotation = [[[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease]; 
+        self.rotation.delegate = self;
+        [self addGestureRecognizer:self.rotation];
+        
+        self.pinch = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease];
+        self.pinch.delegate = self;
+        [self addGestureRecognizer:self.pinch];
+        
+        self.pan = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease];
+        self.pan.delegate = self;
+        [self addGestureRecognizer:self.pan];
+        
+        self.activeRecognizers = [[NSMutableSet alloc] init];
+    }
     
     return self;
 }
