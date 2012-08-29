@@ -13,7 +13,6 @@
 @property (strong, nonatomic) UIBarButtonItem* button;
 @property (strong, nonatomic) UIButton* buttonJump;
 
-@property (strong, nonatomic) UITapGestureRecognizer* tap;
 @property (strong, nonatomic) NSFetchedResultsController* fetchedResultsController;
 
 @end

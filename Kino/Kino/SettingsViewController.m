@@ -68,4 +68,11 @@
     [defaults synchronize];
 }
 
+
+- (IBAction)goBack:(id)sender
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
 @end

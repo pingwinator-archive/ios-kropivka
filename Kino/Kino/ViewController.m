@@ -52,11 +52,6 @@
     }
     
     // ADD user interaction
-    
-    //self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deleteLine:)];
-    //self.tap.numberOfTapsRequired = 3;
-    //[self.view addGestureRecognizer:self.tap];
-    
     self.button = [[UIBarButtonItem alloc]
             initWithTitle:@"ADD"
                     style:UIBarButtonItemStylePlain
@@ -72,14 +67,20 @@
 
 - (void)showSettings:(id)sender 
 {
+
     SettingsViewController* view = [[SettingsViewController alloc] init];
-    [self.navigationController pushViewController:view animated:YES];
+    //[self.navigationController pushViewController:view animated:YES];
+
+    view.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:view animated:YES];
+
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     return self.buttonJump;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 44;
