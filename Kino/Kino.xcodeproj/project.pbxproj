@@ -18,6 +18,8 @@
 		460F1DA515ED04F50032B73B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 460F1DA415ED04F50032B73B /* ViewController.m */; };
 		460F1DAC15ED08310032B73B /* MyEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 460F1DAB15ED08310032B73B /* MyEntity.m */; };
 		4636F3F815EE2D2A00C01389 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4636F3F715EE2D2A00C01389 /* Settings.bundle */; };
+		46E9D1A215EE34A500E90D57 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E9D1A015EE34A500E90D57 /* SettingsViewController.m */; };
+		46E9D1A315EE34A500E90D57 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46E9D1A115EE34A500E90D57 /* SettingsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,9 @@
 		460F1DAA15ED08310032B73B /* MyEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEntity.h; sourceTree = "<group>"; };
 		460F1DAB15ED08310032B73B /* MyEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEntity.m; sourceTree = "<group>"; };
 		4636F3F715EE2D2A00C01389 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		46E9D19F15EE34A400E90D57 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		46E9D1A015EE34A500E90D57 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		46E9D1A115EE34A500E90D57 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +100,9 @@
 				460F1DAB15ED08310032B73B /* MyEntity.m */,
 				460F1D9015ED04DE0032B73B /* Supporting Files */,
 				4636F3F715EE2D2A00C01389 /* Settings.bundle */,
+				46E9D19F15EE34A400E90D57 /* SettingsViewController.h */,
+				46E9D1A015EE34A500E90D57 /* SettingsViewController.m */,
+				46E9D1A115EE34A500E90D57 /* SettingsViewController.xib */,
 			);
 			path = Kino;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 			files = (
 				460F1D9415ED04DE0032B73B /* InfoPlist.strings in Resources */,
 				4636F3F815EE2D2A00C01389 /* Settings.bundle in Resources */,
+				46E9D1A315EE34A500E90D57 /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +186,7 @@
 				460F1D9D15ED04DE0032B73B /* Kino.xcdatamodeld in Sources */,
 				460F1DA515ED04F50032B73B /* ViewController.m in Sources */,
 				460F1DAC15ED08310032B73B /* MyEntity.m in Sources */,
+				46E9D1A215EE34A500E90D57 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

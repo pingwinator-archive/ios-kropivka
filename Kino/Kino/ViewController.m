@@ -9,19 +9,19 @@
 #import "ViewController.h"
 #import "MyEntity.h"
 #import "AppDelegate.h"
-
+#import "SettingsViewController.h"
 
 @implementation ViewController
 
-@synthesize list;
 @synthesize button;
+@synthesize buttonJump;
 @synthesize tap;
 @synthesize fetchedResultsController;
 
 
 - (NSManagedObjectContext *)context
 {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate]; 
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     return appDelegate.managedObjectContext;
 }
 
@@ -30,7 +30,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.list = [[NSArray alloc] init];
     
     NSManagedObjectContext *context = self.context; 
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:NSStringFromClass([MyEntity class])
@@ -60,9 +59,25 @@
     
     self.button = [UIButton buttonWithType:UIButtonTypeContactAdd];
     [self.button addTarget:self action:@selector(addLine:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.buttonJump = [UIButton buttonWithType:UIButtonTypeInfoDark];
+    //[self.buttonJump  setTitle:@"2342" forState:UIControlStateNormal];
+    [self.buttonJump addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+- (void)showSettings:(id)sender 
+{
+    SettingsViewController* view = [[SettingsViewController alloc] init];
+    [self.navigationController pushViewController:view animated:YES];
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return self.buttonJump;
+}
+
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     return self.button;
 }
@@ -93,11 +108,6 @@
 
 
 #pragma mark - UITableViewDataSource
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

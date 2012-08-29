@@ -9,19 +9,32 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 
+
 @implementation AppDelegate
 
 @synthesize window = _window;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+
 @synthesize mainView;
+@synthesize navigator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSDictionary *defaults = [NSDictionary dictionaryWithObjectsAndKeys: 
+                              [NSNumber numberWithBool:NO], 
+                              kUseCustomRandom, nil];
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+    
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.mainView = [[ViewController alloc] initWithStyle:UITableViewStylePlain];
+    self.navigator = [[UINavigationController alloc] initWithRootViewController:self.mainView];
+    self.window.rootViewController = self.navigator;
+    self.navigator.topViewController.title = @"Table";
     [self.window addSubview:self.mainView.view];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
