@@ -82,11 +82,44 @@
     return self.button;
 }
 
+- (NSNumber *)randFromSite
+{
+    NSNumber* num = [NSNumber numberWithInt:0];
+    
+    // request
+    NSString* urlStr = @"http://www.random.org/integers/?num=1&min=1&max=100&col=1&base=10&format=plain&rnd=new";
+    NSURL* url = [NSURL URLWithString:urlStr];
+    NSURLRequest* req = [[NSURLRequest alloc] initWithURL:url];
+    
+    NSData* data = [NSURLConnection sendSynchronousRequest:req  returningResponse:nil error:nil];
+    if (data) 
+    {
+        NSString* st = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        st = [st substringToIndex:[st length]-1]; // remove \n in the end
+        
+        // NSString -> NSNumber
+        NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+        [f setNumberStyle:NSNumberFormatterDecimalStyle];
+        num = [f numberFromString:st];
+    }
+    return num;
+}
+
 - (void)addLine:(id)sender 
 {
     MyEntity* entity = [NSEntityDescription insertNewObjectForEntityForName:@"MyEntity" inManagedObjectContext:self.context];
+    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    if( [defaults boolForKey:kUseCustomRandom] )
+    {
+        entity.number = [self randFromSite];
+    }
+    else
+    {
+        entity.number = [NSNumber numberWithInt:rand()];
 
-    entity.number = [NSNumber numberWithInt:rand()];
+    }
+    
     entity.date = [NSDate date];
     
     [self.context save:nil];
