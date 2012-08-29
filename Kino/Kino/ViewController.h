@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UITableViewController <UITableViewDataSource>
+@interface ViewController : UITableViewController <UITableViewDataSource,NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) NSArray* list;
 @property (strong, nonatomic) UIButton* button;
 @property (strong, nonatomic) UITapGestureRecognizer* tap;
+@property (strong, nonatomic) NSFetchedResultsController* fetchedResultsController;
 
 @end

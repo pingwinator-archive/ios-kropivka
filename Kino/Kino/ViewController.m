@@ -16,6 +16,7 @@
 @synthesize list;
 @synthesize button;
 @synthesize tap;
+@synthesize fetchedResultsController;
 
 #pragma mark - View lifecycle
 - (void)viewDidLoad
@@ -23,61 +24,44 @@
     [super viewDidLoad];
     self.list = [[NSArray alloc] init];
     
+    // INIT
+    
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate]; 
     NSManagedObjectContext *context = [appDelegate managedObjectContext]; 
     
-    NSEntityDescription *entityDescription = 
-    [NSEntityDescription entityForName:NSStringFromClass([MyEntity class]) 
-                inManagedObjectContext:context];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:NSStringFromClass([MyEntity class])
+                                                         inManagedObjectContext:context];
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init]; //initWithEntityName
+    fetchRequest.entity = entityDescription;
+    fetchRequest.sortDescriptors = [[NSArray alloc] initWithArray:nil];
+    // FRC initialize
     
-    //NSPredicate *pred = [NSPredicate predicateWithFormat:@"(lineNum = %d)", i];
-    
-    [request setEntity:entityDescription];
-    NSError *error; 
-    NSArray *objects = [context executeFetchRequest:request error:&error]; 
-    
-    if ( objects == nil ) {
-        NSLog(@"There was an error!"); // Do whatever error handling is appropriate
-    } else {
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
+                                                                        managedObjectContext:context 
+                                                                          sectionNameKeyPath:nil 
+                                                                                   cacheName:@"Root"];
+    self.fetchedResultsController.delegate = self; 
+    NSError *error;
+    BOOL success = [self.fetchedResultsController performFetch:&error];
         
-        if ([objects count] > 0) 
-            self.list = objects;
-        else
-        {
-            //for (int i = 0; i < 8; ++i) {
-
-            MyEntity* entity = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass([MyEntity class]) inManagedObjectContext:context];
-            
-            entity.number = [[NSNumber alloc] initWithInt:rand()];
-            entity.date = [NSDate date];
-            
-            [context save:&error];
-                
-            //}
-        }
-    }
-    
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addLine:)];
     self.tap.numberOfTapsRequired = 3;
     [self.view addGestureRecognizer:self.tap];
     
-    
-//    self.button = [UIButton buttonWithType:UIButtonTypeContactAdd];
-//    [self.button addTarget:self action:@selector(addItem:) 
-//          forControlEvents:UIControlEventTouchUpInside];
-//   
-    
+    self.button = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    [self.button addTarget:self action:@selector(addLine:) 
+          forControlEvents:UIControlEventTouchUpInside];
 }
 
-//-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    return self.button;
-//}
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    return self.button;
+}
 
 - (void)addLine:(id)sender {
-    NSLog(@"Tap recognized");
+    NSLog(@"Tap recognized or button pressed");
+
 }
 
 - (void)viewDidUnload
@@ -87,9 +71,14 @@
 
 #pragma mark - UITableViewDataSource
 
+//- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView 
+//{
+//    return [[self.fetchedResultsController sections] count];
+//}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.list count];
+    return [[self.fetchedResultsController fetchedObjects] count]; 
 }
 
 // Customize the appearance of table view cells.
@@ -106,9 +95,11 @@
     
     // Configure the cell.
 
-    MyEntity * entity = [self.list objectAtIndex:[indexPath row]];
+    MyEntity * entity = (MyEntity*)[fetchedResultsController objectAtIndexPath:indexPath];
+    
     cell.textLabel.text = [entity.number stringValue];
     cell.detailTextLabel.text = [entity.date description];
+    
     return cell;
 }
 
