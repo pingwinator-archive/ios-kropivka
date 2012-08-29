@@ -18,27 +18,25 @@
 @synthesize tap;
 @synthesize fetchedResultsController;
 
-#pragma mark - View lifecycle
+
 - (NSManagedObjectContext *)context
 {
-    // INIT
-    
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate]; 
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    return context;
+    return appDelegate.managedObjectContext;
 }
+
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.list = [[NSArray alloc] init];
     
-    NSManagedObjectContext *context = [self context]; 
-    
+    NSManagedObjectContext *context = self.context; 
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:NSStringFromClass([MyEntity class])
                                                          inManagedObjectContext:context];
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init]; //initWithEntityName
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = entityDescription;
     fetchRequest.sortDescriptors = [[NSArray alloc] initWithArray:nil];
     
@@ -55,13 +53,14 @@
         NSLog(@"performFetch faild");
     }
     
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addLine:)];
+    // ADD user interaction
+    
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deleteLine:)];
     self.tap.numberOfTapsRequired = 3;
     [self.view addGestureRecognizer:self.tap];
     
     self.button = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    [self.button addTarget:self action:@selector(addLine:) 
-          forControlEvents:UIControlEventTouchUpInside];
+    [self.button addTarget:self action:@selector(addLine:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -71,12 +70,19 @@
 
 - (void)addLine:(id)sender 
 {
-    MyEntity* entity = [NSEntityDescription insertNewObjectForEntityForName:@"MyEntity" inManagedObjectContext:[self context]];
+    MyEntity* entity = [NSEntityDescription insertNewObjectForEntityForName:@"MyEntity" inManagedObjectContext:self.context];
 
     entity.number = [NSNumber numberWithInt:rand()];
     entity.date = [NSDate date];
     
-    [[self context] save:nil];
+    [self.context save:nil];
+}
+
+- (void)deleteLine:(id)sender 
+{
+    id obj = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    [self.context deleteObject:obj];
+    [self.context save:nil];
 }
 
 - (void)viewDidUnload
@@ -86,6 +92,11 @@
 
 
 #pragma mark - UITableViewDataSource
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -104,8 +115,7 @@
     }
     
     // Configure the cell.
-
-    MyEntity * entity = (MyEntity*)[fetchedResultsController objectAtIndexPath:indexPath];
+    MyEntity* entity = (MyEntity*)[fetchedResultsController objectAtIndexPath:indexPath];
     
     cell.textLabel.text = [entity.number stringValue];
     cell.detailTextLabel.text = [entity.date description];
@@ -115,7 +125,8 @@
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
--(void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+-(void)controllerWillChangeContent:(NSFetchedResultsController *)controller 
+{
     [self.tableView beginUpdates];
 }
 
@@ -127,6 +138,7 @@
                                   withRowAnimation:UITableViewRowAnimationTop];
             break;
         case NSFetchedResultsChangeUpdate:
+            //TODO
             break;
             
         case NSFetchedResultsChangeDelete:
@@ -146,7 +158,8 @@
     }
 }
 
--(void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+-(void)controllerDidChangeContent:(NSFetchedResultsController *)controller 
+{
     [self.tableView endUpdates];
 }
 
