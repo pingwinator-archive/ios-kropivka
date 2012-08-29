@@ -19,15 +19,21 @@
 @synthesize fetchedResultsController;
 
 #pragma mark - View lifecycle
+- (NSManagedObjectContext *)context
+{
+    // INIT
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate]; 
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    return context;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.list = [[NSArray alloc] init];
     
-    // INIT
-    
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate]; 
-    NSManagedObjectContext *context = [appDelegate managedObjectContext]; 
+    NSManagedObjectContext *context = [self context]; 
     
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:NSStringFromClass([MyEntity class])
                                                          inManagedObjectContext:context];
@@ -35,6 +41,7 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init]; //initWithEntityName
     fetchRequest.entity = entityDescription;
     fetchRequest.sortDescriptors = [[NSArray alloc] initWithArray:nil];
+    
     // FRC initialize
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
@@ -44,7 +51,10 @@
     self.fetchedResultsController.delegate = self; 
     NSError *error;
     BOOL success = [self.fetchedResultsController performFetch:&error];
-        
+    if (!success) {
+        NSLog(@"performFetch faild");
+    }
+    
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addLine:)];
     self.tap.numberOfTapsRequired = 3;
     [self.view addGestureRecognizer:self.tap];
@@ -59,9 +69,14 @@
     return self.button;
 }
 
-- (void)addLine:(id)sender {
-    NSLog(@"Tap recognized or button pressed");
+- (void)addLine:(id)sender 
+{
+    MyEntity* entity = [NSEntityDescription insertNewObjectForEntityForName:@"MyEntity" inManagedObjectContext:[self context]];
 
+    entity.number = [NSNumber numberWithInt:rand()];
+    entity.date = [NSDate date];
+    
+    [[self context] save:nil];
 }
 
 - (void)viewDidUnload
@@ -69,19 +84,14 @@
     [super viewDidUnload];
 }
 
-#pragma mark - UITableViewDataSource
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView 
-//{
-//    return [[self.fetchedResultsController sections] count];
-//}
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [[self.fetchedResultsController fetchedObjects] count]; 
 }
 
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -103,5 +113,50 @@
     return cell;
 }
 
+#pragma mark - NSFetchedResultsControllerDelegate
+
+-(void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+-(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath 
+{
+    switch (type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] 
+                                  withRowAnimation:UITableViewRowAnimationTop];
+            break;
+        case NSFetchedResultsChangeUpdate:
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                                  withRowAnimation:UITableViewRowAnimationBottom];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                                  withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+                                  withRowAnimation:UITableViewRowAnimationNone];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
 
 @end
+
+
+
+
+
+
+
+
+
