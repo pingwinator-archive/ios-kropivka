@@ -8,65 +8,50 @@
 
 #import "GalochkaGestureRecognizer.h"
 
+#import "CGPointUtils.h"
+
+
+#define kMinimumCheckMarkAngle	50 
+#define kMaximumCheckMarkAngle	135 
+#define kMinimumCheckMarkLength	10
+
 @implementation GalochkaGestureRecognizer
 
 @synthesize state;
-@synthesize midPoint;
-@synthesize strokeUp;
+
+@synthesize lastPreviousPoint; 
+@synthesize lastCurrentPoint; 
+@synthesize lineLengthSoFar;
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //[super touchesBegan:touches withEvent:event];
     NSLog(@"touchesBegan");
-    if ([touches count] != 1) {
-        self.state = UIGestureRecognizerStateFailed;
-        return;
-    }
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self.view]; 
+    lastPreviousPoint = point; 
+    lastCurrentPoint = point; 
+    lineLengthSoFar = 0.0f;
 }
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     //[super touchesMoved:touches withEvent:event];
     NSLog(@"touchesMoved");
-    if (self.state == UIGestureRecognizerStateFailed) return;
-    CGPoint nowPoint = [[touches anyObject] locationInView:self.view];
-    CGPoint prevPoint = [[touches anyObject] previousLocationInView:self.view];
-    if (!strokeUp) {
-        // on downstroke, both x and y increase in positive direction
-        if (nowPoint.x >= prevPoint.x && nowPoint.y >= prevPoint.y) {
-            self.midPoint = nowPoint;
-            // upstroke has increasing x value but decreasing y value
-        } else if (nowPoint.x >= prevPoint.x && nowPoint.y <= prevPoint.y) {
-            strokeUp = YES;
-        } else {
-            self.state = UIGestureRecognizerStateFailed;
-        }
-    }
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    //[super touchesEnded:touches withEvent:event];
-    NSLog(@"touchesEnded");
-    if ((self.state == UIGestureRecognizerStatePossible) && strokeUp) {
+    UITouch *touch = [touches anyObject]; 
+    CGPoint previousPoint = [touch previousLocationInView:self.view]; 
+    CGPoint currentPoint = [touch locationInView:self.view];
+    
+    
+    CGFloat angle = angleBetweenLines(lastPreviousPoint, lastCurrentPoint, previousPoint, currentPoint);
+    if (angle >= kMinimumCheckMarkAngle && angle <= kMaximumCheckMarkAngle
+        && lineLengthSoFar > kMinimumCheckMarkLength) { 
         self.state = UIGestureRecognizerStateEnded;
-        [self reset];
     }
-}
-     
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    //[super touchesCancelled:touches withEvent:event];
-    NSLog(@"touchesCancelled");
-    self.midPoint = CGPointZero;
-    strokeUp = NO;
-    self.state = UIGestureRecognizerStateFailed;
+    lineLengthSoFar += distanceBetweenPoints(previousPoint, currentPoint); 
+    lastPreviousPoint = previousPoint; 
+    lastCurrentPoint = currentPoint;
 }
 
-- (void)reset
-{
-    //[super reset];
-    self.midPoint = CGPointZero;
-    strokeUp = NO;
-}
 @end

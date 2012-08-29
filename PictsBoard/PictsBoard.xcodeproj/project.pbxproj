@@ -18,6 +18,7 @@
 		461A776D15E64B1E0091EE3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A776C15E64B1E0091EE3E /* ViewController.m */; };
 		461A777015E64B1E0091EE3E /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 461A776E15E64B1E0091EE3E /* ViewController.xib */; };
 		461A777815E64E4A0091EE3E /* pict1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 461A777715E64E4A0091EE3E /* pict1.jpeg */; };
+		4636F3E615EDEA7300C01389 /* CGPointUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 4636F3E515EDEA7300C01389 /* CGPointUtils.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		461A776C15E64B1E0091EE3E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		461A776F15E64B1E0091EE3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		461A777715E64E4A0091EE3E /* pict1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pict1.jpeg; sourceTree = "<group>"; };
+		4636F3E415EDEA7300C01389 /* CGPointUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGPointUtils.h; sourceTree = "<group>"; };
+		4636F3E515EDEA7300C01389 /* CGPointUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CGPointUtils.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,8 @@
 		461A775F15E64B1E0091EE3E /* PictsBoard */ = {
 			isa = PBXGroup;
 			children = (
+				4636F3E415EDEA7300C01389 /* CGPointUtils.h */,
+				4636F3E515EDEA7300C01389 /* CGPointUtils.c */,
 				461A777615E64E370091EE3E /* Resources */,
 				461A776815E64B1E0091EE3E /* AppDelegate.h */,
 				461A776915E64B1E0091EE3E /* AppDelegate.m */,
@@ -187,6 +192,7 @@
 				461A776D15E64B1E0091EE3E /* ViewController.m in Sources */,
 				460FE69115EB824D00F05FD4 /* MovingImageView.m in Sources */,
 				460FE69515EBBABF00F05FD4 /* GalochkaGestureRecognizer.m in Sources */,
+				4636F3E615EDEA7300C01389 /* CGPointUtils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

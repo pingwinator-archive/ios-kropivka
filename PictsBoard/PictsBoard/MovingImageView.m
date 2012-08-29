@@ -64,6 +64,7 @@
         self.pan = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease];
         self.pan.minimumNumberOfTouches = 2;
         self.pan.maximumNumberOfTouches = 2;
+        
         self.pan.delegate = self;
         [self addGestureRecognizer:self.pan];
         

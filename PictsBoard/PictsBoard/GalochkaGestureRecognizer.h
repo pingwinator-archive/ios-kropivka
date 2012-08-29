@@ -13,12 +13,8 @@
 
 @property (nonatomic,assign) UIGestureRecognizerState state;
 
-@property (nonatomic,assign) BOOL strokeUp;
-@property (nonatomic,assign) CGPoint midPoint;
+@property (assign, nonatomic) CGPoint lastPreviousPoint; 
+@property (assign, nonatomic) CGPoint lastCurrentPoint; 
+@property (assign, nonatomic) CGFloat lineLengthSoFar; 
 
-- (void)reset;
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event;
 @end
