@@ -35,7 +35,6 @@
     NSManagedObjectContext *context = self.context; 
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:NSStringFromClass([MyEntity class])
                                                          inManagedObjectContext:context];
-    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = entityDescription;
     fetchRequest.sortDescriptors = [[NSArray alloc] initWithArray:nil];
@@ -81,8 +80,10 @@
 - (void)deleteLine:(id)sender 
 {
     id obj = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    [self.context deleteObject:obj];
-    [self.context save:nil];
+    if (obj) {
+        [self.context deleteObject:obj];
+        [self.context save:nil];
+    }
 }
 
 - (void)viewDidUnload

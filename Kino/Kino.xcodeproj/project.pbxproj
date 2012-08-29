@@ -17,6 +17,7 @@
 		460F1D9D15ED04DE0032B73B /* Kino.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 460F1D9B15ED04DE0032B73B /* Kino.xcdatamodeld */; };
 		460F1DA515ED04F50032B73B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 460F1DA415ED04F50032B73B /* ViewController.m */; };
 		460F1DAC15ED08310032B73B /* MyEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 460F1DAB15ED08310032B73B /* MyEntity.m */; };
+		4636F3F815EE2D2A00C01389 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4636F3F715EE2D2A00C01389 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		460F1DA415ED04F50032B73B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		460F1DAA15ED08310032B73B /* MyEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEntity.h; sourceTree = "<group>"; };
 		460F1DAB15ED08310032B73B /* MyEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEntity.m; sourceTree = "<group>"; };
+		4636F3F715EE2D2A00C01389 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				460F1DAA15ED08310032B73B /* MyEntity.h */,
 				460F1DAB15ED08310032B73B /* MyEntity.m */,
 				460F1D9015ED04DE0032B73B /* Supporting Files */,
+				4636F3F715EE2D2A00C01389 /* Settings.bundle */,
 			);
 			path = Kino;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				460F1D9415ED04DE0032B73B /* InfoPlist.strings in Resources */,
+				4636F3F815EE2D2A00C01389 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +284,7 @@
 				460F1DA215ED04DE0032B73B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
