@@ -35,6 +35,7 @@
     self.navigator = [[UINavigationController alloc] initWithRootViewController:self.mainView];
     self.window.rootViewController = self.navigator;
     self.navigator.topViewController.title = @"Table";
+
     [self.window addSubview:self.mainView.view];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

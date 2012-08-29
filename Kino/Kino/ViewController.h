@@ -10,7 +10,7 @@
 
 @interface ViewController : UITableViewController <UITableViewDataSource,NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) UIButton* button;
+@property (strong, nonatomic) UIBarButtonItem* button;
 @property (strong, nonatomic) UIButton* buttonJump;
 
 @property (strong, nonatomic) UITapGestureRecognizer* tap;

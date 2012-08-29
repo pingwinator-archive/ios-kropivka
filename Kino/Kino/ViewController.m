@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "MyEntity.h"
+#import "MyEntity+Helper.h"
 #import "AppDelegate.h"
 #import "SettingsViewController.h"
 
@@ -53,17 +53,21 @@
     
     // ADD user interaction
     
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deleteLine:)];
-    self.tap.numberOfTapsRequired = 3;
-    [self.view addGestureRecognizer:self.tap];
+    //self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(deleteLine:)];
+    //self.tap.numberOfTapsRequired = 3;
+    //[self.view addGestureRecognizer:self.tap];
     
-    self.button = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    [self.button addTarget:self action:@selector(addLine:) forControlEvents:UIControlEventTouchUpInside];
-    
+    self.button = [[UIBarButtonItem alloc]
+            initWithTitle:@"ADD"
+                    style:UIBarButtonItemStylePlain
+                   target:self
+                   action:@selector(addLine:)];
+
+    self.navigationController.topViewController.navigationItem.rightBarButtonItem = self.button;
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+
     self.buttonJump = [UIButton buttonWithType:UIButtonTypeInfoDark];
-    //[self.buttonJump  setTitle:@"2342" forState:UIControlStateNormal];
     [self.buttonJump addTarget:self action:@selector(showSettings:) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 
 - (void)showSettings:(id)sender 
@@ -76,11 +80,11 @@
 {
     return self.buttonJump;
 }
-
--(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return self.button;
+    return 44;
 }
+
 
 - (NSNumber *)randFromSite
 {
@@ -107,8 +111,8 @@
 
 - (void)addLine:(id)sender 
 {
-    MyEntity* entity = [NSEntityDescription insertNewObjectForEntityForName:@"MyEntity" inManagedObjectContext:self.context];
-    
+    MyEntity* entity = [MyEntity entityWithContext:self.context];
+
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     if( [defaults boolForKey:kUseCustomRandom] )
     {
@@ -117,21 +121,11 @@
     else
     {
         entity.number = [NSNumber numberWithInt:rand()];
-
     }
     
     entity.date = [NSDate date];
     
     [self.context save:nil];
-}
-
-- (void)deleteLine:(id)sender 
-{
-    id obj = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForSelectedRow]];
-    if (obj) {
-        [self.context deleteObject:obj];
-        [self.context save:nil];
-    }
 }
 
 - (void)viewDidUnload
@@ -165,6 +159,19 @@
     cell.detailTextLabel.text = [entity.date description];
     
     return cell;
+}
+- (void) tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete )
+    {
+        id obj = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        if (obj) {
+            [self.context deleteObject:obj];
+            [self.context save:nil];
+        }
+    }
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

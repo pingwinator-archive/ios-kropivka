@@ -20,6 +20,7 @@
 		4636F3F815EE2D2A00C01389 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4636F3F715EE2D2A00C01389 /* Settings.bundle */; };
 		46E9D1A215EE34A500E90D57 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E9D1A015EE34A500E90D57 /* SettingsViewController.m */; };
 		46E9D1A315EE34A500E90D57 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46E9D1A115EE34A500E90D57 /* SettingsViewController.xib */; };
+		D39777FCF2CC8B7714FDBAD8 /* MyEntity+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D39779637D94815AF361D128 /* MyEntity+Helper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,8 @@
 		46E9D19F15EE34A400E90D57 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		46E9D1A015EE34A500E90D57 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		46E9D1A115EE34A500E90D57 /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		D39776E144363F46D163C19B /* MyEntity+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MyEntity+Helper.h"; sourceTree = "<group>"; };
+		D39779637D94815AF361D128 /* MyEntity+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MyEntity+Helper.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +94,8 @@
 		460F1D8F15ED04DE0032B73B /* Kino */ = {
 			isa = PBXGroup;
 			children = (
+				D39776E144363F46D163C19B /* MyEntity+Helper.h */,
+				D39779637D94815AF361D128 /* MyEntity+Helper.m */,
 				460F1D9815ED04DE0032B73B /* AppDelegate.h */,
 				460F1DA315ED04F50032B73B /* ViewController.h */,
 				460F1DA415ED04F50032B73B /* ViewController.m */,
@@ -187,6 +192,7 @@
 				460F1DA515ED04F50032B73B /* ViewController.m in Sources */,
 				460F1DAC15ED08310032B73B /* MyEntity.m in Sources */,
 				46E9D1A215EE34A500E90D57 /* SettingsViewController.m in Sources */,
+				D39777FCF2CC8B7714FDBAD8 /* MyEntity+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +231,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -245,7 +251,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
