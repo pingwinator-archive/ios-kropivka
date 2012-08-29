@@ -17,7 +17,6 @@
 @synthesize buttonJump;
 @synthesize fetchedResultsController;
 
-
 - (NSManagedObjectContext *)context
 {
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
@@ -66,13 +65,9 @@
 
 - (void)showSettings:(id)sender 
 {
-
     SettingsViewController* view = [[SettingsViewController alloc] init];
-    //[self.navigationController pushViewController:view animated:YES];
-
     view.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:view animated:YES];
-
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section

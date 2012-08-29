@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingsViewController : UIViewController
+
 @property (strong, nonatomic) IBOutlet UISwitch *customRand;
+
 - (IBAction)switchChanged:(id)sender;
 - (IBAction)goBack:(id)sender;
 

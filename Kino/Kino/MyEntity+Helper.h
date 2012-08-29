@@ -9,5 +9,7 @@
 #import "MyEntity.h"
 
 @interface MyEntity (Helper)
+
 + (id)entityWithContext:(NSManagedObjectContext *)context;
+
 @end

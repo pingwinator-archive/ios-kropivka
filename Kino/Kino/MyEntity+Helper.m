@@ -9,7 +9,10 @@
 
 
 @implementation MyEntity (Helper)
-+ (id)entityWithContext:(NSManagedObjectContext *)context {
+
++ (id)entityWithContext:(NSManagedObjectContext *)context 
+{
     return [NSEntityDescription insertNewObjectForEntityForName:@"MyEntity" inManagedObjectContext:context];
 }
+
 @end

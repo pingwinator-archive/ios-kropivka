@@ -29,8 +29,8 @@
     self.customRand.on = [defaults boolForKey:kUseCustomRandom];
 }
 
-
-- (void)applicationWillEnterForeground:(NSNotification *)notification { 
+- (void)applicationWillEnterForeground:(NSNotification *)notification 
+{ 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
     [defaults synchronize]; 
     [self refreshFields];
@@ -67,7 +67,6 @@
     [defaults setBool:self.customRand.on forKey:kUseCustomRandom];
     [defaults synchronize];
 }
-
 
 - (IBAction)goBack:(id)sender
 {

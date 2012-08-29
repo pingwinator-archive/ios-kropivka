@@ -14,4 +14,5 @@
 
 @property (nonatomic, retain) NSNumber * number;
 @property (nonatomic, retain) NSDate * date;
+
 @end
