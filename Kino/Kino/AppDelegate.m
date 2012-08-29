@@ -15,13 +15,14 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize mainView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    ViewController *view = [[ViewController alloc] initWithStyle:UITableViewStylePlain];
-    [self.window addSubview:view.view];
+    self.mainView = [[ViewController alloc] initWithStyle:UITableViewStylePlain];
+    [self.window addSubview:self.mainView.view];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

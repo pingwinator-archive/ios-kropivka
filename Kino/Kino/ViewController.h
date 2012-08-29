@@ -11,5 +11,7 @@
 @interface ViewController : UITableViewController <UITableViewDataSource>
 
 @property (strong, nonatomic) NSArray* list;
+@property (strong, nonatomic) UIButton* button;
+@property (strong, nonatomic) UITapGestureRecognizer* tap;
 
 @end

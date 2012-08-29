@@ -14,6 +14,8 @@
 @implementation ViewController
 
 @synthesize list;
+@synthesize button;
+@synthesize tap;
 
 #pragma mark - View lifecycle
 - (void)viewDidLoad
@@ -24,8 +26,9 @@
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate]; 
     NSManagedObjectContext *context = [appDelegate managedObjectContext]; 
     
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:NSStringFromClass([MyEntity class]) 
-                                                         inManagedObjectContext:context];
+    NSEntityDescription *entityDescription = 
+    [NSEntityDescription entityForName:NSStringFromClass([MyEntity class]) 
+                inManagedObjectContext:context];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     
@@ -38,7 +41,6 @@
     if ( objects == nil ) {
         NSLog(@"There was an error!"); // Do whatever error handling is appropriate
     } else {
-        
         
         if ([objects count] > 0) 
             self.list = objects;
@@ -57,6 +59,25 @@
         }
     }
     
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addLine:)];
+    self.tap.numberOfTapsRequired = 3;
+    [self.view addGestureRecognizer:self.tap];
+    
+    
+//    self.button = [UIButton buttonWithType:UIButtonTypeContactAdd];
+//    [self.button addTarget:self action:@selector(addItem:) 
+//          forControlEvents:UIControlEventTouchUpInside];
+//   
+    
+}
+
+//-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    return self.button;
+//}
+
+- (void)addLine:(id)sender {
+    NSLog(@"Tap recognized");
 }
 
 - (void)viewDidUnload
