@@ -15,7 +15,6 @@
 
 @synthesize button;
 @synthesize buttonJump;
-@synthesize tap;
 @synthesize fetchedResultsController;
 
 
@@ -85,7 +84,6 @@
 {
     return 44;
 }
-
 
 - (NSNumber *)randFromSite
 {
