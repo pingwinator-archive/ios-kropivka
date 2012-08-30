@@ -15,4 +15,10 @@
     return [NSEntityDescription insertNewObjectForEntityForName:@"MyEntity" inManagedObjectContext:context];
 }
 
+- (void)removeWithContext:(NSManagedObjectContext*)context {
+    if (self) {
+        [context deleteObject:self];
+        [context save:nil];
+    }
+}
 @end

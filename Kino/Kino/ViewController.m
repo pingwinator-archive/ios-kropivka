@@ -154,6 +154,7 @@
     
     return cell;
 }
+
 - (void) tableView:(UITableView *)tableView
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -161,10 +162,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     if (editingStyle == UITableViewCellEditingStyleDelete )
     {
         id obj = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        if (obj) {
-            [self.context deleteObject:obj];
-            [self.context save:nil];
-        }
+        [obj removeWithContext:self.context];
     }
 }
 
