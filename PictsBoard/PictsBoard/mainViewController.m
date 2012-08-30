@@ -8,13 +8,14 @@
 
 #import "mainViewController.h"
 #import "MovingImageView.h"
+
 #import "QuartzCore/QuartzCore.h"
+
 
 @implementation mainViewController
 
+@synthesize images;
 
-
-@synthesize img;
 @synthesize topBar;
 @synthesize imagesView;
 @synthesize addButton;
@@ -27,6 +28,9 @@
     [self setImagesView:nil];
     [self setAddButton:nil];
     [self setSlider:nil];
+    
+    self.images = nil;
+    
     [super viewDidUnload];
 }
 
@@ -34,13 +38,18 @@
     UIImage* img1 = [UIImage imageNamed:@"pict1.jpeg"];
     MovingImageView* imgView = [[[MovingImageView alloc] initWithImage:img1] autorelease];
     [self.imagesView addSubview:imgView];
+    [self.images addObject:imgView];
+    
+    imgView.layer.masksToBounds = YES;
+    imgView.layer.borderColor = [UIColor blackColor].CGColor;
+    imgView.layer.borderWidth = 4;
 }
 
 - (void) viewDidLoad
 {
     [super viewDidLoad];
-
     
+    self.images = [[[NSMutableArray alloc] init] autorelease];
 }
 
 - (void)dealloc {

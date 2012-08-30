@@ -19,12 +19,11 @@
 
 @implementation MovingImageView
 
-@synthesize angle;
-@synthesize position;
 @synthesize rotation;
 @synthesize pinch;
 @synthesize pan;
 @synthesize galochka;
+@synthesize tap;
 
 @synthesize activeRecognizers;
 @synthesize referenceTransform;
@@ -33,6 +32,7 @@
     self.rotation = nil;
     self.pinch = nil;
     self.pan = nil;
+    self.tap = nil;
     self.galochka = nil;
     
     self.activeRecognizers = nil;
@@ -45,13 +45,10 @@
     self = [super initWithImage:image];
     
     if (self) {
-        self.angle = 0;
-        
+
         self.userInteractionEnabled = YES;
         self.multipleTouchEnabled = YES;
-        
-        self.position = CGPointMake( self.frame.origin.x, self.frame.origin.y );
-        
+
         self.rotation = [[[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease]; 
         self.rotation.delegate = self;
         [self addGestureRecognizer:self.rotation];
@@ -63,9 +60,14 @@
         self.pan = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease];
         self.pan.minimumNumberOfTouches = 2;
         self.pan.maximumNumberOfTouches = 2;
-        
         self.pan.delegate = self;
         [self addGestureRecognizer:self.pan];
+        
+        
+        self.tap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease];
+        self.tap.delegate = self;
+        [self addGestureRecognizer:self.tap];
+        
     if(0){
         self.galochka = [[[GalochkaGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestureGalochka:)]autorelease];
         self.galochka.delegate = self;
@@ -128,6 +130,14 @@
     {
         CGPoint point = [(UIPanGestureRecognizer*)recognizer translationInView:self];
         return CGAffineTransformTranslate(transform, point.x, point.y);  
+    }
+    else if( [recognizer isKindOfClass:[UITapGestureRecognizer class]])
+    {
+        NSLog(@"Tap....");
+        
+        [self.superview bringSubviewToFront:self];
+        
+        return transform;  
     }
     else if( [recognizer isKindOfClass:[GalochkaGestureRecognizer class]] )
     {

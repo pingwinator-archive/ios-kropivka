@@ -10,7 +10,10 @@
 
 @interface mainViewController : UIViewController
 
-@property (nonatomic, assign) UIImageView* img;
+
+@property (retain, nonatomic) NSMutableArray *images;
+
+
 @property (retain, nonatomic) IBOutlet UIView *topBar;
 @property (retain, nonatomic) IBOutlet UIView *imagesView;
 @property (retain, nonatomic) IBOutlet UIButton *addButton;

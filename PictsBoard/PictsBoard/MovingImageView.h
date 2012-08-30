@@ -12,15 +12,16 @@
 
 @interface MovingImageView : UIImageView
 
-@property (nonatomic, assign) CGFloat angle;
-@property (nonatomic, assign) CGPoint position;
-
 @property (nonatomic, retain) UIRotationGestureRecognizer* rotation;
 @property (nonatomic, retain) UIPinchGestureRecognizer* pinch;
 @property (nonatomic, retain) UIPanGestureRecognizer* pan;
+@property (nonatomic, retain) UITapGestureRecognizer* tap;
+
 @property (nonatomic, retain) GalochkaGestureRecognizer* galochka;
 
 - (IBAction)handleGesture:(UIGestureRecognizer *)recognizer;
 - (CGAffineTransform)applyRecognizer:(UIGestureRecognizer *)recognizer toTransform:(CGAffineTransform)transform;
+
+
 
 @end
