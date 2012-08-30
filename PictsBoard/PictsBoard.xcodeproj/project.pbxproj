@@ -15,10 +15,10 @@
 		461A776415E64B1E0091EE3E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 461A776215E64B1E0091EE3E /* InfoPlist.strings */; };
 		461A776615E64B1E0091EE3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A776515E64B1E0091EE3E /* main.m */; };
 		461A776A15E64B1E0091EE3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A776915E64B1E0091EE3E /* AppDelegate.m */; };
-		461A776D15E64B1E0091EE3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 461A776C15E64B1E0091EE3E /* ViewController.m */; };
-		461A777015E64B1E0091EE3E /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 461A776E15E64B1E0091EE3E /* ViewController.xib */; };
 		461A777815E64E4A0091EE3E /* pict1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 461A777715E64E4A0091EE3E /* pict1.jpeg */; };
 		4636F3E615EDEA7300C01389 /* CGPointUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 4636F3E515EDEA7300C01389 /* CGPointUtils.c */; };
+		46FFE52E15EF87EF00FCB6E5 /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46FFE52C15EF87EF00FCB6E5 /* mainViewController.m */; };
+		46FFE52F15EF87EF00FCB6E5 /* mainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46FFE52D15EF87EF00FCB6E5 /* mainViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,12 +36,12 @@
 		461A776715E64B1E0091EE3E /* PictsBoard-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PictsBoard-Prefix.pch"; sourceTree = "<group>"; };
 		461A776815E64B1E0091EE3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		461A776915E64B1E0091EE3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		461A776B15E64B1E0091EE3E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		461A776C15E64B1E0091EE3E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		461A776F15E64B1E0091EE3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		461A777715E64E4A0091EE3E /* pict1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pict1.jpeg; sourceTree = "<group>"; };
 		4636F3E415EDEA7300C01389 /* CGPointUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGPointUtils.h; sourceTree = "<group>"; };
 		4636F3E515EDEA7300C01389 /* CGPointUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CGPointUtils.c; sourceTree = "<group>"; };
+		46FFE52B15EF87EF00FCB6E5 /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
+		46FFE52C15EF87EF00FCB6E5 /* mainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainViewController.m; sourceTree = "<group>"; };
+		46FFE52D15EF87EF00FCB6E5 /* mainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mainViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,14 +93,14 @@
 				461A777615E64E370091EE3E /* Resources */,
 				461A776815E64B1E0091EE3E /* AppDelegate.h */,
 				461A776915E64B1E0091EE3E /* AppDelegate.m */,
-				461A776B15E64B1E0091EE3E /* ViewController.h */,
-				461A776C15E64B1E0091EE3E /* ViewController.m */,
-				461A776E15E64B1E0091EE3E /* ViewController.xib */,
 				461A776015E64B1E0091EE3E /* Supporting Files */,
 				460FE68F15EB824D00F05FD4 /* MovingImageView.h */,
 				460FE69015EB824D00F05FD4 /* MovingImageView.m */,
 				460FE69315EBBABE00F05FD4 /* GalochkaGestureRecognizer.h */,
 				460FE69415EBBABF00F05FD4 /* GalochkaGestureRecognizer.m */,
+				46FFE52B15EF87EF00FCB6E5 /* mainViewController.h */,
+				46FFE52C15EF87EF00FCB6E5 /* mainViewController.m */,
+				46FFE52D15EF87EF00FCB6E5 /* mainViewController.xib */,
 			);
 			path = PictsBoard;
 			sourceTree = "<group>";
@@ -175,8 +175,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				461A776415E64B1E0091EE3E /* InfoPlist.strings in Resources */,
-				461A777015E64B1E0091EE3E /* ViewController.xib in Resources */,
 				461A777815E64E4A0091EE3E /* pict1.jpeg in Resources */,
+				46FFE52F15EF87EF00FCB6E5 /* mainViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,10 +189,10 @@
 			files = (
 				461A776615E64B1E0091EE3E /* main.m in Sources */,
 				461A776A15E64B1E0091EE3E /* AppDelegate.m in Sources */,
-				461A776D15E64B1E0091EE3E /* ViewController.m in Sources */,
 				460FE69115EB824D00F05FD4 /* MovingImageView.m in Sources */,
 				460FE69515EBBABF00F05FD4 /* GalochkaGestureRecognizer.m in Sources */,
 				4636F3E615EDEA7300C01389 /* CGPointUtils.c in Sources */,
+				46FFE52E15EF87EF00FCB6E5 /* mainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,14 +205,6 @@
 				461A776315E64B1E0091EE3E /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		461A776E15E64B1E0091EE3E /* ViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				461A776F15E64B1E0091EE3E /* en */,
-			);
-			name = ViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -238,7 +230,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -257,7 +249,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};

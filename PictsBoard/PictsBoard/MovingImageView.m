@@ -11,15 +11,14 @@
 
 @interface MovingImageView ()<UIGestureRecognizerDelegate>
 
-@property (nonatomic,assign) NSMutableSet* activeRecognizers;
-@property (nonatomic,assign) CGAffineTransform referenceTransform;
+@property (nonatomic, retain) NSMutableSet* activeRecognizers;
+@property (nonatomic, assign) CGAffineTransform referenceTransform;
 
 @end
 
 
 @implementation MovingImageView
 
-@synthesize distance;
 @synthesize angle;
 @synthesize position;
 @synthesize rotation;
@@ -36,8 +35,8 @@
     self.pan = nil;
     self.galochka = nil;
     
-    [activeRecognizers release], activeRecognizers = nil;
-    
+    self.activeRecognizers = nil;
+
     [super dealloc];
 }
 
@@ -67,11 +66,11 @@
         
         self.pan.delegate = self;
         [self addGestureRecognizer:self.pan];
-        
+    if(0){
         self.galochka = [[[GalochkaGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestureGalochka:)]autorelease];
         self.galochka.delegate = self;
         [self addGestureRecognizer:self.galochka];
-        
+    }
         self.activeRecognizers = [[NSMutableSet alloc] init];
     }
     
@@ -103,8 +102,8 @@
             
         case UIGestureRecognizerStateChanged: {
             CGAffineTransform transform = self.referenceTransform;
-            for (UIGestureRecognizer *recognizer in activeRecognizers)
-                transform = [self applyRecognizer:recognizer toTransform:transform];
+            for (UIGestureRecognizer *recognizer1 in activeRecognizers)
+                transform = [self applyRecognizer:recognizer1 toTransform:transform];
             self.transform = transform;
             break;
         }
@@ -135,7 +134,6 @@
         NSLog(@"Gal recognized");
 
         return transform; 
-        
     }
     else
         return transform;

@@ -12,8 +12,6 @@
 
 @interface MovingImageView : UIImageView
 
-@property (nonatomic, assign) CGFloat distance;
-
 @property (nonatomic, assign) CGFloat angle;
 @property (nonatomic, assign) CGPoint position;
 
