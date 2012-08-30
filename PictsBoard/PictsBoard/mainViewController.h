@@ -20,6 +20,7 @@
 @property (retain, nonatomic) IBOutlet UISlider *slider;
 - (IBAction)sliderChanged:(id)sender;
 - (IBAction)addImage:(id)sender;
+- (IBAction)cleanBoard:(id)sender;
 
 
 @end
