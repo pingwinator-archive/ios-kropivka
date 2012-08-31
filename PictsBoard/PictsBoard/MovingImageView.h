@@ -16,6 +16,7 @@
 @property (nonatomic, retain) UIPinchGestureRecognizer* pinch;
 @property (nonatomic, retain) UIPanGestureRecognizer* pan;
 @property (nonatomic, retain) UITapGestureRecognizer* tap;
+@property (nonatomic, retain) UILongPressGestureRecognizer* longPress;
 
 @property (nonatomic, retain) GalochkaGestureRecognizer* galochka;
 

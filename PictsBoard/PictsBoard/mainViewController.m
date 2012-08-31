@@ -24,11 +24,10 @@
 #pragma mark - View lifecycle
 
 - (void) viewDidUnload {
-    [self setTopBar:nil];
-    [self setImagesView:nil];
-    [self setAddButton:nil];
-    [self setSlider:nil];
-    
+    self.topBar = nil;
+    self.imagesView = nil;
+    self.addButton = nil;
+    self.slider = nil;
     self.images = nil;
     
     [super viewDidUnload];
@@ -61,7 +60,6 @@
     imgView.layer.shadowOpacity = 2;
     imgView.layer.shadowRadius = 4.0;
     imgView.clipsToBounds = NO;
-    
 }
 
 - (IBAction)cleanBoard:(id)sender {
@@ -89,7 +87,9 @@
     [slider release];
     [super dealloc];
 }
+
 - (IBAction)sliderChanged:(id)sender {
+    
 }
 
 @end

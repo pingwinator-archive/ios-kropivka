@@ -24,6 +24,7 @@
 @synthesize pan;
 @synthesize galochka;
 @synthesize tap;
+@synthesize longPress;
 
 @synthesize activeRecognizers;
 @synthesize referenceTransform;
@@ -34,6 +35,7 @@
     self.pan = nil;
     self.tap = nil;
     self.galochka = nil;
+    self.longPress = nil;
     
     self.activeRecognizers = nil;
 
@@ -67,6 +69,10 @@
         self.tap = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease];
         self.tap.delegate = self;
         [self addGestureRecognizer:self.tap];
+        
+        self.longPress = [[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease];
+        self.longPress.delegate = self;
+        [self addGestureRecognizer:self.longPress];
         
     if(0){
         self.galochka = [[[GalochkaGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestureGalochka:)]autorelease];
@@ -115,6 +121,33 @@
     }
 }
 
+- (BOOL)canBecomeFirstResponder 
+{
+    return YES;
+}
+
+- (void) showCustomMenu
+{
+    [self becomeFirstResponder];
+    
+    UIMenuController* menu = [UIMenuController sharedMenuController];
+    
+    UIMenuItem* item = [[UIMenuItem alloc] initWithTitle:@"Remove" action:@selector(removeMe)];
+    NSArray* menuitems = [NSArray arrayWithObject:item];
+    
+    [menu setTargetRect:self.frame inView:self.superview];
+    
+    menu.menuItems = menuitems;
+    
+    [menu setMenuVisible:YES animated:YES];
+}
+
+- (void) removeMe
+{
+    [self removeFromSuperview];
+    self = nil;
+}
+
 - (CGAffineTransform)applyRecognizer:(UIGestureRecognizer *)recognizer toTransform:(CGAffineTransform)transform
 {
     if ([recognizer respondsToSelector:@selector(rotation)])
@@ -139,10 +172,12 @@
         
         return transform;  
     }
-    else if( [recognizer isKindOfClass:[GalochkaGestureRecognizer class]] )
+    else if( [recognizer isKindOfClass:[UILongPressGestureRecognizer class]] )
     {
-        NSLog(@"Gal recognized");
+        NSLog(@"Long Press");
 
+        [self showCustomMenu];
+        
         return transform; 
     }
     else
