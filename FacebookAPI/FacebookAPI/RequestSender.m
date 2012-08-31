@@ -58,13 +58,16 @@
     
     self = [super init];
     
+    
+    NSString* escapedString = [params asPOSTRequest];
+    
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]]; 
     [urlRequest setHTTPMethod:method];
     
     if( [method isEqualToString:@"POST"] ) 
     {
         if( params ){
-             NSData *postData = [[params asPOSTRequest] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+            NSData *postData = [escapedString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
             NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
             [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];
             [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];

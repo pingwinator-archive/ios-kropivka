@@ -16,11 +16,14 @@
     __block int idx = 0;
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         NSString * sign = idx ? @"&" : @"";
+        
+        // avoid false '&' in message
+        obj = [obj stringByReplacingOccurrencesOfString: @"&" withString: @"%26"];;
+
         NSString * s = [[NSString alloc] initWithFormat:@"%@%@=%@", sign, key ,obj];
         paramsStr = [paramsStr stringByAppendingString:s];
         ++idx;
     }];
-    
     return paramsStr;
 }
 
