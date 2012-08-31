@@ -47,10 +47,10 @@
     self = [super initWithImage:image];
     
     if (self) {
-
+        
         self.userInteractionEnabled = YES;
         self.multipleTouchEnabled = YES;
-
+        
         self.rotation = [[[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]autorelease]; 
         self.rotation.delegate = self;
         [self addGestureRecognizer:self.rotation];
@@ -74,12 +74,12 @@
         self.longPress.delegate = self;
         [self addGestureRecognizer:self.longPress];
         
-    if(0){
-        self.galochka = [[[GalochkaGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestureGalochka:)]autorelease];
-        self.galochka.delegate = self;
-        [self addGestureRecognizer:self.galochka];
-    }
-        self.activeRecognizers = [[NSMutableSet alloc] init];
+        if(0){
+            self.galochka = [[[GalochkaGestureRecognizer alloc] initWithTarget:self action:@selector(handleGestureGalochka:)]autorelease];
+            self.galochka.delegate = self;
+            [self addGestureRecognizer:self.galochka];
+        }
+        self.activeRecognizers = [[[NSMutableSet alloc] init] autorelease];
     }
     
     return self;
@@ -133,13 +133,16 @@
     UIMenuController* menu = [UIMenuController sharedMenuController];
     
     UIMenuItem* item = [[UIMenuItem alloc] initWithTitle:@"Remove" action:@selector(removeMe)];
-    NSArray* menuitems = [NSArray arrayWithObject:item];
+    NSArray* menuitems = [[NSArray alloc ] initWithObjects:item, nil];
     
     [menu setTargetRect:self.frame inView:self.superview];
     
     menu.menuItems = menuitems;
     
     [menu setMenuVisible:YES animated:YES];
+    
+    [menuitems release];
+    [item release];
 }
 
 - (void) removeMe
