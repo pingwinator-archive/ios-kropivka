@@ -32,7 +32,7 @@
 - (void)applicationWillEnterForeground:(NSNotification *)notification 
 { 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
-    [defaults synchronize]; 
+    [defaults synchronize];
     [self refreshFields];
 }
 
@@ -45,11 +45,10 @@
     self.navigationController.topViewController.title = @"Settings";
     
     UIApplication *app = [UIApplication sharedApplication]; 
-    [[NSNotificationCenter defaultCenter] 
-     addObserver:self                                                                                                    
-     selector:@selector(applicationWillEnterForeground:) 
-     name:UIApplicationWillEnterForegroundNotification 
-     object:app];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillEnterForeground:)
+         name:UIApplicationWillEnterForegroundNotification
+         object:app];
     
     [self refreshFields];
 }
