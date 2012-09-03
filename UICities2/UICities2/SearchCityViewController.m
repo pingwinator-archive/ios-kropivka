@@ -151,14 +151,13 @@
             
             NSArray *answer = [self parseData:data];
             
-            NSMutableArray *tmp = [[NSMutableArray alloc] init];
+            NSMutableSet *tmp = [[NSMutableSet alloc] init];
             for (NSDictionary *obj in answer)
             {
                 NSDictionary* dict = (NSDictionary*)obj;
                 [tmp addObject:[dict objectForKey:@"county_name"] ];
             }
-            
-            safeSelf.countriesList = tmp;
+            safeSelf.countriesList = [[NSArray alloc] initWithArray:[tmp allObjects]];
             [safeSelf.secondPicker reloadAllComponents];
             [safeSelf.activityIndicator stopAnimating];
         };
