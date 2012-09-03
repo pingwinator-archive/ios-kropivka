@@ -20,7 +20,7 @@
 @property (strong, nonatomic) FavTableViewController *favController;
 @property (strong, nonatomic) UINavigationController* navigator;
 
-- (void)saveContext;
-- (NSURL *)applicationDocumentsDirectory;
+- (void) saveContext;
+- (NSURL *) applicationDocumentsDirectory;
 
 @end

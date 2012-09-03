@@ -19,8 +19,7 @@
 @synthesize favController;
 @synthesize navigator;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
@@ -32,14 +31,12 @@
     return YES;
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
+- (void) applicationWillTerminate:(UIApplication *)application {
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
 
-- (void)saveContext
-{
+- (void) saveContext {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil)
@@ -63,8 +60,7 @@
  Returns the managed object context for the application.
  If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
  */
-- (NSManagedObjectContext *)managedObjectContext
-{
+- (NSManagedObjectContext *) managedObjectContext {
     if (__managedObjectContext != nil)
     {
         return __managedObjectContext;
@@ -83,8 +79,7 @@
  Returns the managed object model for the application.
  If the model doesn't already exist, it is created from the application's model.
  */
-- (NSManagedObjectModel *)managedObjectModel
-{
+- (NSManagedObjectModel *) managedObjectModel {
     if (__managedObjectModel != nil)
     {
         return __managedObjectModel;
@@ -98,8 +93,7 @@
  Returns the persistent store coordinator for the application.
  If the coordinator doesn't already exist, it is created and the application's store added to it.
  */
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
+- (NSPersistentStoreCoordinator *) persistentStoreCoordinator {
     if (__persistentStoreCoordinator != nil)
     {
         return __persistentStoreCoordinator;
@@ -146,8 +140,7 @@
 /**
  Returns the URL to the application's Documents directory.
  */
-- (NSURL *)applicationDocumentsDirectory
-{
+- (NSURL*) applicationDocumentsDirectory {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
