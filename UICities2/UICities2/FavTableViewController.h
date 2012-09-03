@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FavTableViewController : UITableViewController <UITableViewDataSource,NSFetchedResultsControllerDelegate>
+@interface FavTableViewController : UITableViewController
 
 @property (strong, nonatomic) NSFetchedResultsController* fetchedResultsController;
+@property (strong, nonatomic) UISearchBar* searchBar;
 
 - (NSManagedObjectContext *)context;
 - (void)addCityAction;

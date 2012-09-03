@@ -17,6 +17,7 @@
 @synthesize statesList;
 @synthesize countriesList;
 @synthesize requestSender;
+@synthesize activityIndicator;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -121,6 +122,7 @@
     [self setSecondPicker:nil];
     self.statesList = nil;
     
+    [self setActivityIndicator:nil];
     [super viewDidUnload];
 }
 
@@ -155,17 +157,18 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
+    NSString* res = nil;
+    
     if(pickerView == self.firstPicker)
     {
-        return [self.statesList objectAtIndex:row];
-
+        res = [self.statesList objectAtIndex:row];
     }
     else if (pickerView == self.secondPicker)
     {
-        return [self.countriesList objectAtIndex:row];
+        res = [self.countriesList objectAtIndex:row];
     }
     
-    return @"none";
+    return res;
 }
 
 
@@ -200,7 +203,10 @@
             
             safeSelf.countriesList = tmp;
             [safeSelf.secondPicker reloadAllComponents];
+            [safeSelf.activityIndicator stopAnimating];
         };
+        
+        [self.activityIndicator startAnimating];
         
         self.requestSender = [[RequestSender alloc] initWithURL:url andWithBlock:block];
     }
@@ -250,9 +256,10 @@
         cities.citiesList = tmpCities;
         cities.descList = tmpDesc;
         
+        [safeSelf.activityIndicator stopAnimating];
         [safeSelf.navigationController pushViewController:cities animated:YES];
     };
-    
+    [self.activityIndicator startAnimating];
     self.requestSender = [[RequestSender alloc] initWithURL:url andWithBlock:block];
 }
 

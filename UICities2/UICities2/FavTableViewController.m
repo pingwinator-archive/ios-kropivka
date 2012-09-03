@@ -13,16 +13,21 @@
 #import "SearchCityViewController.h"
 #import "CityDetailViewController.h"
 
+@interface FavTableViewController () <UITableViewDataSource, NSFetchedResultsControllerDelegate, UISearchBarDelegate>
+@end
+
+
 @implementation FavTableViewController
 
 @synthesize fetchedResultsController;
-
+@synthesize searchBar;
 
 #pragma mark - View lifecycle
 
 - (void)viewDidUnload
 {
     self.fetchedResultsController = nil;
+    self.searchBar = nil;
     
     [super viewDidUnload];
 }
@@ -33,12 +38,21 @@
     
     // init CoreData
     
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];  
+
     NSManagedObjectContext *context = self.context; 
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:NSStringFromClass([Cities class])
                                                          inManagedObjectContext:context];
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     fetchRequest.entity = entityDescription;
     fetchRequest.sortDescriptors = [[NSArray alloc] initWithArray:nil];
+    
+    // sort
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"city" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    fetchRequest.sortDescriptors = sortDescriptors;
+    
     
     // FRC initialize
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
@@ -46,11 +60,13 @@
                                                                           sectionNameKeyPath:nil 
                                                                                    cacheName:@"Root"];
     self.fetchedResultsController.delegate = self; 
+    
     NSError *error;
     BOOL success = [self.fetchedResultsController performFetch:&error];
     if (!success) {
         NSLog(@"performFetch faild");
     }
+    
     
     self.navigationItem.title = @"Favourites";
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -59,7 +75,9 @@
                                               target:self 
                                               action:@selector(addCityAction)];
     
-    self.tableView.tableHeaderView = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, 320, 64)];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, 320, 64)];
+    self.searchBar.delegate = self;
+    self.tableView.tableHeaderView = self.searchBar;
 }
 
 
@@ -163,6 +181,58 @@
     detailViewController.name = entity.city;
 
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+#pragma mark - UISearchBarDelegate delegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    
+// called when text changes (including clear)
+    
+    // called when text starts editing
+    if ([self.searchBar.text length])
+    {
+        [NSFetchedResultsController deleteCacheWithName:@"Root"];  
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"city BEGINSWITH[cd] %@", self.searchBar.text];
+        [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+        NSError *error = nil;
+        if (![self.fetchedResultsController performFetch:&error]) {   
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        [self.tableView reloadData];
+    }
+    else
+    {
+        [NSFetchedResultsController deleteCacheWithName:@"Root"];  
+        
+        [self.fetchedResultsController.fetchRequest setPredicate:nil];
+        NSError *error = nil;
+        if (![self.fetchedResultsController performFetch:&error]) {   
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        
+        [self.tableView reloadData];
+    }
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self.searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    [self.searchBar resignFirstResponder];
+}
+
+
+- (void)resignFirsRespounder
+{
+    [self.searchBar resignFirstResponder];
 }
 
 @end
