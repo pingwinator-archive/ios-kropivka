@@ -9,9 +9,9 @@
 #import "FavTableViewController.h"
 
 #import "AppDelegate.h"
-#import "Cities.h"
+#import "Cities+Helper.h"
 #import "SearchCityViewController.h"
-
+#import "CityDetailViewController.h"
 
 @implementation FavTableViewController
 
@@ -69,11 +69,6 @@
         NSLog(@"performFetch faild");
     }
 
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.title = @"Favourites";
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] 
@@ -107,8 +102,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
-    //return [[self.fetchedResultsController fetchedObjects] count]; 
+    return [[self.fetchedResultsController fetchedObjects] count]; 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,9 +117,9 @@
     }
     
     // Configure the cell.
-    //Cities* entity = (Cities*)[fetchedResultsController objectAtIndexPath:indexPath];
     
-    cell.textLabel.text = @"entity.city";
+    Cities* entity = (Cities*)[fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = entity.city;
     
     return cell;
 }
@@ -136,8 +130,8 @@ commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 {
     if (editingStyle == UITableViewCellEditingStyleDelete )
     {
-        //id obj = [self.fetchedResultsController objectAtIndexPath:indexPath];
-       // [obj removeWithContext:self.context];
+        id obj = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [obj removeWithContext:self.context];
     }
 }
 
@@ -186,13 +180,13 @@ commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    CityDetailViewController *detailViewController = [[CityDetailViewController alloc] initWithNibName:@"CityDetailViewController" bundle:nil];
+    
+    detailViewController.description = @"";
+    detailViewController.name = @"";
+
+    [self.navigationController pushViewController:detailViewController animated:YES];
+     
 }
 
 @end

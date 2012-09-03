@@ -10,4 +10,8 @@
 
 @interface CityDetailViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UITextView *text;
+@property (strong, nonatomic) NSString *description;
+@property (strong, nonatomic) NSString *name;
+
 @end

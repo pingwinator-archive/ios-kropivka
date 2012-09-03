@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+@class RequestSender;
 
 @interface SearchCityViewController : UIViewController
  <UIPickerViewDataSource,UIPickerViewDelegate>
-@property (strong, nonatomic) IBOutlet UIPickerView *firstPicker;
-@property (strong, nonatomic) IBOutlet UIPickerView *secondPicker;
+@property (strong, nonatomic) UIPickerView *firstPicker;
+@property (strong, nonatomic) UIPickerView *secondPicker;
 @property (strong, nonatomic) NSArray *statesList;
- 
+@property (strong, nonatomic) NSArray *countriesList;
+
+@property (strong, nonatomic) RequestSender *requestSender;
+
 
 - (IBAction)showCities:(id)sender;
 

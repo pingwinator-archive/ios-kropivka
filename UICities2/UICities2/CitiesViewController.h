@@ -10,4 +10,7 @@
 
 @interface CitiesViewController : UITableViewController
 
+@property (strong, nonatomic) NSArray *citiesList;
+@property (strong, nonatomic) NSArray *descList;
+
 @end
