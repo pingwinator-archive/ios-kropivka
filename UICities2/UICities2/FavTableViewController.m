@@ -17,6 +17,9 @@
 
 @synthesize fetchedResultsController;
 
+
+#pragma mark - View lifecycle
+
 - (void)viewDidUnload
 {
     self.fetchedResultsController = nil;
@@ -24,28 +27,10 @@
     [super viewDidUnload];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-
-- (NSManagedObjectContext *)context
-{
-    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    return appDelegate.managedObjectContext;
-}
-
-#pragma mark - View lifecycle
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // init CoreData
     
     NSManagedObjectContext *context = self.context; 
@@ -66,13 +51,22 @@
     if (!success) {
         NSLog(@"performFetch faild");
     }
-
+    
     self.navigationItem.title = @"Favourites";
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] 
                                               initWithBarButtonSystemItem:UIBarButtonSystemItemAdd 
                                               target:self 
                                               action:@selector(addCityAction)];
+    
+    self.tableView.tableHeaderView = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, 320, 64)];
+}
+
+
+- (NSManagedObjectContext *)context
+{
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    return appDelegate.managedObjectContext;
 }
 
 - (void)addCityAction
