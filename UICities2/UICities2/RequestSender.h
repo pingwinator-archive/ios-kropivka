@@ -14,10 +14,6 @@ typedef void(^OnFinishLoading)(NSData*,NSError*);
 
 - (id) initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block;
 - (id) initWithURL:(NSString *)url andWithBlock:(OnFinishLoading)blockIn;
-- (id) initWithURL:(NSString *)url 
-  withHTTPMethod:(NSString*)method 
-  withParameters:(NSDictionary*)params 
-       withBlock:(OnFinishLoading)block;
-
+- (id) initWithURL:(NSString *)url withHTTPMethod:(NSString*)method withParameters:(NSDictionary*)params withBlock:(OnFinishLoading)block;
 
 @end

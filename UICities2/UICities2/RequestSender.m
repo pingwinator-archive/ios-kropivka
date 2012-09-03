@@ -24,16 +24,14 @@
 @synthesize myBlock;
 @synthesize error;
 
-- (void) dealloc 
-{
+- (void) dealloc {
     self.myConnection = nil;
     self.myBlock = nil;
     self.error = nil;
     self.resBuffer = nil;
 }
 
-- (id) initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block 
-{
+- (id) initWithRequest:(NSURLRequest*)request andWithBlock:(OnFinishLoading)block {
     self = [self init];
     
     self.myConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -44,8 +42,7 @@
     return self;
 }
 
-- (id) initWithURL:(NSString *)url andWithBlock:(OnFinishLoading)blockIn 
-{
+- (id) initWithURL:(NSString *)url andWithBlock:(OnFinishLoading)blockIn {
     self = [super init];
     
     return [self initWithURL:url withHTTPMethod:@"GET" withParameters:nil withBlock:(OnFinishLoading)blockIn];
@@ -54,8 +51,7 @@
 - (id) initWithURL:(NSString *)url 
   withHTTPMethod:(NSString*)method 
   withParameters:(NSDictionary*)params 
-       withBlock:(OnFinishLoading)blockIn 
-{
+       withBlock:(OnFinishLoading)blockIn {
     self = [super init];
     
     // spaces
@@ -72,8 +68,7 @@
 
 #pragma mark - NSURLConnectionDataDelegate
 
-- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
+- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     if(self.myConnection != connection)
         return;
     
@@ -84,16 +79,14 @@
     }
 }
 
-- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
+- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     if(self.myConnection != connection)
         return;
     
     [self.resBuffer appendData:data];
 }
 
-- (void) connectionDidFinishLoading:(NSURLConnection *)connection
-{
+- (void) connectionDidFinishLoading:(NSURLConnection *)connection {
     if(self.myConnection != connection)
         return;
     

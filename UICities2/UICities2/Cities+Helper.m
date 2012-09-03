@@ -10,8 +10,7 @@
 
 @implementation Cities (Helper)
 
-+ (id)entityWithContext:(NSManagedObjectContext *)context 
-{
++ (id)entityWithContext:(NSManagedObjectContext *)context {
     return [NSEntityDescription insertNewObjectForEntityForName:@"Cities" inManagedObjectContext:context];
 }
 
