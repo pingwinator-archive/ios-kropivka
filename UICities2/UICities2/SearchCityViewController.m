@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSArray *statesList;
 @property (strong, nonatomic) NSArray *countriesList;
 
+@property (strong, nonatomic) NSString *currentState;
 @property (strong, nonatomic) RequestSender *requestSender;
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -38,6 +39,7 @@
 @synthesize requestSender;
 @synthesize activityIndicator;
 @synthesize showButton;
+@synthesize currentState;
 
 - (void) viewDidUnload {
     
@@ -48,6 +50,7 @@
     self.requestSender = nil;
     self.activityIndicator = nil;
     self.showButton = nil;
+    self.currentState = nil;
     
     [super viewDidUnload];
 }
@@ -84,6 +87,7 @@
     NSInteger defRow = 0;
     [self.firstPicker selectRow:defRow inComponent:0 animated:YES];
     [self pickerView:self.firstPicker didSelectRow:defRow inComponent:0];
+    self.currentState = [self.statesList objectAtIndex:defRow];
     
     [self.showButton.layer setCornerRadius:8.0f];
 }
@@ -155,8 +159,9 @@
 {
     if(pickerView == self.firstPicker)
     {
+        NSString *selectedState = [self.statesList objectAtIndex:row];
         NSString* url = [NSString stringWithFormat:
-                         @"http://api.sba.gov/geodata/city_links_for_state_of/%@.json", [self.statesList objectAtIndex:row]];
+                         @"http://api.sba.gov/geodata/city_links_for_state_of/%@.json", selectedState];
         
         __block SearchCityViewController* safeSelf = self;
         OnFinishLoading block = ^(NSData* data, NSError* error)
@@ -175,6 +180,7 @@
             safeSelf.countriesList = [[NSArray alloc] initWithArray:[tmp allObjects]];
             [safeSelf.secondPicker reloadAllComponents];
             [safeSelf stopLoading];
+            safeSelf.currentState = selectedState;
         };
         
         [self startLoading];
@@ -190,10 +196,9 @@
 
 - (IBAction) showCities:(id)sender {
     
-    NSInteger num = [self.firstPicker selectedRowInComponent:0];
-    NSString* state = [self.statesList objectAtIndex:num];
+    NSString* state = self.currentState;
     
-    num = [self.secondPicker selectedRowInComponent:0];
+    NSInteger num = [self.secondPicker selectedRowInComponent:0];
     NSString* countrie = [self.countriesList objectAtIndex:num];
     
     NSString* url = [NSString stringWithFormat:
