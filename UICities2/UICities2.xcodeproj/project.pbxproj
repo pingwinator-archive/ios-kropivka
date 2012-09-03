@@ -39,6 +39,7 @@
 		4686CA9115F4C853007BD406 /* Cities+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4686CA9015F4C853007BD406 /* Cities+Helper.m */; };
 		4686CA9515F4C96F007BD406 /* CityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4686CA9315F4C96D007BD406 /* CityDetailViewController.m */; };
 		4686CA9615F4C96F007BD406 /* CityDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4686CA9415F4C96E007BD406 /* CityDetailViewController.xib */; };
+		4686CA9B15F4E83B007BD406 /* States.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4686CA9A15F4E83B007BD406 /* States.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +100,7 @@
 		4686CA9215F4C96D007BD406 /* CityDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityDetailViewController.h; sourceTree = "<group>"; };
 		4686CA9315F4C96D007BD406 /* CityDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityDetailViewController.m; sourceTree = "<group>"; };
 		4686CA9415F4C96E007BD406 /* CityDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityDetailViewController.xib; sourceTree = "<group>"; };
+		4686CA9A15F4E83B007BD406 /* States.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = States.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 		4686CA2B15F4943F007BD406 /* UICities2 */ = {
 			isa = PBXGroup;
 			children = (
+				4686CA9715F4E5D3007BD406 /* res */,
 				4686CA8015F4AEA3007BD406 /* RequestSender.h */,
 				4686CA8115F4AEA4007BD406 /* RequestSender.m */,
 				4686CA4415F495A6007BD406 /* FavTableViewController.h */,
@@ -227,6 +230,14 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		4686CA9715F4E5D3007BD406 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				4686CA9A15F4E83B007BD406 /* States.plist */,
+			);
+			name = res;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -282,6 +293,7 @@
 				4686CA5015F49C62007BD406 /* SearchCityViewController.xib in Resources */,
 				4686CA8A15F4BF9B007BD406 /* AddCityViewController.xib in Resources */,
 				4686CA9615F4C96F007BD406 /* CityDetailViewController.xib in Resources */,
+				4686CA9B15F4E83B007BD406 /* States.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

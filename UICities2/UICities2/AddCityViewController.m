@@ -52,13 +52,42 @@
 
 - (IBAction)addAction:(id)sender {
     
-    Cities* entity = [Cities entityWithContext:self.context];
-
-    entity.city = self.name;
-    entity.json = self.description;
     
-    [self.context save:nil];
-    [self cancelAction];
+    NSEntityDescription *entityDescription = [NSEntityDescription
+                                              entityForName:@"Cities" inManagedObjectContext:self.context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    
+    // Set example predicate and sort orderings...
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:
+                              @"json == %@", self.description];
+    
+    [request setPredicate:predicate];
+
+    
+    NSError *error = nil;
+    NSArray *array = [self.context executeFetchRequest:request error:&error];
+    if ([array count]) 
+    {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Sorry" 
+                                                        message:@"This City alredy added" 
+                                                       delegate:nil 
+                                              cancelButtonTitle:@"OK" 
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+    else
+    {
+        Cities* entity = [Cities entityWithContext:self.context];
+        
+        entity.city = self.name;
+        entity.json = self.description;
+        
+        [self.context save:nil];
+        [self cancelAction];
+    }
+    
+
 }
 
 - (void)cancelAction {

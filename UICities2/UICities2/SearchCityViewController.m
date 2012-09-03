@@ -55,59 +55,8 @@
     self.secondPicker.transform = CGAffineTransformMakeScale(1, 0.8);
     [self.view addSubview:self.secondPicker];
     
-    // init list of states
-    self.statesList = [[NSArray alloc] initWithObjects:
-    @"AL",
-    @"AK",
-    @"AZ",
-    @"AR",
-    @"CA",
-    @"CO",
-    @"CT",
-    @"DE",
-    @"FL",
-    @"GA",
-    @"HI",
-    @"ID",
-    @"IL",
-    @"IN",
-    @"IA",
-    @"KS",
-    @"KY",
-    @"LA",
-    @"ME",
-    @"MD",
-    @"MA",
-    @"MI",
-    @"MN",
-    @"MS",
-    @"MO",
-    @"MT",
-    @"NE",
-    @"NV",
-    @"NH",
-    @"NJ",
-    @"NM",
-    @"NY",
-    @"NC",
-    @"ND",
-    @"OH",
-    @"OK",
-    @"OR",
-    @"PA",
-    @"RI",
-    @"SC",
-    @"SD",
-    @"TN",
-    @"TX",
-    @"UT",
-    @"VT",
-    @"VA",
-    @"WA",
-    @"WV",
-    @"WI",
-    @"WY", nil];
-
+    NSString * path = [[NSBundle mainBundle] pathForResource:@"States" ofType:@"plist"];
+    self.statesList = [[NSArray alloc] initWithContentsOfFile:path];
     self.countriesList = [[NSArray alloc] initWithObjects: nil];
     
     // select default row

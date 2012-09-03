@@ -76,6 +76,7 @@
                                               action:@selector(addCityAction)];
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 64, 320, 64)];
+    self.searchBar.showsCancelButton = YES;
     self.searchBar.delegate = self;
     self.tableView.tableHeaderView = self.searchBar;
 }
@@ -92,7 +93,6 @@
     SearchCityViewController* searchCity = [[SearchCityViewController alloc] init];
     [self.navigationController pushViewController:searchCity animated:YES];
 }
-
 
 #pragma mark - Table view data source
 
@@ -228,7 +228,6 @@
 {
     [self.searchBar resignFirstResponder];
 }
-
 
 - (void)resignFirsRespounder
 {
