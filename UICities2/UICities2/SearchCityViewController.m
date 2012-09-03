@@ -136,6 +136,21 @@
     return [parser objectWithString:json_string error:nil];
 }
 
+- (void)startLoading
+{
+    [self.activityIndicator startAnimating];;
+    self.firstPicker.userInteractionEnabled = NO;
+    self.secondPicker.userInteractionEnabled = NO;
+    self.showButton.userInteractionEnabled = NO;
+}
+
+- (void)stopLoading {
+    [self.activityIndicator stopAnimating];;
+    self.firstPicker.userInteractionEnabled = YES;
+    self.secondPicker.userInteractionEnabled = YES;
+    self.showButton.userInteractionEnabled = YES;
+}
+
 - (void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if(pickerView == self.firstPicker)
@@ -159,11 +174,10 @@
             }
             safeSelf.countriesList = [[NSArray alloc] initWithArray:[tmp allObjects]];
             [safeSelf.secondPicker reloadAllComponents];
-            [safeSelf.activityIndicator stopAnimating];
+            [safeSelf stopLoading];
         };
         
-        [self.activityIndicator startAnimating];
-        
+        [self startLoading];
         self.requestSender = [[RequestSender alloc] initWithURL:url andWithBlock:block];
     }
     else if (pickerView == self.secondPicker)
@@ -171,6 +185,8 @@
         // do nothing
     }
 }
+
+
 
 - (IBAction) showCities:(id)sender {
     
@@ -206,10 +222,12 @@
         cities.citiesList = tmpCities;
         cities.descList = tmpDesc;
         
-        [safeSelf.activityIndicator stopAnimating];
+        [safeSelf stopLoading];
         [safeSelf.navigationController pushViewController:cities animated:YES];
+        
     };
-    [self.activityIndicator startAnimating];
+    
+    [self startLoading];
     self.requestSender = [[RequestSender alloc] initWithURL:url andWithBlock:block];
 }
 
