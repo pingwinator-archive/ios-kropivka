@@ -16,24 +16,23 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidUnload
-{
+- (void) viewDidUnload {
+    
     self.citiesList = nil;
     self.descList = nil;
     
     [super viewDidUnload];
 }
 
-- (void)viewDidLoad
-{
+- (void) viewDidLoad {
+    
     [super viewDidLoad];
     
     self.navigationItem.title = @"Cities";
 }
 
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id) initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) 
     {
@@ -46,18 +45,15 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.citiesList count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -72,8 +68,8 @@
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     AddCityViewController *detailViewController = [[AddCityViewController alloc] initWithNibName:@"AddCityViewController" bundle:nil];
     
     NSDictionary * dict = [self.descList objectAtIndex:[indexPath row]];
@@ -82,7 +78,6 @@
     detailViewController.name = [self.citiesList objectAtIndex:[indexPath row]];
 
     [self.navigationController pushViewController:detailViewController animated:YES];
-    
 }
 
 @end

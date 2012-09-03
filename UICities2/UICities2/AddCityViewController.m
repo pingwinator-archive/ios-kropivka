@@ -12,13 +12,11 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface AddCityViewController ()
-
 @property (strong, nonatomic) IBOutlet UITextView *text;
 @property (strong, nonatomic) IBOutlet UIButton *addButton;
 - (IBAction)addAction:(id)sender;
 - (void)cancelAction;
 - (NSManagedObjectContext *)context;
-
 @end
 
 @implementation AddCityViewController
@@ -30,8 +28,8 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidUnload
-{
+- (void) viewDidUnload {
+    
     self.text = nil;
     self.name = nil;
     self.description = nil;
@@ -40,8 +38,8 @@
     [super viewDidUnload];
 }
 
-- (void)viewDidLoad
-{
+- (void) viewDidLoad {
+    
     [super viewDidLoad];
     
     self.navigationItem.title = self.name;
@@ -51,13 +49,11 @@
                                               action:@selector(cancelAction)];
     self.text.text = self.description;
     [self.addButton.layer setCornerRadius:8.0f];
-
 }
 
 #pragma mark - actions
 
-- (IBAction)addAction:(id)sender {
-    
+- (IBAction) addAction:(id)sender {
     
     NSEntityDescription *entityDescription = [NSEntityDescription
                                               entityForName:@"Cities" inManagedObjectContext:self.context];
@@ -92,16 +88,13 @@
         [self.context save:nil];
         [self cancelAction];
     }
-    
-
 }
 
-- (void)cancelAction {
+- (void) cancelAction {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (NSManagedObjectContext *)context
-{
+- (NSManagedObjectContext*) context {
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     return appDelegate.managedObjectContext;
 }

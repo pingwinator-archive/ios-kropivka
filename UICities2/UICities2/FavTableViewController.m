@@ -18,8 +18,8 @@
 @property (strong, nonatomic) NSFetchedResultsController* fetchedResultsController;
 @property (strong, nonatomic) UISearchBar* searchBar;
 
-- (NSManagedObjectContext *)context;
-- (void)addCityAction;
+- (NSManagedObjectContext*) context;
+- (void) addCityAction;
 
 @end
 
@@ -31,16 +31,14 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidUnload
-{
+- (void) viewDidUnload {
     self.fetchedResultsController = nil;
     self.searchBar = nil;
     
     [super viewDidUnload];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     // init CoreData
@@ -60,7 +58,6 @@
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
     fetchRequest.sortDescriptors = sortDescriptors;
     
-    
     // FRC initialize
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
                                                                         managedObjectContext:context 
@@ -73,7 +70,6 @@
     if (!success) {
         NSLog(@"performFetch faild");
     }
-    
     
     self.navigationItem.title = @"Favourites";
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
@@ -88,28 +84,23 @@
     self.tableView.tableHeaderView = self.searchBar;
 }
 
-
-- (NSManagedObjectContext *)context
-{
+- (NSManagedObjectContext*) context {
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     return appDelegate.managedObjectContext;
 }
 
-- (void)addCityAction
-{
+- (void) addCityAction {
     SearchCityViewController* searchCity = [[SearchCityViewController alloc] init];
     [self.navigationController pushViewController:searchCity animated:YES];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [[self.fetchedResultsController fetchedObjects] count]; 
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -127,8 +118,7 @@
     return cell;
 }
 
-- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete )
     {
         id obj = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -138,13 +128,11 @@
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
--(void)controllerWillChangeContent:(NSFetchedResultsController *)controller 
-{
+-(void) controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
 }
 
--(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath 
-{
+-(void) controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     switch (type) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] 
@@ -170,15 +158,14 @@
     }
 }
 
--(void)controllerDidChangeContent:(NSFetchedResultsController *)controller 
-{
+-(void) controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
 }
 
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CityDetailViewController *detailViewController = [[CityDetailViewController alloc] initWithNibName:@"CityDetailViewController" bundle:nil];
     
@@ -190,14 +177,10 @@
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
+
 #pragma mark - UISearchBarDelegate delegate
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    
-// called when text changes (including clear)
-    
-    // called when text starts editing
+- (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if ([self.searchBar.text length])
     {
         [NSFetchedResultsController deleteCacheWithName:@"Root"];  
@@ -226,18 +209,11 @@
     }
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
+- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self.searchBar resignFirstResponder];
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
-{
-    [self.searchBar resignFirstResponder];
-}
-
-- (void)resignFirsRespounder
-{
+- (void) searchBarCancelButtonClicked:(UISearchBar *) searchBar {
     [self.searchBar resignFirstResponder];
 }
 

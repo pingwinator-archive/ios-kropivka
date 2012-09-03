@@ -7,10 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-@class RequestSender;
 
 @interface SearchCityViewController : UIViewController
-
-
-
 @end

@@ -24,8 +24,8 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UIButton *showButton;
 
-- (IBAction)showCities:(id)sender;
-- (NSArray *)parseData:(NSData *)data;
+- (IBAction) showCities:(id)sender;
+- (NSArray*) parseData:(NSData *)data;
 
 @end
 
@@ -39,27 +39,28 @@
 @synthesize activityIndicator;
 @synthesize showButton;
 
-- (void)viewDidUnload
-{
-    [self setFirstPicker:nil];
-    [self setSecondPicker:nil];
-    self.statesList = nil;
+- (void) viewDidUnload {
     
-    [self setActivityIndicator:nil];
-    [self setShowButton:nil];
+    self.firstPicker = nil;
+    self.secondPicker = nil;
+    self.statesList = nil;
+    self.countriesList = nil;
+    self.requestSender = nil;
+    self.activityIndicator = nil;
+    self.showButton = nil;
+    
     [super viewDidUnload];
 }
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void) viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
     self.navigationItem.title = @"City Search";
     
-    // init Pickerd Views
+    // init Pickers
     
     self.firstPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 49-20, 320, 120)];
     self.firstPicker.delegate = self;
@@ -84,44 +85,35 @@
     [self.firstPicker selectRow:defRow inComponent:0 animated:YES];
     [self pickerView:self.firstPicker didSelectRow:defRow inComponent:0];
     
-    
     [self.showButton.layer setCornerRadius:8.0f];
-
-}
-
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 #pragma mark - UIPickerViewDataSource
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
+- (NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
+- (NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    
+    NSInteger res = 0;
+    
     if(pickerView == self.firstPicker)
     {
-        return [self.statesList count];
+        res = [self.statesList count];
     }
-    else if (pickerView == self.secondPicker)
+    else if(pickerView == self.secondPicker)
     {
-        return [self.countriesList count];
+        res = [self.countriesList count];
     }
     
-    return 0;
+    return res;
 }
 
 #pragma mark - UIPickerViewDelegate<NSObject>
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
+- (NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    
     NSString* res = nil;
     
     if(pickerView == self.firstPicker)
@@ -137,20 +129,14 @@
 }
 
 
-- (NSArray *)parseData:(NSData *)data
-{
-    // Create new SBJSON parser object
+- (NSArray *) parseData:(NSData *)data {
+    
     SBJsonParser *parser = [[SBJsonParser alloc] init];
-    
     NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    //NSLog(@"%@",json_string);
-    
-    // parse the JSON response into an object      
-    NSArray *answer = [parser objectWithString:json_string error:nil];
-    return answer;
+    return [parser objectWithString:json_string error:nil];
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+- (void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if(pickerView == self.firstPicker)
     {
@@ -187,19 +173,18 @@
     }
 }
 
-- (IBAction)showCities:(id)sender {
+- (IBAction) showCities:(id)sender {
     
     NSInteger num = [self.firstPicker selectedRowInComponent:0];
     NSString* state = [self.statesList objectAtIndex:num];
     
-     num = [self.secondPicker selectedRowInComponent:0];
+    num = [self.secondPicker selectedRowInComponent:0];
     NSString* countrie = [self.countriesList objectAtIndex:num];
     
     NSString* url = [NSString stringWithFormat:
             @"http://api.sba.gov/geodata/all_links_for_county_of/%@/%@.json", countrie, state];
 
     __block SearchCityViewController* safeSelf = self;
-
     OnFinishLoading block = ^(NSData* data, NSError* error)
     {
         if (error)

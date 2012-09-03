@@ -9,9 +9,7 @@
 #import "CityDetailViewController.h"
 
 @interface CityDetailViewController ()
-
 @property (strong, nonatomic) IBOutlet UITextView *text;
-
 @end
 
 @implementation CityDetailViewController
@@ -22,8 +20,8 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidUnload
-{
+- (void) viewDidUnload {
+    
     self.text = nil;
     self.description = nil;
     self.name = nil;
@@ -31,8 +29,7 @@
     [super viewDidUnload];
 }
 
-- (void)viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     self.text.text = self.description;
