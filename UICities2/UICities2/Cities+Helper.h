@@ -9,8 +9,8 @@
 #import "Cities.h"
 
 @interface Cities (Helper)
-+ (id)entityWithContext:(NSManagedObjectContext *)context;
 
++ (id)entityWithContext:(NSManagedObjectContext *)context;
 - (void)removeWithContext:(NSManagedObjectContext *)context;
 
 @end

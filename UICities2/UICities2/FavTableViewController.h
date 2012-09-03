@@ -12,4 +12,7 @@
 
 @property (strong, nonatomic) NSFetchedResultsController* fetchedResultsController;
 
+- (NSManagedObjectContext *)context;
+- (void)addCityAction;
+
 @end

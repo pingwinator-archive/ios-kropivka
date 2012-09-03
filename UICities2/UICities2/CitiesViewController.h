@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CitiesViewController : UITableViewController
+@interface CitiesViewController : UITableViewController <UITableViewDataSource>
 
 @property (strong, nonatomic) NSArray *citiesList;
 @property (strong, nonatomic) NSArray *descList;

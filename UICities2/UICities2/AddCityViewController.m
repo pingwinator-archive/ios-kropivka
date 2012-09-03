@@ -11,58 +11,44 @@
 #import "AppDelegate.h"
 
 @implementation AddCityViewController
+
 @synthesize text;
 @synthesize name;
 @synthesize description;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-
-    }
-    return self;
-}
-
-- (NSManagedObjectContext *)context
-{
-    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    return appDelegate.managedObjectContext;
-}
-
-
 #pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    self.navigationItem.title = self.name;
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] 
-                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
-                                              target:self 
-                                              action:@selector(cancel)];
-    self.text.text = self.description;
-    
-}
 
 - (void)viewDidUnload
 {
     self.text = nil;
     self.name = nil;
+    self.description = nil;
     
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)viewDidLoad
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    [super viewDidLoad];
+    
+    self.navigationItem.title = self.name;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] 
+                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
+                                              target:self 
+                                              action:@selector(cancelAction)];
+    self.text.text = self.description;
 }
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // nil
+    }
+    return self;
+}
+
+#pragma mark - actions
 
 - (IBAction)addAction:(id)sender {
     
@@ -72,10 +58,17 @@
     entity.json = self.description;
     
     [self.context save:nil];
+    [self cancelAction];
 }
 
-- (void)cancel {
+- (void)cancelAction {
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (NSManagedObjectContext *)context
+{
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    return appDelegate.managedObjectContext;
 }
 
 @end

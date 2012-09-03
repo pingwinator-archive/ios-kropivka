@@ -9,9 +9,29 @@
 #import "CityDetailViewController.h"
 
 @implementation CityDetailViewController
+
 @synthesize text;
 @synthesize description;
 @synthesize name;
+
+#pragma mark - View lifecycle
+
+- (void)viewDidUnload
+{
+    self.text = nil;
+    self.description = nil;
+    self.name = nil;
+    
+    [super viewDidUnload];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.text.text = self.description;
+    self.navigationItem.title = self.name;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -20,31 +40,6 @@
         // Custom initialization
     }
     return self;
-}
-
-
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];  
-    self.text.text = self.description;
-    self.navigationItem.title = self.name;
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-
-    self.text = nil;
-    self.description = nil;
-    self.name = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
