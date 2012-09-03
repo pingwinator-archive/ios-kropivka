@@ -12,7 +12,25 @@
 #import "CitiesViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface SearchCityViewController () <UIPickerViewDataSource, UIPickerViewDelegate>
+
+@property (strong, nonatomic) UIPickerView *firstPicker;
+@property (strong, nonatomic) UIPickerView *secondPicker;
+@property (strong, nonatomic) NSArray *statesList;
+@property (strong, nonatomic) NSArray *countriesList;
+
+@property (strong, nonatomic) RequestSender *requestSender;
+
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UIButton *showButton;
+
+- (IBAction)showCities:(id)sender;
+- (NSArray *)parseData:(NSData *)data;
+
+@end
+
 @implementation SearchCityViewController
+
 @synthesize firstPicker;
 @synthesize secondPicker;
 @synthesize statesList;
@@ -119,6 +137,19 @@
 }
 
 
+- (NSArray *)parseData:(NSData *)data
+{
+    // Create new SBJSON parser object
+    SBJsonParser *parser = [[SBJsonParser alloc] init];
+    
+    NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    //NSLog(@"%@",json_string);
+    
+    // parse the JSON response into an object      
+    NSArray *answer = [parser objectWithString:json_string error:nil];
+    return answer;
+}
+
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if(pickerView == self.firstPicker)
@@ -132,14 +163,7 @@
             if (error) 
                 return;
             
-            // Create new SBJSON parser object
-            SBJsonParser *parser = [[SBJsonParser alloc] init];
-            
-            NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            //NSLog(@"%@",json_string);
-            
-            // parse the JSON response into an object      
-            NSArray *answer = [parser objectWithString:json_string error:nil];
+            NSArray *answer = [self parseData:data];
             
             NSMutableArray *tmp = [[NSMutableArray alloc] init];
             for (NSDictionary *obj in answer)
@@ -178,15 +202,10 @@
 
     OnFinishLoading block = ^(NSData* data, NSError* error)
     {
-        if (error) 
+        if (error)
             return;
         
-        // Create new SBJSON parser object
-        SBJsonParser *parser = [[SBJsonParser alloc] init];
-        
-        NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-        NSArray *answer = [parser objectWithString:json_string error:nil];
+        NSArray *answer = [self parseData:data];
         
         NSMutableArray *tmpCities = [[NSMutableArray alloc] init];
         NSMutableArray *tmpDesc = [[NSMutableArray alloc] init];

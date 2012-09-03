@@ -10,19 +10,7 @@
 @class RequestSender;
 
 @interface SearchCityViewController : UIViewController
- <UIPickerViewDataSource,UIPickerViewDelegate>
-@property (strong, nonatomic) UIPickerView *firstPicker;
-@property (strong, nonatomic) UIPickerView *secondPicker;
-@property (strong, nonatomic) NSArray *statesList;
-@property (strong, nonatomic) NSArray *countriesList;
 
-@property (strong, nonatomic) RequestSender *requestSender;
-
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) IBOutlet UIButton *showButton;
- 
-
-- (IBAction)showCities:(id)sender;
 
 
 @end

@@ -14,6 +14,13 @@
 #import "CityDetailViewController.h"
 
 @interface FavTableViewController () <UITableViewDataSource, NSFetchedResultsControllerDelegate, UISearchBarDelegate>
+
+@property (strong, nonatomic) NSFetchedResultsController* fetchedResultsController;
+@property (strong, nonatomic) UISearchBar* searchBar;
+
+- (NSManagedObjectContext *)context;
+- (void)addCityAction;
+
 @end
 
 

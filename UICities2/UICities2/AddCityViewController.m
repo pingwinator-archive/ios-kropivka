@@ -11,6 +11,16 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface AddCityViewController ()
+
+@property (strong, nonatomic) IBOutlet UITextView *text;
+@property (strong, nonatomic) IBOutlet UIButton *addButton;
+- (IBAction)addAction:(id)sender;
+- (void)cancelAction;
+- (NSManagedObjectContext *)context;
+
+@end
+
 @implementation AddCityViewController
 
 @synthesize text;
@@ -25,8 +35,8 @@
     self.text = nil;
     self.name = nil;
     self.description = nil;
-    
     [self setAddButton:nil];
+    
     [super viewDidUnload];
 }
 
@@ -42,15 +52,6 @@
     self.text.text = self.description;
     [self.addButton.layer setCornerRadius:8.0f];
 
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // nil
-    }
-    return self;
 }
 
 #pragma mark - actions

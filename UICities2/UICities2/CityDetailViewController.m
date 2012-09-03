@@ -8,6 +8,12 @@
 
 #import "CityDetailViewController.h"
 
+@interface CityDetailViewController ()
+
+@property (strong, nonatomic) IBOutlet UITextView *text;
+
+@end
+
 @implementation CityDetailViewController
 
 @synthesize text;
@@ -31,15 +37,6 @@
     
     self.text.text = self.description;
     self.navigationItem.title = self.name;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
 }
 
 @end
