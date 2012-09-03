@@ -10,6 +10,7 @@
 #import "SBJson.h"
 #import "RequestSender.h"
 #import "CitiesViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation SearchCityViewController
 @synthesize firstPicker;
@@ -18,17 +19,18 @@
 @synthesize countriesList;
 @synthesize requestSender;
 @synthesize activityIndicator;
+@synthesize showButton;
 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)viewDidUnload
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    [self setFirstPicker:nil];
+    [self setSecondPicker:nil];
+    self.statesList = nil;
+    
+    [self setActivityIndicator:nil];
+    [self setShowButton:nil];
+    [super viewDidUnload];
 }
-
 
 #pragma mark - View lifecycle
 
@@ -63,17 +65,13 @@
     NSInteger defRow = 0;
     [self.firstPicker selectRow:defRow inComponent:0 animated:YES];
     [self pickerView:self.firstPicker didSelectRow:defRow inComponent:0];
+    
+    
+    [self.showButton.layer setCornerRadius:8.0f];
+
 }
 
-- (void)viewDidUnload
-{
-    [self setFirstPicker:nil];
-    [self setSecondPicker:nil];
-    self.statesList = nil;
-    
-    [self setActivityIndicator:nil];
-    [super viewDidUnload];
-}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

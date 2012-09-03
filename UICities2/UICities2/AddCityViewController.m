@@ -9,11 +9,13 @@
 #import "AddCityViewController.h"
 #import "Cities+Helper.h"
 #import "AppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AddCityViewController
 
 @synthesize text;
 @synthesize name;
+@synthesize addButton;
 @synthesize description;
 
 #pragma mark - View lifecycle
@@ -24,6 +26,7 @@
     self.name = nil;
     self.description = nil;
     
+    [self setAddButton:nil];
     [super viewDidUnload];
 }
 
@@ -37,6 +40,8 @@
                                               target:self 
                                               action:@selector(cancelAction)];
     self.text.text = self.description;
+    [self.addButton.layer setCornerRadius:8.0f];
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

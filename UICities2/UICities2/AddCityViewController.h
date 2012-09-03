@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UITextView *text;
 @property (strong, nonatomic) NSString *description;
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) IBOutlet UIButton *addButton;
 
 - (IBAction)addAction:(id)sender;
 - (void)cancelAction;

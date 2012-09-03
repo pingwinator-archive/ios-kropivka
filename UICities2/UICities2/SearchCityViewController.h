@@ -19,6 +19,7 @@
 @property (strong, nonatomic) RequestSender *requestSender;
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UIButton *showButton;
  
 
 - (IBAction)showCities:(id)sender;
