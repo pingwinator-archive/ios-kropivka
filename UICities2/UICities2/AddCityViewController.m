@@ -75,7 +75,7 @@
 }
 
 - (void)cancel {
-    //TODO
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

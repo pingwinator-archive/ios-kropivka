@@ -57,7 +57,6 @@
     fetchRequest.sortDescriptors = [[NSArray alloc] initWithArray:nil];
     
     // FRC initialize
-    
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest 
                                                                         managedObjectContext:context 
                                                                           sectionNameKeyPath:nil 
@@ -150,7 +149,6 @@ commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
                                   withRowAnimation:UITableViewRowAnimationTop];
             break;
         case NSFetchedResultsChangeUpdate:
-            //TODO
             break;
             
         case NSFetchedResultsChangeDelete:
@@ -182,8 +180,10 @@ commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 {
     CityDetailViewController *detailViewController = [[CityDetailViewController alloc] initWithNibName:@"CityDetailViewController" bundle:nil];
     
-    detailViewController.description = @"";
-    detailViewController.name = @"";
+    Cities* entity = (Cities*)[fetchedResultsController objectAtIndexPath:indexPath];
+    
+    detailViewController.description = entity.json;
+    detailViewController.name = entity.city;
 
     [self.navigationController pushViewController:detailViewController animated:YES];
      

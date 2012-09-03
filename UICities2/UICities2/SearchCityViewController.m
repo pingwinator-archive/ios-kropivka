@@ -108,6 +108,11 @@
     @"WY", nil];
 
     self.countriesList = [[NSArray alloc] initWithObjects: nil];
+    
+    // select default row
+    NSInteger defRow = 0;
+    [self.firstPicker selectRow:defRow inComponent:0 animated:YES];
+    [self pickerView:self.firstPicker didSelectRow:defRow inComponent:0];
 }
 
 - (void)viewDidUnload
@@ -115,9 +120,8 @@
     [self setFirstPicker:nil];
     [self setSecondPicker:nil];
     self.statesList = nil;
+    
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -148,23 +152,6 @@
 }
 
 #pragma mark - UIPickerViewDelegate<NSObject>
-
-/*
-// returns width of column and height of row for each component. 
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
-{
-    return 32;  
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-{
-    return 32;
-}
-*/
-
-// these methods return either a plain UIString, or a view (e.g UILabel) to display the row for the component.
-// for the view versions, we cache any hidden and thus unused views and pass them back for reuse. 
-// If you return back a different object, the old one will be released. the view will be centered in the row rect  
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
@@ -219,13 +206,13 @@
     }
     else if (pickerView == self.secondPicker)
     {
-        
+        // do nothing
     }
 }
 
 - (IBAction)showCities:(id)sender {
     
-    NSInteger num = [self.firstPicker selectedRowInComponent:                     0];
+    NSInteger num = [self.firstPicker selectedRowInComponent:0];
     NSString* state = [self.statesList objectAtIndex:num];
     
      num = [self.secondPicker selectedRowInComponent:0];
@@ -233,7 +220,7 @@
     
     NSString* url = [NSString stringWithFormat:
             @"http://api.sba.gov/geodata/all_links_for_county_of/%@/%@.json", countrie, state];
-    NSLog(@"%@",url);
+
     __block SearchCityViewController* safeSelf = self;
 
     OnFinishLoading block = ^(NSData* data, NSError* error)
@@ -245,9 +232,7 @@
         SBJsonParser *parser = [[SBJsonParser alloc] init];
         
         NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        //NSLog(@"%@",json_string);
         
-        // parse the JSON response into an object      
         NSArray *answer = [parser objectWithString:json_string error:nil];
         
         NSMutableArray *tmpCities = [[NSMutableArray alloc] init];
