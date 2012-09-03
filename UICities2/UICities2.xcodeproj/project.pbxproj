@@ -121,8 +121,10 @@
 		4686CA1415F4943F007BD406 = {
 			isa = PBXGroup;
 			children = (
-				4686CA5915F4AE01007BD406 /* SBJSON */,
-				4686CA2B15F4943F007BD406 /* UICities2 */,
+				4686CA5915F4AE01007BD406 /* externals */,
+				4686CA2B15F4943F007BD406 /* src */,
+				4686CA9715F4E5D3007BD406 /* res */,
+				4686CA2C15F4943F007BD406 /* Supporting Files */,
 				4686CA2215F4943F007BD406 /* Frameworks */,
 				4686CA2015F4943F007BD406 /* Products */,
 			);
@@ -147,35 +149,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4686CA2B15F4943F007BD406 /* UICities2 */ = {
+		4686CA2B15F4943F007BD406 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				4686CA9715F4E5D3007BD406 /* res */,
-				4686CA8015F4AEA3007BD406 /* RequestSender.h */,
-				4686CA8115F4AEA4007BD406 /* RequestSender.m */,
-				4686CA4415F495A6007BD406 /* FavTableViewController.h */,
-				4686CA4515F495A6007BD406 /* FavTableViewController.m */,
-				4686CA4615F495A6007BD406 /* FavTableViewController.xib */,
-				4686CA3415F4943F007BD406 /* AppDelegate.h */,
-				4686CA3515F4943F007BD406 /* AppDelegate.m */,
-				4686CA3715F49440007BD406 /* UICities2.xcdatamodeld */,
-				4686CA4915F498B5007BD406 /* Cities.h */,
-				4686CA4A15F498B5007BD406 /* Cities.m */,
-				4686CA8F15F4C852007BD406 /* Cities+Helper.h */,
-				4686CA9015F4C853007BD406 /* Cities+Helper.m */,
-				4686CA2C15F4943F007BD406 /* Supporting Files */,
-				4686CA4C15F49C62007BD406 /* SearchCityViewController.h */,
-				4686CA4D15F49C62007BD406 /* SearchCityViewController.m */,
-				4686CA4E15F49C62007BD406 /* SearchCityViewController.xib */,
-				4686CA8315F4B380007BD406 /* CitiesViewController.h */,
-				4686CA8415F4B380007BD406 /* CitiesViewController.m */,
-				4686CA8615F4BF9A007BD406 /* AddCityViewController.h */,
-				4686CA8715F4BF9B007BD406 /* AddCityViewController.m */,
-				4686CA8815F4BF9B007BD406 /* AddCityViewController.xib */,
-				4686CA9215F4C96D007BD406 /* CityDetailViewController.h */,
-				4686CA9315F4C96D007BD406 /* CityDetailViewController.m */,
-				4686CA9415F4C96E007BD406 /* CityDetailViewController.xib */,
+				4686CA9F15F4F2FE007BD406 /* controllers */,
+				4686CA9E15F4F2FB007BD406 /* views */,
+				4686CA9D15F4F2F9007BD406 /* models */,
+				4686CA9C15F4F2F3007BD406 /* delegates */,
 			);
+			name = src;
 			path = UICities2;
 			sourceTree = "<group>";
 		};
@@ -188,17 +170,18 @@
 				4686CA3315F4943F007BD406 /* UICities2-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = UICities2;
 			sourceTree = "<group>";
 		};
-		4686CA5915F4AE01007BD406 /* SBJSON */ = {
+		4686CA5915F4AE01007BD406 /* externals */ = {
 			isa = PBXGroup;
 			children = (
-				4686CA5A15F4AE11007BD406 /* Classes */,
+				4686CA5A15F4AE11007BD406 /* SBJSON */,
 			);
-			name = SBJSON;
+			name = externals;
 			sourceTree = "<group>";
 		};
-		4686CA5A15F4AE11007BD406 /* Classes */ = {
+		4686CA5A15F4AE11007BD406 /* SBJSON */ = {
 			isa = PBXGroup;
 			children = (
 				4686CA5B15F4AE11007BD406 /* NSObject+SBJson.h */,
@@ -227,15 +210,76 @@
 				4686CA7215F4AE11007BD406 /* SBJsonWriter.h */,
 				4686CA7315F4AE11007BD406 /* SBJsonWriter.m */,
 			);
+			name = SBJSON;
 			path = Classes;
 			sourceTree = "<group>";
 		};
 		4686CA9715F4E5D3007BD406 /* res */ = {
 			isa = PBXGroup;
 			children = (
+				4686CAA015F4F329007BD406 /* xibs */,
 				4686CA9A15F4E83B007BD406 /* States.plist */,
 			);
 			name = res;
+			path = UICities2;
+			sourceTree = "<group>";
+		};
+		4686CA9C15F4F2F3007BD406 /* delegates */ = {
+			isa = PBXGroup;
+			children = (
+				4686CA3415F4943F007BD406 /* AppDelegate.h */,
+				4686CA3515F4943F007BD406 /* AppDelegate.m */,
+			);
+			name = delegates;
+			sourceTree = "<group>";
+		};
+		4686CA9D15F4F2F9007BD406 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				4686CA3715F49440007BD406 /* UICities2.xcdatamodeld */,
+				4686CA4915F498B5007BD406 /* Cities.h */,
+				4686CA4A15F498B5007BD406 /* Cities.m */,
+				4686CA8F15F4C852007BD406 /* Cities+Helper.h */,
+				4686CA9015F4C853007BD406 /* Cities+Helper.m */,
+				4686CA8015F4AEA3007BD406 /* RequestSender.h */,
+				4686CA8115F4AEA4007BD406 /* RequestSender.m */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		4686CA9E15F4F2FB007BD406 /* views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		4686CA9F15F4F2FE007BD406 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4686CA4415F495A6007BD406 /* FavTableViewController.h */,
+				4686CA4515F495A6007BD406 /* FavTableViewController.m */,
+				4686CA4C15F49C62007BD406 /* SearchCityViewController.h */,
+				4686CA4D15F49C62007BD406 /* SearchCityViewController.m */,
+				4686CA8315F4B380007BD406 /* CitiesViewController.h */,
+				4686CA8415F4B380007BD406 /* CitiesViewController.m */,
+				4686CA8615F4BF9A007BD406 /* AddCityViewController.h */,
+				4686CA8715F4BF9B007BD406 /* AddCityViewController.m */,
+				4686CA9215F4C96D007BD406 /* CityDetailViewController.h */,
+				4686CA9315F4C96D007BD406 /* CityDetailViewController.m */,
+			);
+			name = controllers;
+			sourceTree = "<group>";
+		};
+		4686CAA015F4F329007BD406 /* xibs */ = {
+			isa = PBXGroup;
+			children = (
+				4686CA4E15F49C62007BD406 /* SearchCityViewController.xib */,
+				4686CA8815F4BF9B007BD406 /* AddCityViewController.xib */,
+				4686CA9415F4C96E007BD406 /* CityDetailViewController.xib */,
+				4686CA4615F495A6007BD406 /* FavTableViewController.xib */,
+			);
+			name = xibs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
