@@ -10,6 +10,7 @@
 
 #import "AppDelegate.h"
 #import "Cities.h"
+#import "SearchCityViewController.h"
 
 
 @implementation FavTableViewController
@@ -73,6 +74,7 @@
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    self.navigationItem.title = @"Favourites";
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] 
                                               initWithBarButtonSystemItem:UIBarButtonSystemItemAdd 
@@ -82,7 +84,8 @@
 
 -(void) addCity
 {
-    //TODO
+    SearchCityViewController* searchCity = [[SearchCityViewController alloc] init];
+    [self.navigationController pushViewController:searchCity animated:YES];
 }
 
 - (void)viewDidUnload

@@ -18,6 +18,8 @@
 		4686CA4715F495A6007BD406 /* FavTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4686CA4515F495A6007BD406 /* FavTableViewController.m */; };
 		4686CA4815F495A6007BD406 /* FavTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4686CA4615F495A6007BD406 /* FavTableViewController.xib */; };
 		4686CA4B15F498B5007BD406 /* Cities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4686CA4A15F498B5007BD406 /* Cities.m */; };
+		4686CA4F15F49C62007BD406 /* SearchCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4686CA4D15F49C62007BD406 /* SearchCityViewController.m */; };
+		4686CA5015F49C62007BD406 /* SearchCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4686CA4E15F49C62007BD406 /* SearchCityViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,9 @@
 		4686CA4615F495A6007BD406 /* FavTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FavTableViewController.xib; sourceTree = "<group>"; };
 		4686CA4915F498B5007BD406 /* Cities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cities.h; sourceTree = "<group>"; };
 		4686CA4A15F498B5007BD406 /* Cities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cities.m; sourceTree = "<group>"; };
+		4686CA4C15F49C62007BD406 /* SearchCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCityViewController.h; sourceTree = "<group>"; };
+		4686CA4D15F49C62007BD406 /* SearchCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCityViewController.m; sourceTree = "<group>"; };
+		4686CA4E15F49C62007BD406 /* SearchCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCityViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +100,9 @@
 				4686CA4915F498B5007BD406 /* Cities.h */,
 				4686CA4A15F498B5007BD406 /* Cities.m */,
 				4686CA2C15F4943F007BD406 /* Supporting Files */,
+				4686CA4C15F49C62007BD406 /* SearchCityViewController.h */,
+				4686CA4D15F49C62007BD406 /* SearchCityViewController.m */,
+				4686CA4E15F49C62007BD406 /* SearchCityViewController.xib */,
 			);
 			path = UICities2;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 			files = (
 				4686CA3015F4943F007BD406 /* InfoPlist.strings in Resources */,
 				4686CA4815F495A6007BD406 /* FavTableViewController.xib in Resources */,
+				4686CA5015F49C62007BD406 /* SearchCityViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +186,7 @@
 				4686CA3915F49440007BD406 /* UICities2.xcdatamodeld in Sources */,
 				4686CA4715F495A6007BD406 /* FavTableViewController.m in Sources */,
 				4686CA4B15F498B5007BD406 /* Cities.m in Sources */,
+				4686CA4F15F49C62007BD406 /* SearchCityViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
