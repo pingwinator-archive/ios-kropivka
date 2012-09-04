@@ -148,6 +148,7 @@
 - (void) removeMe
 {
     [self removeFromSuperview];
+    // TODO
     self = nil;
 }
 
@@ -172,7 +173,6 @@
         NSLog(@"Tap....");
         
         [self.superview bringSubviewToFront:self];
-        
         return transform;  
     }
     else if( [recognizer isKindOfClass:[UILongPressGestureRecognizer class]] )
