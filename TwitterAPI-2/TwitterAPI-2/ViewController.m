@@ -13,14 +13,17 @@
 #define kOAuthConsumerKey		@"xY36sQ4G9a7EIMaIg8yEhA"
 #define kOAuthConsumerSecret	@"zztfHyLCcfQo4tP7bElIJNEVWVAfAKp4723iAT1Q"
 
+@interface ViewController () <UITextFieldDelegate, SA_OAuthTwitterControllerDelegate>
+{ 
+    SA_OAuthTwitterEngine *_engine;
+}
+@end
+
 @implementation ViewController
-
-
-#pragma mark - View lifecycle
 
 @synthesize tweetTextField; 
 
-#pragma mark Custom Methods
+#pragma mark -
 
 -(IBAction)updateTwitter:(id)sender
 {
@@ -45,7 +48,7 @@
     if(![_engine isAuthorized]){  
         UIViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine:_engine delegate:self];  
         
-        if (controller){  
+        if (controller){
             [self presentModalViewController: controller animated: YES];  
         }  
     }    
@@ -68,16 +71,15 @@
 
 #pragma mark SA_OAuthTwitterEngineDelegate
 - (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {
-	NSUserDefaults			*defaults = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-	[defaults setObject: data forKey: @"authData"];
+	[defaults setObject:data forKey:@"authData"];
 	[defaults synchronize];
 }
 
 - (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
 	return [[NSUserDefaults standardUserDefaults] objectForKey: @"authData"];
 }
-
 
 #pragma mark TwitterEngineDelegate
 - (void) requestSucceeded: (NSString *) requestIdentifier {

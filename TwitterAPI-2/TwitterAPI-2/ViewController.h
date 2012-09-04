@@ -12,16 +12,9 @@
 
 @class SA_OAuthTwitterEngine;
 
-@interface ViewController : UIViewController <UITextFieldDelegate, SA_OAuthTwitterControllerDelegate>
-{ 
-    
-
-    SA_OAuthTwitterEngine *_engine;
-	
-}
+@interface ViewController : UIViewController
 
 @property(nonatomic, retain) IBOutlet UITextField *tweetTextField;
-
 -(IBAction)updateTwitter:(id)sender; 
 
 @end

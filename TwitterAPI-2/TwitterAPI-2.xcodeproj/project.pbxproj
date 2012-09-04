@@ -129,8 +129,8 @@
 		46C6AD2015E24FBB00062BE4 = {
 			isa = PBXGroup;
 			children = (
+				46FD38EA15F6174B00CFA1D6 /* externals */,
 				46C6AE6415E2617E00062BE4 /* libxml2.dylib */,
-				46C6AE0E15E25FEB00062BE4 /* Twitter+OAuth */,
 				46C6AD3515E24FBB00062BE4 /* TwitterAPI-2 */,
 				46C6AD2E15E24FBB00062BE4 /* Frameworks */,
 				46C6AD2C15E24FBB00062BE4 /* Products */,
@@ -272,6 +272,14 @@
 				46C6AE4915E25FEB00062BE4 /* twitter_load.png */,
 			);
 			path = SAOAuthTwitterEngine;
+			sourceTree = "<group>";
+		};
+		46FD38EA15F6174B00CFA1D6 /* externals */ = {
+			isa = PBXGroup;
+			children = (
+				46C6AE0E15E25FEB00062BE4 /* Twitter+OAuth */,
+			);
+			name = externals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -479,6 +487,7 @@
 				46C6AD4B15E24FBC00062BE4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
