@@ -49,34 +49,21 @@
     [web loadRequest:request];
 }
 
+- (void) denied {
+	//[self performSelector: @selector(dismissModalViewControllerAnimated:) withObject:(id)kCFBooleanTrue afterDelay: 1.0];
+}
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    /*
-    //Получаем URL
-    NSURL *url1 = [request URL];
-    
-    //Проверяем на соответствие пользовательской URL-схеме
-    //if ([url.scheme isEqualToString:URL_SCHEME])
-    {
-        //убираем индикатор сетевой активности
-        UIApplication* app = [UIApplication sharedApplication];
-        app.networkActivityIndicatorVisible = NO;
-        
-        //разбираем URL на отдельные элементы
-        //наш токен будет в массиве arr под индексом 2
-        NSArray *arr = [[url1 description] componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"#=&"]];
-        
-        //говорим делегату об успешной авторизации и передаем токен
+	NSData				*data = [request HTTPBody];
+	char				*raw = data ? (char *) [data bytes] : "";
+	
+	if (raw && (strstr(raw, "cancel=") || strstr(raw, "deny="))) {
+		[self denied];
+		return NO;
+	}
+	return YES;
 
-        self.token = [arr objectAtIndex:2];
-        
-        //запрещаем UIWebView открывать URL
-        return NO;
-    }
-    */
-    //разрешаем UIWebView переход по URL
-    return YES;
 }
 
 
