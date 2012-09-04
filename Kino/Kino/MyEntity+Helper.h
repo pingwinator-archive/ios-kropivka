@@ -11,8 +11,6 @@
 @interface MyEntity (Helper)
 
 + (id)entityWithContext:(NSManagedObjectContext *)context;
-
 - (void)removeWithContext:(NSManagedObjectContext *)context;
-
 
 @end
