@@ -13,9 +13,10 @@
 #import "WebViewController.h"
 #import "TweetViewController.h"
 
-#define kConsumerKey	@"xY36sQ4G9a7EIMaIg8yEhA"
-#define kConsumerSecret	@"zztfHyLCcfQo4tP7bElIJNEVWVAfAKp4723iAT1Q"
+#define kConsumerKey        @"xY36sQ4G9a7EIMaIg8yEhA"
+#define kConsumerSecret     @"zztfHyLCcfQo4tP7bElIJNEVWVAfAKp4723iAT1Q"
 
+#define kAccessTokenStr	@"AccessTokenHttp"
 
 @interface Loginer ()
 - (void) getRequestToken;
@@ -32,7 +33,12 @@
 }
 
 -(void) startLogin {
-    if ( !self.accessToken ) {
+    
+    NSString* httpBody = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessTokenStr];
+    if( httpBody ) {
+        self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:httpBody];
+        [self.delegate userLoggedIn];
+    }else {
         [self getRequestToken];
     }
 }
@@ -117,6 +123,8 @@
 		
 		NSLog(@"Got access token. Ready to use Twitter API.");
         
+        [[NSUserDefaults standardUserDefaults] setObject:responseBody forKey:kAccessTokenStr];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [self.delegate userLoggedIn];
 	}
 }

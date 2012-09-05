@@ -70,8 +70,10 @@
         for(NSDictionary* tweetDict in mainArray)
         {
             Tweet* tw = [[Tweet alloc] init];
+            
             tw.user = [[tweetDict objectForKey:@"user"] objectForKey:@"name"];
             tw.text = [tweetDict objectForKey:@"text"];
+            
             [self.tweets addObject:tw];
         }
         [self.delegate tweetsLoaded];

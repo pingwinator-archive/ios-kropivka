@@ -13,6 +13,7 @@
 #import "WebViewController.h"
 #import "TweetsLoader.h"
 #import "Tweet.h"
+#import "TweetViewCell.h"
 
 @interface TweetViewController ()
 
@@ -82,17 +83,18 @@
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TweetViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle 
+        cell = [[TweetViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle 
                                       reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
     Tweet* tw = [self.tweetsLoader.tweets objectAtIndex:[indexPath row]];
-    cell.textLabel.text = tw.user;
-    
+    cell.name.text = tw.user;
+    cell.tweet.text = tw.text;
+
     return cell;
 }
 
@@ -101,6 +103,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
 }
 
 #pragma mark - TweetViewControllerDelegate
