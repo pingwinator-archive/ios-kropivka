@@ -47,6 +47,28 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url1];
     
     [web loadRequest:request];
+    
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(pasteboardChanged:) name: UIPasteboardChangedNotification object: nil];
+}
+- (void) gotPin: (NSString *) pin {
+    
+    NSLog(@"GOT PIN: %@", pin);
+	//pin;
+	//[_engine requestAccessToken];
+}
+
+#pragma mark Notifications
+
+- (void) pasteboardChanged: (NSNotification *) note {
+	UIPasteboard					*pb = [UIPasteboard generalPasteboard];
+	
+	if ([note.userInfo objectForKey: UIPasteboardChangedTypesAddedKey] == nil) return;		//no meaningful change
+	
+	NSString						*copied = pb.string;
+	
+	if(copied.length != 7 ) return;
+	
+	[self gotPin: copied];
 }
 
 - (void) denied {
@@ -55,13 +77,11 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-	NSData				*data = [request HTTPBody];
-	char				*raw = data ? (char *) [data bytes] : "";
-	
-	if (raw && (strstr(raw, "cancel=") || strstr(raw, "deny="))) {
-		[self denied];
-		return NO;
-	}
+    NSString *urlStr = [[request URL] absoluteString];
+    NSLog(@"url = %@", urlStr);
+    
+    //pin
+
 	return YES;
 
 }
