@@ -20,6 +20,7 @@
 @property (strong, nonatomic) RequestSender* requestSender;
 @property (strong, nonatomic) TweetsLoader* tweetsLoader;
 @property (strong, nonatomic) Loginer* log;
+@property (strong, nonatomic) NSMutableDictionary* imageCache;
 
 @end
 
@@ -29,11 +30,13 @@
 @synthesize requestSender;
 @synthesize tweetsLoader;
 @synthesize log;
+@synthesize imageCache;
 
 - (void) viewDidUnload {
     self.requestSender = nil;
     self.tweetsLoader = nil;
     self.log = nil;
+    self.imageCache = nil;
     
     [super viewDidUnload];
 }
@@ -46,6 +49,8 @@
         self.log.delegate = self;
         self.tweetsLoader = [[TweetsLoader alloc] initWithLoginer:self.log];
         self.tweetsLoader.delegate = self;
+        
+        self.imageCache = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -94,19 +99,23 @@
     Tweet* tw = [self.tweetsLoader.tweets objectAtIndex:[indexPath row]];
     cell.name.text = tw.user;
     cell.tweet.text = tw.text;
-    if( tw.img ) {
-        cell.avatar.image = tw.img;
+    
+    __block UIImage* img = [imageCache objectForKey:tw.imgUrl];
+    if( img ) {
+        cell.avatar.image = img;
     } else {
         dispatch_queue_t global_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
         
         dispatch_async(global_queue, ^{
             NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:tw.imgUrl]];
+            img = [[UIImage alloc] initWithData:data];
             dispatch_async(dispatch_get_main_queue(), ^{
-                cell.avatar.image = [[UIImage alloc] initWithData:data];
+                cell.avatar.image = img;
             });
+            tw.img = img;
+            [imageCache setObject:img forKey:tw.imgUrl];
         });
     }
-
     
     return cell;
 }
