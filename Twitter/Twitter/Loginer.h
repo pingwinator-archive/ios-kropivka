@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class OAToken;
 
 @protocol TweetViewControllerDelegate;
 
@@ -18,6 +19,7 @@
 
 @property (strong, nonatomic) NSString* consumerKey;
 @property (strong, nonatomic) NSString* consumerSecret;
+@property (strong, nonatomic) OAToken * accessToken;
 
 @property (weak, nonatomic) id<TweetViewControllerDelegate> delegate;
 

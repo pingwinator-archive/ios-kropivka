@@ -14,13 +14,9 @@
 #import "TweetViewController.h"
 
 @interface Loginer ()
-
-@property (strong, nonatomic) OAToken * accessToken;
-
 - (void) getRequestToken;
-- (void) getHomeTimeline;
-
 @end
+
 
 @implementation Loginer
 
@@ -30,7 +26,12 @@
 @synthesize consumerSecret;
 @synthesize accessToken;
 
-//TODO: dealloc
+-(void)dealloc
+{
+    self.consumerKey = nil;
+    self.consumerSecret = nil;
+    self.accessToken = nil;
+}
 
 -(void) startLogin {
     if ( !self.accessToken ) {
@@ -90,28 +91,6 @@
 				  didFailSelector:@selector(accessTokenTicket:didFailWithError:)];	
 }
 
-- (void) getHomeTimeline
-{
-	OAConsumer *consumer = [[OAConsumer alloc] initWithKey:self.consumerKey
-													secret:self.consumerSecret];
-	
-	OADataFetcher *fetcher = [[OADataFetcher alloc] init];
-	
-	NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/home_timeline.xml"];
-	
-	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
-																   consumer:consumer
-																	  token:self.accessToken
-																	  realm:nil
-														  signatureProvider:nil];
-	NSLog(@"Getting home timeline...");
-	
-	[fetcher fetchDataWithRequest:request 
-						 delegate:self
-				didFinishSelector:@selector(apiTicket:didFinishWithData:)
-				  didFailSelector:@selector(apiTicket:didFailWithError:)];	
-}
-
 - (void) requestTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
 {
 	if (ticket.didSucceed)
@@ -129,7 +108,6 @@
         [self.delegate showLoginWindow:address];
 	}
 }
-
 
 - (void) requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
 {
@@ -150,21 +128,6 @@
 - (void) accessTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
 {
 	NSLog(@"Getting access token failed: %@", [error localizedDescription]);
-}
-
-- (void) apiTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
-{
-	if (ticket.didSucceed)
-	{
-		NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-		NSLog(@"Got home timeline. Length: %d.", [responseBody length]);
-		NSLog(@"Body:\n%@", responseBody);
-	}
-}
-
-- (void) apiTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
-{
-	NSLog(@"Getting home timeline failed: %@", [error localizedDescription]);
 }
 
 @end
