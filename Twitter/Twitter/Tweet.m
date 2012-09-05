@@ -15,4 +15,16 @@
 @synthesize imgUrl;
 @synthesize img;
 
+- (CGFloat)tweetLabelHeight {
+    return [self.text sizeWithFont:kTweetFont 
+                 constrainedToSize:CGSizeMake(320-50, CGFLOAT_MAX) 
+                     lineBreakMode:UILineBreakModeWordWrap].height;
+}
+
+- (CGFloat) fullHeight {
+    CGFloat tweetHeight = [self tweetLabelHeight];
+    tweetHeight += 20;
+    return (tweetHeight < 50 ? 50 : tweetHeight) + 10;
+}
+
 @end

@@ -15,4 +15,7 @@
 @property (strong,nonatomic) NSString *imgUrl;
 @property (strong,nonatomic) UIImage *img;
 
+- (CGFloat) tweetLabelHeight;
+- (CGFloat) fullHeight;
+
 @end

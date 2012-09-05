@@ -16,7 +16,7 @@
 #define kConsumerKey        @"xY36sQ4G9a7EIMaIg8yEhA"
 #define kConsumerSecret     @"zztfHyLCcfQo4tP7bElIJNEVWVAfAKp4723iAT1Q"
 
-#define kAccessTokenStr	@"AccessTokenHttp"
+#define kAccessTokenStr     @"AccessTokenHttp"
 
 @interface Loginer ()
 - (void) getRequestToken;

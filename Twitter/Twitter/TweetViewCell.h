@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class Tweet;
+
 @interface TweetViewCell : UITableViewCell
 
-@property (strong, nonatomic) UILabel* name;
-@property (strong, nonatomic) UITextView* tweet;
-@property (strong, nonatomic) UIImageView* avatar;
+@property (strong, nonatomic) Tweet* tweet;
+@property (strong, nonatomic) UIImageView* avatarView;
 
 @end

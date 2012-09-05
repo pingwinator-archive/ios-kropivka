@@ -23,6 +23,7 @@
 		463D0A2415F731920007863D /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 463D0A1015F731920007863D /* OAServiceTicket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		463D0A2515F731920007863D /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 463D0A1315F731920007863D /* OAToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		463D0A2915F743600007863D /* TweetsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 463D0A2815F743600007863D /* TweetsLoader.m */; };
+		466CA6FD15F78ED200E12D36 /* ActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 466CA6FC15F78ED200E12D36 /* ActivityView.m */; };
 		46F5633315F7727D00DB5647 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F5633215F7727D00DB5647 /* Tweet.m */; };
 		46F5633715F779D000DB5647 /* TweetViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F5633615F779D000DB5647 /* TweetViewCell.m */; };
 		46FD38D415F6054E00CFA1D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FD38D315F6054E00CFA1D6 /* UIKit.framework */; };
@@ -86,6 +87,9 @@
 		463D0A1615F731920007863D /* OAuthConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthConsumer.h; sourceTree = "<group>"; };
 		463D0A2715F7435F0007863D /* TweetsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsLoader.h; sourceTree = "<group>"; };
 		463D0A2815F743600007863D /* TweetsLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetsLoader.m; sourceTree = "<group>"; };
+		466CA6FB15F78ED200E12D36 /* ActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityView.h; sourceTree = "<group>"; };
+		466CA6FC15F78ED200E12D36 /* ActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityView.m; sourceTree = "<group>"; };
+		466CA6FF15F79C6800E12D36 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		46F5633115F7727D00DB5647 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		46F5633215F7727D00DB5647 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
 		46F5633515F779D000DB5647 /* TweetViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetViewCell.h; sourceTree = "<group>"; };
@@ -249,6 +253,9 @@
 				46F5633215F7727D00DB5647 /* Tweet.m */,
 				46F5633515F779D000DB5647 /* TweetViewCell.h */,
 				46F5633615F779D000DB5647 /* TweetViewCell.m */,
+				466CA6FB15F78ED200E12D36 /* ActivityView.h */,
+				466CA6FC15F78ED200E12D36 /* ActivityView.m */,
+				466CA6FF15F79C6800E12D36 /* Constants.h */,
 			);
 			name = src;
 			path = Twitter;
@@ -406,6 +413,7 @@
 				463D0A2915F743600007863D /* TweetsLoader.m in Sources */,
 				46F5633315F7727D00DB5647 /* Tweet.m in Sources */,
 				46F5633715F779D000DB5647 /* TweetViewCell.m in Sources */,
+				466CA6FD15F78ED200E12D36 /* ActivityView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
