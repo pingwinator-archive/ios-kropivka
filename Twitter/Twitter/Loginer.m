@@ -61,8 +61,8 @@
 	
 	NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"];
 	
-	//[self.accessToken setVerifier:self.pinCode];
-	//NSLog(@"Using PIN %@", self.accessToken.verifier);
+	self.accessToken.pin = self.pinCode;
+	NSLog(@"Using PIN %@", self.accessToken.pin);
 	
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
 																   consumer:consumer
