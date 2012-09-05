@@ -7,6 +7,8 @@
 //
 
 #import "WebViewController.h"
+#import "Loginer.h"
+
 
 @interface WebViewController () <UIWebViewDelegate>
 @property (strong, nonatomic) UIWebView* web;
@@ -19,6 +21,7 @@
 @synthesize web;
 @synthesize url;
 @synthesize token;
+@synthesize delegate;
 
 - (void) viewDidUnload {
     self.web = nil;
@@ -50,9 +53,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(pasteboardChanged:) name: UIPasteboardChangedNotification object: nil];
 }
+
 - (void) gotPin: (NSString *) pin {
     
     NSLog(@"GOT PIN: %@", pin);
+    self.delegate.pinCode = pin;
+    [self.delegate getAccessToken];
 	//pin;
 	//[_engine requestAccessToken];
 }
@@ -83,7 +89,6 @@
     //pin
 
 	return YES;
-
 }
 
 

@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class Loginer;
+
 @interface WebViewController : UIViewController
 
 @property (strong, nonatomic) NSString *token;
+@property (strong, nonatomic) Loginer* delegate;
 
 - (id) initWithUrl:(NSString*)urlin;
 

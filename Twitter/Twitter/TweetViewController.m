@@ -45,18 +45,12 @@
     
     self.log = [[Loginer alloc] init];
     
+    self.log.delegate = self;
+    
     self.log.consumerKey = kConsumerKey;
     self.log.consumerSecret = kConsumerSecret;
     
     [self.log getRequestToken];
-    
-    if([self.log.address length])
-    {
-        WebViewController *web = [[WebViewController alloc] initWithUrl:self.log.address];
-        [ self presentViewController:web animated:YES completion:^{        
-
-        } ]; 
-    }
 }
 
 - (void) viewDidLoad {

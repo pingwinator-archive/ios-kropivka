@@ -12,7 +12,10 @@
 
 @property (strong, nonatomic) NSString* consumerKey;
 @property (strong, nonatomic) NSString* consumerSecret;
+@property (strong, nonatomic) NSString* pinCode;
+
 @property (strong, nonatomic) NSString* address;
+@property (strong, nonatomic) id delegate;
 
 - (void) getRequestToken;
 - (void) getAccessToken;

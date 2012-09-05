@@ -10,16 +10,18 @@
 #import "OAConsumer.h"
 #import "OADataFetcher.h"
 #import "OAToken.h"
+#import "WebViewController.h"
 
 @interface Loginer ()
 
 
 @property (strong, nonatomic) OAToken * accessToken;
-@property (strong, nonatomic) NSString* pinCode;
 
 @end
 
 @implementation Loginer
+
+@synthesize delegate;
 
 @synthesize consumerKey;
 @synthesize consumerSecret;
@@ -115,7 +117,20 @@
 		self.address = [NSString stringWithFormat:
 							 @"https://api.twitter.com/oauth/authorize?oauth_token=%@",
 							 accessToken.key];
+        
+        [self showLoginWindow];
 	}
+}
+
+- (void) showLoginWindow {
+    if([self.address length])
+    {
+        WebViewController *web = [[WebViewController alloc] initWithUrl:self.address];
+        web.delegate = self;
+        [self.delegate presentViewController:web animated:YES completion:^{        
+        
+        } ];
+    }
 }
 
 - (void) requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
