@@ -69,25 +69,29 @@
 	[self performSelector: @selector(dismissModalViewControllerAnimated:) withObject:(id)kCFBooleanTrue afterDelay: 0.0];
 }
 
+#define kDeniedUrl @"http://google.com/?denied="
+#define kCancelUrl @"http://google.com/?cancel="
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *urlStr = [[request URL] absoluteString];
+    NSLog(@"url = %@", urlStr);
     
     //  format: tel:1349166
     if([[urlStr substringToIndex:kTel.length] isEqualToString:kTel])
     {
         [self gotPin:[urlStr substringFromIndex:kTel.length]];
+        return NO;
     }
     
-    NSLog(@"url = %@", urlStr);
     
-    NSData *data = [request HTTPBody];
-	char *raw = data ? (char *) [data bytes] : "";
-	
-	if (raw && (strstr(raw, "cancel=") || strstr(raw, "deny="))) {
+    //TODO: move to category
+	if([[urlStr substringToIndex:kDeniedUrl.length] isEqualToString:kDeniedUrl] ||
+       [[urlStr substringToIndex:kCancelUrl.length] isEqualToString:kCancelUrl] ) {
 		[self hide];
 		return NO;
 	}
+    
 	return YES;
 }
 

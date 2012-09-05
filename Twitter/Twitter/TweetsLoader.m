@@ -9,6 +9,9 @@
 #import "TweetsLoader.h"
 #import "OAuthConsumer.h"
 #import "Loginer.h"
+#import "SBJson.h"
+#import "Tweet.h"
+#import "TweetViewController.h"
 
 @interface TweetsLoader ()
 
@@ -20,13 +23,18 @@
 
 @synthesize loginer;
 @synthesize tweets;
+@synthesize delegate;
 
+-(void)dealloc{
+    self.tweets = nil;
+}
 - (id) initWithLoginer:(Loginer*)log
 {
     self = [super init];
     if(self)
     {
         self.loginer = log;
+        self.tweets = [NSMutableArray array];
     }
     return self;
 }
@@ -52,9 +60,21 @@
 {
 	if (ticket.didSucceed)
 	{
-		NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-		NSLog(@"Got home timeline. Length: %d.", [responseBody length]);
-		NSLog(@"Body:\n%@", responseBody);
+		NSLog( @"Got home timeline." );
+
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         
+        NSArray *mainArray = [parser objectWithString:json_string error:nil];    
+        
+        for(NSDictionary* tweetDict in mainArray)
+        {
+            Tweet* tw = [[Tweet alloc] init];
+            tw.user = [[tweetDict objectForKey:@"user"] objectForKey:@"name"];
+            tw.text = [tweetDict objectForKey:@"text"];
+            [self.tweets addObject:tw];
+        }
+        [self.delegate tweetsLoaded];
 	}
 }
 

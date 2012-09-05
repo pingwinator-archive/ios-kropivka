@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @class Loginer;
+@protocol TweetsLoaderDelegate;
+
 
 @interface TweetsLoader : NSObject
 
 @property (strong, nonatomic) NSMutableArray* tweets;
-//@property (strong, nonatomic) NSMutableArray* avatars;
+@property (weak, nonatomic) id <TweetsLoaderDelegate> delegate;
 
 - (id) initWithLoginer:(Loginer*)log;
 - (void) loadTweets;

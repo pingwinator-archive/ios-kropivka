@@ -15,5 +15,11 @@
 
 @end
 
-@interface TweetViewController : UITableViewController <TweetViewControllerDelegate>
+@protocol TweetsLoaderDelegate
+
+- (void) tweetsLoaded;
+
+@end
+
+@interface TweetViewController : UITableViewController <TweetViewControllerDelegate,TweetsLoaderDelegate>
 @end

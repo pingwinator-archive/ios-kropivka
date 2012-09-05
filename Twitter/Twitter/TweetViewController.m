@@ -12,7 +12,7 @@
 #import "Loginer.h"
 #import "WebViewController.h"
 #import "TweetsLoader.h"
-
+#import "Tweet.h"
 
 @interface TweetViewController ()
 
@@ -44,6 +44,7 @@
         self.log = [[Loginer alloc] init];
         self.log.delegate = self;
         self.tweetsLoader = [[TweetsLoader alloc] initWithLoginer:self.log];
+        self.tweetsLoader.delegate = self;
     }
     return self;
 }
@@ -55,25 +56,12 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-        
-    /*
-        {
-            SBJsonParser *parser = [[SBJsonParser alloc] init];
-            NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            
 
-            NSArray *answer = [parser objectWithString:json_string error:nil];       
-            
-            answer = nil;
-        }
-     */
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] 
                                               initWithTitle:@"Login" 
                                               style:UIBarButtonItemStylePlain
                                               target:self 
                                               action:@selector(loginAction)];
-    
 }
 
 - (void) loginAction
@@ -84,13 +72,12 @@
 #pragma mark - Table view data source
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 1;
+    NSLog(@"tweets count %d",[self.tweetsLoader.tweets count]);
+    return [self.tweetsLoader.tweets count];
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,7 +90,9 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    cell.textLabel.text = @"text";
+    Tweet* tw = [self.tweetsLoader.tweets objectAtIndex:[indexPath row]];
+    cell.textLabel.text = tw.user;
+    
     return cell;
 }
 
@@ -111,13 +100,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    
 }
 
 #pragma mark - TweetViewControllerDelegate
@@ -134,7 +117,15 @@
 
 - (void) userLoggedIn
 {
+    NSLog(@"User logged in");
     [self.tweetsLoader loadTweets];
+    [self.tableView  reloadData];
+}
+
+- (void) tweetsLoaded
+{
+    NSLog(@"Tweets Loaded");
+    [self.tableView reloadData]; 
 }
 
 @end
