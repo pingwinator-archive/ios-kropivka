@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TweetViewController : UITableViewController
+@protocol TweetViewControllerDelegate
 
+- (void) showLoginWindow:(NSString*)address;
+
+@end
+
+@interface TweetViewController : UITableViewController <TweetViewControllerDelegate>
 @end

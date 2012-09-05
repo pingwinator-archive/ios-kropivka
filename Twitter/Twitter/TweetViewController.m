@@ -37,20 +37,29 @@
 - (void) viewDidUnload {
     self.tweets = nil;
     self.avatars = nil;
+    self.log = nil;
+    
     [super viewDidUnload];
 
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    
-    self.log = [[Loginer alloc] init];
-    
-    self.log.delegate = self;
-    
-    self.log.consumerKey = kConsumerKey;
-    self.log.consumerSecret = kConsumerSecret;
-    
-    [self.log getRequestToken];
+- (id) init {
+    self = [super init];
+    if(self)
+    {
+        self.log = [[Loginer alloc] init];
+        
+        self.log.delegate = self;
+        
+        self.log.consumerKey = kConsumerKey;
+        self.log.consumerSecret = kConsumerSecret;
+        
+    }
+    return self;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self.log startLogin];
 }
 
 - (void) viewDidLoad {
@@ -107,8 +116,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [log getAccessToken];
-    [log getHomeTimeline];
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -116,6 +123,16 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+- (void) showLoginWindow:(NSString*)address {
+    if( [address length])
+    {
+        WebViewController *web = [[WebViewController alloc] initWithUrl:address];
+        web.delegate = self.log;
+        [self presentViewController:web animated:YES completion:^{        
+        } ];
+    }
 }
 
 @end

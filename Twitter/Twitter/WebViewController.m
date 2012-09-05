@@ -9,10 +9,14 @@
 #import "WebViewController.h"
 #import "Loginer.h"
 
+#define kTel @"tel:"
 
 @interface WebViewController () <UIWebViewDelegate>
 @property (strong, nonatomic) UIWebView* web;
 @property (strong, nonatomic) NSString* url;
+
+- (void) hide;
+
 @end
 
 
@@ -23,11 +27,13 @@
 @synthesize token;
 @synthesize delegate;
 
+
+
 - (void) viewDidUnload {
     self.web = nil;
     self.url =  nil;
     self.token = nil;
-    
+
     [super viewDidUnload];
 }
 
@@ -50,44 +56,38 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url1];
     
     [web loadRequest:request];
-    
-    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(pasteboardChanged:) name: UIPasteboardChangedNotification object: nil];
 }
 
 - (void) gotPin: (NSString *) pin {
     
     NSLog(@"GOT PIN: %@", pin);
-    self.delegate.pinCode = pin;
-    [self.delegate getAccessToken];
-	//pin;
-	//[_engine requestAccessToken];
+    [self.delegate getAccessTokenWithPin:pin];
+    [self hide];
 }
 
-#pragma mark Notifications
-
-- (void) pasteboardChanged: (NSNotification *) note {
-	UIPasteboard					*pb = [UIPasteboard generalPasteboard];
-	
-	if ([note.userInfo objectForKey: UIPasteboardChangedTypesAddedKey] == nil) return;		//no meaningful change
-	
-	NSString						*copied = pb.string;
-	
-	if(copied.length != 7 ) return;
-	
-	[self gotPin: copied];
-}
-
-- (void) denied {
-	//[self performSelector: @selector(dismissModalViewControllerAnimated:) withObject:(id)kCFBooleanTrue afterDelay: 1.0];
+- (void) hide {
+	[self performSelector: @selector(dismissModalViewControllerAnimated:) withObject:(id)kCFBooleanTrue afterDelay: 0.0];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *urlStr = [[request URL] absoluteString];
+    
+    //  format: tel:1349166
+    if([[urlStr substringToIndex:kTel.length] isEqualToString:kTel])
+    {
+        [self gotPin:[urlStr substringFromIndex:kTel.length]];
+    }
+    
     NSLog(@"url = %@", urlStr);
     
-    //pin
-
+    NSData *data = [request HTTPBody];
+	char *raw = data ? (char *) [data bytes] : "";
+	
+	if (raw && (strstr(raw, "cancel=") || strstr(raw, "deny="))) {
+		[self hide];
+		return NO;
+	}
 	return YES;
 }
 

@@ -11,11 +11,14 @@
 #import "OADataFetcher.h"
 #import "OAToken.h"
 #import "WebViewController.h"
+#import "TweetViewController.h"
 
 @interface Loginer ()
 
-
 @property (strong, nonatomic) OAToken * accessToken;
+
+- (void) getRequestToken;
+- (void) getHomeTimeline;
 
 @end
 
@@ -26,8 +29,14 @@
 @synthesize consumerKey;
 @synthesize consumerSecret;
 @synthesize accessToken;
-@synthesize pinCode;
-@synthesize address;
+
+//TODO: dealloc
+
+-(void) startLogin {
+    if ( !self.accessToken ) {
+        [self getRequestToken];
+    }
+}
 
 - (void) getRequestToken
 {
@@ -54,7 +63,7 @@
 }
 
 
-- (void) getAccessToken
+- (void) getAccessTokenWithPin:(NSString*)pinCode
 {
 	OAConsumer *consumer = [[OAConsumer alloc] initWithKey:self.consumerKey
 													secret:self.consumerSecret];
@@ -63,7 +72,7 @@
 	
 	NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"];
 	
-	self.accessToken.pin = self.pinCode;
+	self.accessToken.pin = pinCode;
 	NSLog(@"Using PIN %@", self.accessToken.pin);
 	
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
@@ -95,7 +104,6 @@
 																	  token:self.accessToken
 																	  realm:nil
 														  signatureProvider:nil];
-	
 	NSLog(@"Getting home timeline...");
 	
 	[fetcher fetchDataWithRequest:request 
@@ -114,24 +122,14 @@
 		
 		NSLog(@"Got request token. Redirecting to twitter auth page...");
 		
-		self.address = [NSString stringWithFormat:
+		NSString* address = [NSString stringWithFormat:
 							 @"https://api.twitter.com/oauth/authorize?oauth_token=%@",
 							 accessToken.key];
         
-        [self showLoginWindow];
+        [self.delegate showLoginWindow:address];
 	}
 }
 
-- (void) showLoginWindow {
-    if([self.address length])
-    {
-        WebViewController *web = [[WebViewController alloc] initWithUrl:self.address];
-        web.delegate = self;
-        [self.delegate presentViewController:web animated:YES completion:^{        
-        
-        } ];
-    }
-}
 
 - (void) requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
 {

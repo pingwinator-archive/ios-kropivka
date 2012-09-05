@@ -8,17 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Loginer : NSObject
+@protocol TweetViewControllerDelegate;
+
+@protocol LoginerDelegate
+- (void) getAccessTokenWithPin:(NSString*) pinCode;
+@end
+
+@interface Loginer : NSObject <LoginerDelegate>
 
 @property (strong, nonatomic) NSString* consumerKey;
 @property (strong, nonatomic) NSString* consumerSecret;
-@property (strong, nonatomic) NSString* pinCode;
 
-@property (strong, nonatomic) NSString* address;
-@property (strong, nonatomic) id delegate;
+@property (weak, nonatomic) id<TweetViewControllerDelegate> delegate;
 
-- (void) getRequestToken;
-- (void) getAccessToken;
-- (void) getHomeTimeline;
+- (void) startLogin;
 
 @end
