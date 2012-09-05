@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic) UILabel* name;
 @property (strong, nonatomic) UITextView* tweet;
-@property (strong, nonatomic) UIImage* avatar;
+@property (strong, nonatomic) UIImageView* avatar;
 
 @end

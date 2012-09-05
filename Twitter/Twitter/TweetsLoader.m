@@ -72,6 +72,7 @@
             Tweet* tw = [[Tweet alloc] init];
             
             tw.user = [[tweetDict objectForKey:@"user"] objectForKey:@"name"];
+            tw.imgUrl = [[tweetDict objectForKey:@"user"] objectForKey:@"profile_image_url"];
             tw.text = [tweetDict objectForKey:@"text"];
             
             [self.tweets addObject:tw];

@@ -94,7 +94,20 @@
     Tweet* tw = [self.tweetsLoader.tweets objectAtIndex:[indexPath row]];
     cell.name.text = tw.user;
     cell.tweet.text = tw.text;
+    if( tw.img ) {
+        cell.avatar.image = tw.img;
+    } else {
+        dispatch_queue_t global_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+        
+        dispatch_async(global_queue, ^{
+            NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:tw.imgUrl]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                cell.avatar.image = [[UIImage alloc] initWithData:data];
+            });
+        });
+    }
 
+    
     return cell;
 }
 

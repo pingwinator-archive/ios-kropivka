@@ -18,6 +18,10 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
+        self.avatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+        [self.contentView addSubview:self.avatar];
+
         self.name = [[UILabel alloc] initWithFrame:CGRectMake(50, 0, 320-50, 20)];
         [self.contentView addSubview:self.name];
         self.name.font = [self.name.font fontWithSize:14];

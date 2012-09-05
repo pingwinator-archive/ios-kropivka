@@ -12,5 +12,7 @@
 
 @synthesize user;
 @synthesize text;
+@synthesize imgUrl;
+@synthesize img;
 
 @end
