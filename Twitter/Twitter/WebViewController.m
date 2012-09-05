@@ -48,7 +48,7 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-    self.web = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, 320, 400)];
+    self.web = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
     self.web.delegate = self;
     [self.view addSubview:self.web];
     

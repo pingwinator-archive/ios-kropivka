@@ -13,23 +13,21 @@
 #import "WebViewController.h"
 #import "TweetViewController.h"
 
+#define kConsumerKey	@"xY36sQ4G9a7EIMaIg8yEhA"
+#define kConsumerSecret	@"zztfHyLCcfQo4tP7bElIJNEVWVAfAKp4723iAT1Q"
+
+
 @interface Loginer ()
 - (void) getRequestToken;
 @end
 
-
 @implementation Loginer
 
 @synthesize delegate;
-
-@synthesize consumerKey;
-@synthesize consumerSecret;
 @synthesize accessToken;
 
 -(void)dealloc
 {
-    self.consumerKey = nil;
-    self.consumerSecret = nil;
     self.accessToken = nil;
 }
 
@@ -39,52 +37,48 @@
     }
 }
 
+- (OAConsumer *)consumer {
+    return [[OAConsumer alloc] initWithKey:kConsumerKey 
+                                    secret:kConsumerSecret ];
+}
+
 - (void) getRequestToken
 {
-	OAConsumer *consumer = [[OAConsumer alloc] initWithKey:self.consumerKey 
-													secret:self.consumerSecret ];
-	
-	OADataFetcher *fetcher = [[OADataFetcher alloc] init];
-	
 	NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/oauth/request_token"];
 	
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
-																   consumer:consumer
+																   consumer:[self consumer]
 																	  token:nil
 																	  realm:nil
 														  signatureProvider:nil];
 	[request setHTTPMethod:@"POST"];
 	
 	NSLog(@"Getting request token...");
-	
+    
+    OADataFetcher *fetcher = [[OADataFetcher alloc] init];
 	[fetcher fetchDataWithRequest:request 
 						 delegate:self
 				didFinishSelector:@selector(requestTokenTicket:didFinishWithData:)
 				  didFailSelector:@selector(requestTokenTicket:didFailWithError:)];	
 }
 
-
 - (void) getAccessTokenWithPin:(NSString*)pinCode
 {
-	OAConsumer *consumer = [[OAConsumer alloc] initWithKey:self.consumerKey
-													secret:self.consumerSecret];
-	
-	OADataFetcher *fetcher = [[OADataFetcher alloc] init];
-	
 	NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"];
 	
 	self.accessToken.pin = pinCode;
 	NSLog(@"Using PIN %@", self.accessToken.pin);
 	
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
-																   consumer:consumer
+																   consumer:[self consumer]
 																	  token:self.accessToken
 																	  realm:nil
 														  signatureProvider:nil];
 	
 	[request setHTTPMethod:@"POST"];
 	NSLog(@"Getting access token...");
-	
+    
+    OADataFetcher *fetcher = [[OADataFetcher alloc] init];
 	[fetcher fetchDataWithRequest:request 
 						 delegate:self
 				didFinishSelector:@selector(accessTokenTicket:didFinishWithData:)
@@ -122,6 +116,8 @@
 		self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
 		
 		NSLog(@"Got access token. Ready to use Twitter API.");
+        
+        [self.delegate userLoggedIn];
 	}
 }
 

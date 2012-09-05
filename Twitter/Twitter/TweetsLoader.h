@@ -12,6 +12,10 @@
 
 @interface TweetsLoader : NSObject
 
+@property (strong, nonatomic) NSMutableArray* tweets;
+//@property (strong, nonatomic) NSMutableArray* avatars;
+
 - (id) initWithLoginer:(Loginer*)log;
+- (void) loadTweets;
 
 @end

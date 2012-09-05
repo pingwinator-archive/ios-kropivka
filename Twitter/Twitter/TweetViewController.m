@@ -11,17 +11,13 @@
 #import "SBJson.h"
 #import "Loginer.h"
 #import "WebViewController.h"
-
-
-#define kConsumerKey	@"xY36sQ4G9a7EIMaIg8yEhA"
-#define kConsumerSecret	@"zztfHyLCcfQo4tP7bElIJNEVWVAfAKp4723iAT1Q"
+#import "TweetsLoader.h"
 
 
 @interface TweetViewController ()
 
 @property (strong, nonatomic) RequestSender* requestSender;
-@property (strong, nonatomic) NSMutableArray* tweets;
-@property (strong, nonatomic) NSMutableArray* avatars;
+@property (strong, nonatomic) TweetsLoader* tweetsLoader;
 @property (strong, nonatomic) Loginer* log;
 
 @end
@@ -30,17 +26,15 @@
 @implementation TweetViewController
 
 @synthesize requestSender;
-@synthesize tweets;
-@synthesize avatars;
+@synthesize tweetsLoader;
 @synthesize log;
 
 - (void) viewDidUnload {
-    self.tweets = nil;
-    self.avatars = nil;
+    self.requestSender = nil;
+    self.tweetsLoader = nil;
     self.log = nil;
     
     [super viewDidUnload];
-
 }
 
 - (id) init {
@@ -48,29 +42,21 @@
     if(self)
     {
         self.log = [[Loginer alloc] init];
-        
         self.log.delegate = self;
-        
-        self.log.consumerKey = kConsumerKey;
-        self.log.consumerSecret = kConsumerSecret;
-        
+        self.tweetsLoader = [[TweetsLoader alloc] initWithLoginer:self.log];
     }
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self.log startLogin];
+- (void)viewDidAppear:(BOOL)animated 
+{
+    
 }
 
 - (void) viewDidLoad {
     [super viewDidLoad];
         
     /*
-    NSString* url = @"https://api.twitter.com/1/statuses/user_timeline.json";
-    
-    OnFinishLoading block = ^(NSData* data, NSError* error)
-    {
-        if (!error)
         {
             SBJsonParser *parser = [[SBJsonParser alloc] init];
             NSString *json_string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -80,10 +66,19 @@
             
             answer = nil;
         }
-    };
-    
-    self.requestSender = [[RequestSender alloc] initWithURL:url andWithBlock:block];
      */
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] 
+                                              initWithTitle:@"Login" 
+                                              style:UIBarButtonItemStylePlain
+                                              target:self 
+                                              action:@selector(loginAction)];
+    
+}
+
+- (void) loginAction
+{
+    [self.log startLogin];   
 }
 
 #pragma mark - Table view data source
@@ -125,6 +120,8 @@
      */
 }
 
+#pragma mark - TweetViewControllerDelegate
+
 - (void) showLoginWindow:(NSString*)address {
     if( [address length])
     {
@@ -133,6 +130,11 @@
         [self presentViewController:web animated:YES completion:^{        
         } ];
     }
+}
+
+- (void) userLoggedIn
+{
+    [self.tweetsLoader loadTweets];
 }
 
 @end

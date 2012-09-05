@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class OAToken;
+@class OAConsumer;
 
 @protocol TweetViewControllerDelegate;
 
@@ -17,11 +18,9 @@
 
 @interface Loginer : NSObject <LoginerDelegate>
 
-@property (strong, nonatomic) NSString* consumerKey;
-@property (strong, nonatomic) NSString* consumerSecret;
-@property (strong, nonatomic) OAToken * accessToken;
-
 @property (weak, nonatomic) id<TweetViewControllerDelegate> delegate;
+@property (strong, nonatomic) OAToken * accessToken;
+- (OAConsumer *)consumer;
 
 - (void) startLogin;
 

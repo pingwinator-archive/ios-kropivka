@@ -20,7 +20,9 @@
     // Override point for customization after application launch.
     
     self.rootController = [[TweetViewController alloc] init];
-    [self.window addSubview:self.rootController.tableView];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.rootController];
+    self.window.rootViewController  = nav;
+   // [self.window addSubview:self.rootController.tableView];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

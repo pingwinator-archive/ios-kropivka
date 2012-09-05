@@ -13,13 +13,13 @@
 @interface TweetsLoader ()
 
 @property (strong, nonatomic) Loginer* loginer;
-- (void) getHomeTimeline;
 
 @end
 
 @implementation TweetsLoader
 
 @synthesize loginer;
+@synthesize tweets;
 
 - (id) initWithLoginer:(Loginer*)log
 {
@@ -31,22 +31,17 @@
     return self;
 }
 
-- (void) getHomeTimeline
+- (void) loadTweets
 {
-	OAConsumer *consumer = [[OAConsumer alloc] initWithKey:self.loginer.consumerKey
-													secret:self.loginer.consumerSecret];
-	
-	OADataFetcher *fetcher = [[OADataFetcher alloc] init];
-	
-	NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/home_timeline.xml"];
-	
+    NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/home_timeline.json"];
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
-																   consumer:consumer
+																   consumer:[self.loginer consumer]
 																	  token:self.loginer.accessToken
 																	  realm:nil
 														  signatureProvider:nil];
 	NSLog(@"Getting home timeline...");
-	
+    
+    OADataFetcher *fetcher = [[OADataFetcher alloc] init];
 	[fetcher fetchDataWithRequest:request 
 						 delegate:self
 				didFinishSelector:@selector(apiTicket:didFinishWithData:)
