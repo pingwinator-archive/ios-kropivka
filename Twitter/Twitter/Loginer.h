@@ -13,13 +13,13 @@
 @protocol TweetViewControllerDelegate;
 
 @protocol LoginerDelegate
-- (void) getAccessTokenWithPin:(NSString*) pinCode;
+- (void) getAccessTokenWithData:(NSString*)data;
 - (void) webViewFinished;
 @end
 
 @interface Loginer : NSObject <LoginerDelegate>
 
-@property (weak, nonatomic) id<TweetViewControllerDelegate> delegate;
+@property (unsafe_unretained, nonatomic) id<TweetViewControllerDelegate> delegate;
 @property (strong, nonatomic) OAToken * accessToken;
 
 - (OAConsumer *)consumer;

@@ -12,6 +12,7 @@
 #define kTel @"tel:"
 #define kDeniedUrl @"http://google.com/?denied="
 #define kCancelUrl @"http://google.com/?cancel="
+#define kCallbackUrl @"http://kropivka.com/?"
 
 @interface WebViewController () <UIWebViewDelegate>
 @property (strong, nonatomic) UIWebView* web;
@@ -60,12 +61,6 @@
     [web loadRequest:request];
 }
 
-- (void) gotPin: (NSString *) pin {
-    
-    NSLog(@"GOT PIN: %@", pin);
-    [self.delegate getAccessTokenWithPin:pin];
-    [self hide];
-}
 
 - (void) hide {
 	[self performSelector: @selector(dismissModalViewControllerAnimated:) withObject:(id)kCFBooleanTrue afterDelay: 0.0];
@@ -78,9 +73,10 @@
     NSLog(@"url = %@", urlStr);
     
     //  format: tel:1349166
-    if([[urlStr substringToIndex:kTel.length] isEqualToString:kTel])
+    if([[urlStr substringToIndex:kCallbackUrl.length] isEqualToString:kCallbackUrl])
     {
-        [self gotPin:[urlStr substringFromIndex:kTel.length]];
+        [self.delegate getAccessTokenWithData:[urlStr substringFromIndex:kCallbackUrl.length]];
+        [self hide];
         return NO;
     }
     
@@ -91,6 +87,7 @@
         [self.delegate webViewFinished];
 		return NO;
 	}
+    
 
 	return YES;
 }

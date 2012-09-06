@@ -13,8 +13,8 @@
 #import "WebViewController.h"
 #import "TweetViewController.h"
 
-#define kConsumerKey        @"xY36sQ4G9a7EIMaIg8yEhA"
-#define kConsumerSecret     @"zztfHyLCcfQo4tP7bElIJNEVWVAfAKp4723iAT1Q"
+#define kConsumerKey        @"mg74DLx2RcK3URAtlO6xHA"
+#define kConsumerSecret     @"hL3Jss3x4r5qFgN5KbgfMErlP3rRHrSqyFHLCaVMVw"
 
 #define kAccessTokenStr     @"AccessTokenHttp"
 
@@ -38,7 +38,7 @@
 }
 
 - (void) startLogin {
-    
+    [self logout ];
     NSString* httpBody = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessTokenStr];
     if( httpBody && kUseLoginCache ) {
         self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:httpBody];
@@ -73,12 +73,14 @@
 				  didFailSelector:@selector(requestTokenTicket:didFailWithError:)];	
 }
 
-- (void) getAccessTokenWithPin:(NSString*)pinCode
+- (void) getAccessTokenWithData:(NSString*)data
 {
 	NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"];
-	
-	self.accessToken.pin = pinCode;
-	NSLog(@"Using PIN %@", self.accessToken.pin);
+    
+    self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:data];
+
+	//self.accessToken.pin = pinCode;
+	//NSLog(@"Using PIN %@", self.accessToken.pin);
 	
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
 																   consumer:[self consumer]
@@ -137,6 +139,20 @@
         [self.delegate userLoggedIn:YES];
 	}
 }
+
+/*
+- (void) accessTokenInitWithData:(NSString*)responseBody {
+    self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
+    NSLog(@"Got access token. Ready to use Twitter API.");
+    
+    if(kUseLoginCache) {
+        [[NSUserDefaults standardUserDefaults] setObject:responseBody forKey:kAccessTokenStr];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    [self.delegate userLoggedIn:YES];
+}
+*/
 
 - (void) accessTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
 {

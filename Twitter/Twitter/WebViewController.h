@@ -15,7 +15,7 @@
 @interface WebViewController : UIViewController
 
 @property (strong, nonatomic) NSString *token;
-@property (weak, nonatomic) id<LoginerDelegate> delegate;
+@property (unsafe_unretained, nonatomic) id<LoginerDelegate> delegate;
 
 - (id) initWithUrl:(NSString*)urlin;
 

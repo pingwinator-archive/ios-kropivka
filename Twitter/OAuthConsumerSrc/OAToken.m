@@ -59,17 +59,15 @@
 	if (self = [super init])
 	{
 		NSArray *pairs = [body componentsSeparatedByString:@"&"];
-		
 		for (NSString *pair in pairs) {
 			NSArray *elements = [pair componentsSeparatedByString:@"="];
 			if ([[elements objectAtIndex:0] isEqualToString:@"oauth_token"]) {
-				self.key = [elements objectAtIndex:1];
+				self.key = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			} else if ([[elements objectAtIndex:0] isEqualToString:@"oauth_token_secret"]) {
-				self.secret = [elements objectAtIndex:1];
-			} else if ([[elements objectAtIndex:0] isEqualToString:@"oauth_verifier"]) {
-				self.pin = [elements objectAtIndex:1];
+				self.secret = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			}
 		}
+        NSLog(@"key=%@ secret = %@",self.key, self.secret);
 	}    
     return self;
 }

@@ -15,7 +15,7 @@
 @interface TweetsLoader : NSObject
 
 @property (strong, nonatomic) NSMutableArray* tweets;
-@property (weak, nonatomic) NSObject<TweetsLoaderDelegate>* delegate;
+@property (unsafe_unretained, nonatomic) NSObject<TweetsLoaderDelegate>* delegate;
 
 - (id) initWithLoginer:(Loginer*)log;
 

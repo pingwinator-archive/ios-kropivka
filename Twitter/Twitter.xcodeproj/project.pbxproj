@@ -546,6 +546,7 @@
 					"../**",
 				);
 				INFOPLIST_FILE = "Twitter/Twitter-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -561,6 +562,7 @@
 					"../**",
 				);
 				INFOPLIST_FILE = "Twitter/Twitter-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

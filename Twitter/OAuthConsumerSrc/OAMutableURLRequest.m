@@ -151,7 +151,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
                              nonce
 							 ];
 	
-	if (token.pin.length) oauthHeader = [oauthHeader stringByAppendingFormat: @", oauth_verifier=\"%@\"", token.pin];					//added for the Twitter OAuth implementation
+	if (token.secret.length) oauthHeader = [oauthHeader stringByAppendingFormat: @", oauth_verifier=\"%@\"", token.secret];					//added for the Twitter OAuth implementation
     [self setValue:oauthHeader forHTTPHeaderField:@"Authorization"];
 	//NSLog(@"Headers: %@", [self allHTTPHeaderFields]);
 }
@@ -185,7 +185,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_version" value:@"1.0"] URLEncodedNameValuePair]];
 
     if (token.key.length > 0) [parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_token" value:token.key] URLEncodedNameValuePair]];
-    if (token.pin.length > 0) [parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_verifier" value:token.pin] URLEncodedNameValuePair]];		//added for the Twitter OAuth implementation
+    if (token.secret.length > 0) [parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_verifier" value:token.secret] URLEncodedNameValuePair]];		//added for the Twitter OAuth implementation
     
     for (OARequestParameter *param in [self parameters]) {
         [parameterPairs addObject:[param URLEncodedNameValuePair]];
