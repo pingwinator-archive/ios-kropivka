@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		462F88A915F88572007EC889 /* Pull2RefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462F88A815F88572007EC889 /* Pull2RefreshViewController.m */; };
+		462F88AC15F88798007EC889 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 462F88AB15F88798007EC889 /* arrow.png */; };
+		462F88B215F88932007EC889 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 462F88B115F88932007EC889 /* QuartzCore.framework */; };
 		463D0A1715F731920007863D /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 463D09F515F731920007863D /* Base64Transcoder.c */; };
 		463D0A1815F731920007863D /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 463D09F715F731920007863D /* hmac.c */; };
 		463D0A1915F731920007863D /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 463D09F915F731920007863D /* sha1.c */; };
@@ -52,6 +55,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		462F88A715F88572007EC889 /* Pull2RefreshViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pull2RefreshViewController.h; sourceTree = "<group>"; };
+		462F88A815F88572007EC889 /* Pull2RefreshViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pull2RefreshViewController.m; sourceTree = "<group>"; };
+		462F88AB15F88798007EC889 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		462F88B115F88932007EC889 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		463D09F515F731920007863D /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
 		463D09F615F731920007863D /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
 		463D09F715F731920007863D /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
@@ -143,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				462F88B215F88932007EC889 /* QuartzCore.framework in Frameworks */,
 				46FD396215F61DEC00CFA1D6 /* libxml2.dylib in Frameworks */,
 				46FD396015F61DD900CFA1D6 /* Security.framework in Frameworks */,
 				46FD38D415F6054E00CFA1D6 /* UIKit.framework in Frameworks */,
@@ -191,12 +199,22 @@
 		462F88A615F88445007EC889 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				462F88A715F88572007EC889 /* Pull2RefreshViewController.h */,
+				462F88A815F88572007EC889 /* Pull2RefreshViewController.m */,
 				46FD38EC15F6190700CFA1D6 /* TweetViewController.h */,
 				46FD38ED15F6190700CFA1D6 /* TweetViewController.m */,
 				46FD399815F63B9100CFA1D6 /* WebViewController.h */,
 				46FD399915F63B9100CFA1D6 /* WebViewController.m */,
 			);
 			name = controllers;
+			sourceTree = "<group>";
+		};
+		462F88AA15F88753007EC889 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				462F88AB15F88798007EC889 /* arrow.png */,
+			);
+			name = resources;
 			sourceTree = "<group>";
 		};
 		463D09F315F731920007863D /* OAuthConsumerSrc */ = {
@@ -254,6 +272,7 @@
 				46FD38D215F6054E00CFA1D6 /* Frameworks */,
 				46FD38D015F6054E00CFA1D6 /* Products */,
 				46FD38DA15F6054E00CFA1D6 /* Supporting Files */,
+				462F88AA15F88753007EC889 /* resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -268,6 +287,7 @@
 		46FD38D215F6054E00CFA1D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				462F88B115F88932007EC889 /* QuartzCore.framework */,
 				46FD395F15F61DD900CFA1D6 /* Security.framework */,
 				46FD38D315F6054E00CFA1D6 /* UIKit.framework */,
 				46FD38D515F6054E00CFA1D6 /* Foundation.framework */,
@@ -394,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46FD38DE15F6054E00CFA1D6 /* InfoPlist.strings in Resources */,
+				462F88AC15F88798007EC889 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +461,7 @@
 				46F5633315F7727D00DB5647 /* Tweet.m in Sources */,
 				46F5633715F779D000DB5647 /* TweetViewCell.m in Sources */,
 				466CA6FD15F78ED200E12D36 /* ActivityView.m in Sources */,
+				462F88A915F88572007EC889 /* Pull2RefreshViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Pull2RefreshViewController.h"
 
 @protocol TweetViewControllerDelegate
 
@@ -21,5 +22,6 @@
 
 @end
 
-@interface TweetViewController : UITableViewController <TweetViewControllerDelegate,TweetsLoaderDelegate>
+
+@interface TweetViewController : Pull2RefreshViewController <TweetViewControllerDelegate,TweetsLoaderDelegate>
 @end
