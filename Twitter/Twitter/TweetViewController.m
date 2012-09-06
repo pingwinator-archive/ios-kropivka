@@ -24,6 +24,8 @@
 @property (strong, nonatomic) NSMutableDictionary* imageCache;
 @property (strong, nonatomic) ActivityView* activityView;
 @property (assign, nonatomic) BOOL isPreLoading;
+@property (strong, nonatomic) UIImageView* logo;
+
 @end
 
 
@@ -35,6 +37,7 @@
 @synthesize imageCache;
 @synthesize activityView;
 @synthesize isPreLoading;
+@synthesize logo;
 
 - (void) viewDidUnload {
     self.requestSender = nil;
@@ -52,11 +55,17 @@
     {
         self.log = [[Loginer alloc] init];
         self.log.delegate = self;
+        
         self.tweetsLoader = [[TweetsLoader alloc] initWithLoginer:self.log];
         self.tweetsLoader.delegate = self;
         
         self.activityView = [[ActivityView alloc] initWithFrame:CGRectMake(80, 80, 160, 160)];
         [self.view addSubview:self.activityView];
+        
+        NSString* path = [[NSBundle  mainBundle] pathForResource:@"twitter" ofType:@"png"];
+        self.logo = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:path]];
+        [self.view addSubview:self.logo];
+        self.logo.hidden = YES;
         
         self.imageCache = [NSMutableDictionary dictionary];
         self.isPreLoading = NO;
@@ -90,6 +99,7 @@
         [self.log logout];
         [self.tweetsLoader.tweets removeAllObjects];
         [self.tableView reloadData];
+
         self.navigationItem.rightBarButtonItem.title = @"Login";
     }
 }

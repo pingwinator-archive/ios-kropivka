@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4619043815F8EBBC00FD58D7 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 4619043715F8EBBC00FD58D7 /* twitter.png */; };
 		462F88A915F88572007EC889 /* Pull2RefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 462F88A815F88572007EC889 /* Pull2RefreshViewController.m */; };
 		462F88AC15F88798007EC889 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 462F88AB15F88798007EC889 /* arrow.png */; };
 		462F88B215F88932007EC889 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 462F88B115F88932007EC889 /* QuartzCore.framework */; };
@@ -55,6 +56,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4619043715F8EBBC00FD58D7 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
 		462F88A715F88572007EC889 /* Pull2RefreshViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pull2RefreshViewController.h; sourceTree = "<group>"; };
 		462F88A815F88572007EC889 /* Pull2RefreshViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pull2RefreshViewController.m; sourceTree = "<group>"; };
 		462F88AB15F88798007EC889 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		462F88AA15F88753007EC889 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				4619043715F8EBBC00FD58D7 /* twitter.png */,
 				462F88AB15F88798007EC889 /* arrow.png */,
 			);
 			name = resources;
@@ -423,6 +426,7 @@
 			files = (
 				46FD38DE15F6054E00CFA1D6 /* InfoPlist.strings in Resources */,
 				462F88AC15F88798007EC889 /* arrow.png in Resources */,
+				4619043815F8EBBC00FD58D7 /* twitter.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
