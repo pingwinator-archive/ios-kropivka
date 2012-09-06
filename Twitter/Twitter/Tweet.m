@@ -13,18 +13,19 @@
 @synthesize user;
 @synthesize text;
 @synthesize imgUrl;
-@synthesize img;
+//@synthesize img;
+@synthesize id;
 
 - (CGFloat)tweetLabelHeight {
     return [self.text sizeWithFont:kTweetFont 
-                 constrainedToSize:CGSizeMake(320-50, CGFLOAT_MAX) 
+                 constrainedToSize:CGSizeMake(320-(kAvataraSize.width+kOffset), CGFLOAT_MAX) 
                      lineBreakMode:UILineBreakModeWordWrap].height;
 }
 
 - (CGFloat) fullHeight {
-    CGFloat tweetHeight = [self tweetLabelHeight];
-    tweetHeight += 20;
-    return (tweetHeight < 50 ? 50 : tweetHeight) + 10;
+    CGFloat tweetHeight = [self tweetLabelHeight] + kNameLableSize.height + 2*kOffset;
+    CGFloat minimumCellHeight = kAvataraSize.height + 2*kOffset;
+    return (tweetHeight < minimumCellHeight ? minimumCellHeight : tweetHeight );
 }
 
 @end

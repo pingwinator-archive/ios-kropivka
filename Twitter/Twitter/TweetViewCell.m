@@ -8,10 +8,16 @@
 
 #import "TweetViewCell.h"
 #import "Tweet.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface TweetViewCell ()
 @property (strong, nonatomic) UILabel* nameLabel;
 @property (strong, nonatomic) UILabel* tweetLabel;
+
+@property (strong, nonatomic) Tweet* tweet;
+@property (strong, nonatomic) UIImageView* avatarView;
+
 @end
 
 @implementation TweetViewCell
@@ -21,40 +27,101 @@
 @synthesize avatarView;
 @synthesize tweet;
 
+- (void)setupAvatarView {
+    
+    self.avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(kOffset, 
+                                                                    kOffset, 
+                                                                    kAvataraSize.width, 
+                                                                    kAvataraSize.height)];
+    [self.contentView addSubview:self.avatarView];
+}
+
+- (void)setupNameLabel {
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(kAvataraSize.width+2*kOffset, 
+                                                               0, 
+                                                               kNameLableSize.width, 
+                                                               kNameLableSize.height)];
+    [self.contentView addSubview:self.nameLabel];
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:13];
+    self.nameLabel.textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.4 alpha:1];
+}
+
+- (void)setupTweetLabel {
+    self.tweetLabel = [[UILabel alloc] initWithFrame:CGRectMake(kAvataraSize.width+kOffset, 
+                                                                kNameLableSize.height+kOffset, 
+                                                                320-(kAvataraSize.width+kOffset), 
+                                                                100-20)]; // will be setted later
+    self.tweetLabel.numberOfLines = 10;
+    self.tweetLabel.lineBreakMode = UILineBreakModeWordWrap;
+    [self.contentView addSubview:self.tweetLabel];
+    self.tweetLabel.font = kTweetFont;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        self.avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-        [self.contentView addSubview:self.avatarView];
-
-        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 0, 320-50, 20)];
-        [self.contentView addSubview:self.nameLabel];
-        self.nameLabel.font = [self.nameLabel.font fontWithSize:14];
-        self.nameLabel.textColor = [UIColor colorWithRed:0.3 green:0.3 blue:1 alpha:1];
+        [self setupAvatarView];
+        [self setupNameLabel];
+        [self setupTweetLabel];
         
-        self.tweetLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, 320-50, 100-20)];
-        self.tweetLabel.numberOfLines = 10;
-        self.tweetLabel.lineBreakMode = UILineBreakModeWordWrap;
-        [self.contentView addSubview:self.tweetLabel];
-        
-        self.tweetLabel.font = kTweetFont;
     }
     return self;
 }
 
-- (void) setTweet:(Tweet*)tw{
-    tweet = tw;
+-(void)roundCorners {
+    
+    self.avatarView.layer.cornerRadius = 5.0;
+    self.avatarView.layer.masksToBounds = YES;
+    
+    self.avatarView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.avatarView.layer.borderWidth = 1.0;
+}
+
+- (void) setTweet:(Tweet*)tw withImageCache:(NSMutableDictionary*)imageCache {
+    self.tweet = tw;
     self.tweetLabel.text = tw.text;
     self.nameLabel.text = tw.user;
-    self.avatarView.image = tw.img;
     
+    __block UIImage* img = [imageCache objectForKey:tw.imgUrl];
+    if( img ) {
+        self.avatarView.image = img;
+    } else {
+        
+        dispatch_async(kBackgroundQueue, ^{
+            NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:tw.imgUrl]];
+            img = [[UIImage alloc] initWithData:data];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.avatarView.image = img;
+            });
+            //tw.img = img;
+            [imageCache setObject:img forKey:tw.imgUrl];
+        });
+    }
+    
+    [self roundCorners];
     [self layoutSubviews];
 }
 
-- (void)layoutSubviews
-{
+- (void) setRow:(NSInteger)rowIndex { 
+    
+    UIColor* color = [UIColor whiteColor];
+
+    if(rowIndex % 2 ) {
+        color = [UIColor lightGrayColor];
+    }
+    
+    self.contentView.backgroundColor = color;
+    self.nameLabel.backgroundColor = color;
+    self.tweetLabel.backgroundColor = color;
+}
+
+- (void)layoutSubviews {
     [super layoutSubviews];
-    self.tweetLabel.frame = CGRectMake(50, 20, 320-50, self.tweet.tweetLabelHeight);
+    
+    self.tweetLabel.frame = CGRectMake(kAvataraSize.width+2*kOffset,
+                                       kNameLableSize.height+kOffset, 
+                                       320-(kAvataraSize.width+kOffset), 
+                                       self.tweet.tweetLabelHeight);
 }
 @end

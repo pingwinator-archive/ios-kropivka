@@ -13,7 +13,8 @@
 @property (strong,nonatomic) NSString *user;
 @property (strong,nonatomic) NSString *text;
 @property (strong,nonatomic) NSString *imgUrl;
-@property (strong,nonatomic) UIImage *img;
+//@property (strong,nonatomic) UIImage *img;
+@property (strong,nonatomic) NSString* id;
 
 - (CGFloat) tweetLabelHeight;
 - (CGFloat) fullHeight;

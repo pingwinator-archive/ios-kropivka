@@ -23,6 +23,7 @@
 @property (strong, nonatomic) Loginer* log;
 @property (strong, nonatomic) NSMutableDictionary* imageCache;
 @property (strong, nonatomic) ActivityView* activityView;
+@property (assign, nonatomic) BOOL isPreLoading;
 @end
 
 
@@ -33,6 +34,7 @@
 @synthesize log;
 @synthesize imageCache;
 @synthesize activityView;
+@synthesize isPreLoading;
 
 - (void) viewDidUnload {
     self.requestSender = nil;
@@ -57,6 +59,7 @@
         [self.view addSubview:self.activityView];
 
         self.imageCache = [NSMutableDictionary dictionary];
+        self.isPreLoading = NO;
     }
     return self;
 }
@@ -94,25 +97,15 @@
 
 - (TweetViewCell*) configureCell:(TweetViewCell*)cell withIndexPath:(NSIndexPath *)indexPath
 {
-    Tweet* tw = [self.tweetsLoader.tweets objectAtIndex:[indexPath row]];
-    [cell setTweet:tw];
+    Tweet* tw = [self.tweetsLoader.tweets objectAtIndex:indexPath.row];
+    [cell setTweet:tw withImageCache:self.imageCache];
+    [cell setRow:indexPath.row];
     
-    __block UIImage* img = [self.imageCache objectForKey:tw.imgUrl];
-    if( img ) {
-        cell.avatarView.image = img;
-    } else {
-        
-        dispatch_async(kBackgroundQueue, ^{
-            NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:tw.imgUrl]];
-            img = [[UIImage alloc] initWithData:data];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                cell.avatarView.image = img;
-            });
-            tw.img = img;
-            [self.imageCache setObject:img forKey:tw.imgUrl];
-        });
+    if( !self.isPreLoading && [self.tweetsLoader.tweets count] - indexPath.row < 20/2 ) {
+        self.isPreLoading = YES;
+        [self.tweetsLoader silentPreload];
     }
-    
+
     return cell;
 }
 
@@ -125,7 +118,6 @@
                                     reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-
     return [self configureCell:cell withIndexPath:indexPath];
 }
 
@@ -147,25 +139,27 @@
     }
 }
 
-- (void) userLoggedIn:(BOOL)success
-{
+- (void) userLoggedIn:(BOOL)success {
     [self.activityView stopActivity];
     if( success ) {
         NSLog(@"User logged in");
-        [self.tweetsLoader loadTweets];
-        [self.tableView  reloadData];
+        [self.tweetsLoader refreshTweets];
     }
 }
 
-- (void) tweetsLoaded
-{
+- (void) tweetsLoaded {
     [self.activityView stopActivity];
     NSLog(@"Tweets Loaded");
-    [self.tableView reloadData]; 
+    self.isPreLoading = NO;
+    [self.tableView reloadData];
 }
 
-- (void)refresh {
+#pragma mark - Pull2RefreshViewController
+
+- (void) refresh {
     [super refresh];
-    //todo
+    NSLog(@"Refresh...");
+
+    [self.tweetsLoader refreshTweets];
 }
 @end

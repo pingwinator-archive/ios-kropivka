@@ -9,4 +9,8 @@
 
 #define kBackgroundQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
 #define kTweetFont [UIFont systemFontOfSize:14]
-#define kUseLoginCache NO
+#define kUseLoginCache YES
+
+#define kAvataraSize CGSizeMake(48,48)
+#define kOffset 4
+#define kNameLableSize CGSizeMake(320-(kAvataraSize.width+kOffset),20)

@@ -12,7 +12,7 @@
 
 @interface TweetViewCell : UITableViewCell
 
-@property (strong, nonatomic) Tweet* tweet;
-@property (strong, nonatomic) UIImageView* avatarView;
+- (void) setTweet:(Tweet*)tw withImageCache:(NSMutableDictionary*)imageCache;
+- (void) setRow:(NSInteger)rowIndex;
 
 @end
