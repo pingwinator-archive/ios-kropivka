@@ -23,12 +23,15 @@
 
 - (void)setupActivityIndicator {
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityIndicator.center = CGPointMake(80, 40);
     [self addSubview:self.activityIndicator];
 }
 
 - (void)setupMessage {
-    self.message = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 120, 20)];
-    self.message.text = @"hello";
+    self.message = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 140, 20)];
+    self.message.text = @"";
+    self.message.textColor = [UIColor whiteColor];
+    self.message.backgroundColor = [UIColor blackColor];
     [self addSubview:self.message];
 }
 

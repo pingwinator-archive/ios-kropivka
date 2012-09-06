@@ -27,12 +27,17 @@
 @synthesize delegate;
 @synthesize accessToken;
 
--(void)dealloc
-{
+-(void)dealloc {
     self.accessToken = nil;
 }
 
--(void) startLogin {
+- (void) logout {
+    self.accessToken = nil;
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kAccessTokenStr];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void) startLogin {
     
     NSString* httpBody = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessTokenStr];
     if( httpBody && kUseLoginCache ) {

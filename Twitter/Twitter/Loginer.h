@@ -23,6 +23,8 @@
 @property (strong, nonatomic) OAToken * accessToken;
 
 - (OAConsumer *)consumer;
+
 - (void) startLogin;
+- (void) logout;
 
 @end

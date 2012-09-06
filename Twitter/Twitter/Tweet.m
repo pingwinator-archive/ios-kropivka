@@ -13,7 +13,6 @@
 @synthesize user;
 @synthesize text;
 @synthesize imgUrl;
-//@synthesize img;
 @synthesize id;
 
 - (CGFloat)tweetLabelHeight {

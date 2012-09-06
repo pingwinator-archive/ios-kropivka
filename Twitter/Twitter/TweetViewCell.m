@@ -17,7 +17,6 @@
 
 @property (strong, nonatomic) Tweet* tweet;
 @property (strong, nonatomic) UIImageView* avatarView;
-
 @end
 
 @implementation TweetViewCell
@@ -94,7 +93,6 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.avatarView.image = img;
             });
-            //tw.img = img;
             [imageCache setObject:img forKey:tw.imgUrl];
         });
     }

@@ -57,16 +57,19 @@
         
         self.activityView = [[ActivityView alloc] initWithFrame:CGRectMake(80, 80, 160, 160)];
         [self.view addSubview:self.activityView];
-
+        
         self.imageCache = [NSMutableDictionary dictionary];
         self.isPreLoading = NO;
     }
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated 
-{
+- (void)viewDidAppear:(BOOL)animated {
     [self.view bringSubviewToFront:self.activityView];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self loginAction];  
+    });
 }
 
 - (void) viewDidLoad {
@@ -80,8 +83,15 @@
 }
 
 - (void) loginAction {
-    [self.activityView startActivityWithMessage:@"Loading..."];
-    [self.log startLogin];   
+    if( !self.log.accessToken ) {
+        [self.activityView startActivityWithMessage:@"Loading..."];
+        [self.log startLogin];
+    } else {
+        [self.log logout];
+        [self.tweetsLoader.tweets removeAllObjects];
+        [self.tableView reloadData];
+        self.navigationItem.rightBarButtonItem.title = @"Login";
+    }
 }
 
 #pragma mark - Table view data source
@@ -131,7 +141,7 @@
 #pragma mark - TweetViewControllerDelegate
 
 - (void) showLoginWindow:(NSString*)address {
-    if( [address length])
+    if( [address length] )
     {
         WebViewController *web = [[WebViewController alloc] initWithUrl:address];
         web.delegate = self.log;
@@ -143,6 +153,7 @@
     [self.activityView stopActivity];
     if( success ) {
         NSLog(@"User logged in");
+        self.navigationItem.rightBarButtonItem.title = @"Logout";
         [self.tweetsLoader refreshTweets];
     }
 }
