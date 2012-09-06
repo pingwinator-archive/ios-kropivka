@@ -64,11 +64,17 @@
         
         NSString* path = [[NSBundle  mainBundle] pathForResource:@"twitter" ofType:@"png"];
         self.logo = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:path]];
-        [self.view addSubview:self.logo];
-        self.logo.hidden = YES;
+        //self.logo.frame = CGRectMake(0, 0, 320, 480);
+        //[self.view.superview insertSubview:self.logo atIndex:0];
+        //self.logo.hidden = YES;
+        //[self hideEmptySeparators];
         
         self.imageCache = [NSMutableDictionary dictionary];
         self.isPreLoading = NO;
+        
+        self.tableView.hidden = YES;
+        
+        self.navigationItem.title = @"Twitter";
     }
     return self;
 }
@@ -99,8 +105,8 @@
         [self.log logout];
         [self.tweetsLoader.tweets removeAllObjects];
         [self.tableView reloadData];
-
         self.navigationItem.rightBarButtonItem.title = @"Login";
+        self.tableView.hidden = YES;
     }
 }
 
@@ -173,6 +179,7 @@
     NSLog(@"Tweets Loaded");
     self.isPreLoading = NO;
     [self.tableView reloadData];
+    self.tableView.hidden = NO;
 }
 
 #pragma mark - Pull2RefreshViewController
