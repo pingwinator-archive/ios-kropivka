@@ -105,7 +105,7 @@
     
     UIColor* color = [UIColor whiteColor];
 
-    if(rowIndex % 2 ) {
+    if( rowIndex % 2 ) {
         color = [UIColor lightGrayColor];
     }
     

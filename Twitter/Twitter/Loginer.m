@@ -38,7 +38,7 @@
 }
 
 - (void) startLogin {
-    [self logout ];
+    
     NSString* httpBody = [[NSUserDefaults standardUserDefaults] objectForKey:kAccessTokenStr];
     if( httpBody && kUseLoginCache ) {
         self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:httpBody];
@@ -53,8 +53,7 @@
                                     secret:kConsumerSecret ];
 }
 
-- (void) getRequestToken
-{
+- (void) getRequestToken {
 	NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/oauth/request_token"];
 	
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
@@ -73,8 +72,13 @@
 				  didFailSelector:@selector(requestTokenTicket:didFailWithError:)];	
 }
 
-- (void) getAccessTokenWithData:(NSString*)data
-{
+#pragma mark - LoginerDelegate
+- (void) webViewFinished {
+    NSLog(@"Web View finished");
+    [self.delegate userLoggedIn:NO];
+}
+
+- (void) getAccessTokenWithData:(NSString*)data {
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/oauth/access_token?%@",data]];
     
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
@@ -93,12 +97,9 @@
 				  didFailSelector:@selector(accessTokenTicket:didFailWithError:)];	
 }
 
-- (void) requestTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
-{
-	if (ticket.didSucceed)
-	{
-		NSString *responseBody = [[NSString alloc] initWithData:data 
-													   encoding:NSUTF8StringEncoding];
+- (void) requestTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+	if (ticket.didSucceed) {
+		NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 		accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
 		
 		NSLog(@"Got request token. Redirecting to twitter auth page...");
@@ -111,14 +112,12 @@
 	}
 }
 
-- (void) requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
-{
+- (void) requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error {
 	NSLog(@"Getting request token failed: %@", [error localizedDescription]);
     [self.delegate userLoggedIn:NO];
 }
 
-- (void) accessTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
-{
+- (void) accessTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
 	if (ticket.didSucceed)
 	{
 		NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -135,30 +134,11 @@
 	}
 }
 
-/*
-- (void) accessTokenInitWithData:(NSString*)responseBody {
-    self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
-    NSLog(@"Got access token. Ready to use Twitter API.");
-    
-    if(kUseLoginCache) {
-        [[NSUserDefaults standardUserDefaults] setObject:responseBody forKey:kAccessTokenStr];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    
-    [self.delegate userLoggedIn:YES];
-}
-*/
-
-- (void) accessTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
-{
+- (void) accessTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error {
 	NSLog(@"Getting access token failed: %@", [error localizedDescription]);
     [self.delegate userLoggedIn:NO];
 }
 
-- (void) webViewFinished
-{
-    NSLog(@"Web View finished");
-    [self.delegate userLoggedIn:NO];
-}
+
 
 @end

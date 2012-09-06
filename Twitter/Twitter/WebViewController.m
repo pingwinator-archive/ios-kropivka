@@ -9,7 +9,6 @@
 #import "WebViewController.h"
 #import "Loginer.h"
 
-#define kTel @"tel:"
 #define kDeniedUrl @"http://google.com/?denied="
 #define kCancelUrl @"http://google.com/?cancel="
 #define kCallbackUrl @"http://kropivka.com/?"
@@ -19,9 +18,9 @@
 @property (strong, nonatomic) NSString* url;
 
 - (void) hide;
+- (void) clearCookies;
 
 @end
-
 
 @implementation WebViewController
 
@@ -29,7 +28,6 @@
 @synthesize url;
 @synthesize token;
 @synthesize delegate;
-
 
 
 - (void) viewDidUnload {
@@ -61,33 +59,34 @@
     [web loadRequest:request];
 }
 
-
 - (void) hide {
 	[self performSelector: @selector(dismissModalViewControllerAnimated:) withObject:(id)kCFBooleanTrue afterDelay: 0.0];
 }
 
+-(void)clearCookies {
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [storage cookies]) {
+        [storage deleteCookie:cookie];
+    }
+}
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
     NSString *urlStr = [[request URL] absoluteString];
     NSLog(@"url = %@", urlStr);
     
-    //  format: tel:1349166
-    if([[urlStr substringToIndex:kCallbackUrl.length] isEqualToString:kCallbackUrl])
-    {
+    if( [urlStr hasPrefix:kCallbackUrl] ) {
         [self.delegate getAccessTokenWithData:[urlStr substringFromIndex:kCallbackUrl.length]];
         [self hide];
+        [self clearCookies];
         return NO;
     }
     
-    //TODO: move to category
-	if([[urlStr substringToIndex:kDeniedUrl.length] isEqualToString:kDeniedUrl] ||
-       [[urlStr substringToIndex:kCancelUrl.length] isEqualToString:kCancelUrl] ) {
+	if( [urlStr hasPrefix:kDeniedUrl] || [urlStr hasPrefix:kCancelUrl] ) {
 		[self hide];
         [self.delegate webViewFinished];
 		return NO;
 	}
-    
 
 	return YES;
 }
