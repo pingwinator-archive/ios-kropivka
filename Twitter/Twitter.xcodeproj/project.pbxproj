@@ -36,7 +36,6 @@
 		46FD396015F61DD900CFA1D6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FD395F15F61DD900CFA1D6 /* Security.framework */; };
 		46FD396215F61DEC00CFA1D6 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FD396115F61DEC00CFA1D6 /* libxml2.dylib */; };
 		46FD396E15F6252500CFA1D6 /* Loginer.m in Sources */ = {isa = PBXBuildFile; fileRef = 46FD396D15F6252500CFA1D6 /* Loginer.m */; };
-		46FD397115F62EE800CFA1D6 /* RequestSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 46FD397015F62EE800CFA1D6 /* RequestSender.m */; };
 		46FD398C15F6310700CFA1D6 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 46FD397415F6310700CFA1D6 /* NSObject+SBJson.m */; };
 		46FD398D15F6310700CFA1D6 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 46FD397715F6310700CFA1D6 /* SBJsonParser.m */; };
 		46FD398E15F6310700CFA1D6 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 46FD397915F6310700CFA1D6 /* SBJsonStreamParser.m */; };
@@ -110,8 +109,6 @@
 		46FD396115F61DEC00CFA1D6 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		46FD396C15F6252500CFA1D6 /* Loginer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Loginer.h; sourceTree = "<group>"; };
 		46FD396D15F6252500CFA1D6 /* Loginer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Loginer.m; sourceTree = "<group>"; };
-		46FD396F15F62EE800CFA1D6 /* RequestSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestSender.h; sourceTree = "<group>"; };
-		46FD397015F62EE800CFA1D6 /* RequestSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestSender.m; sourceTree = "<group>"; };
 		46FD397315F6310700CFA1D6 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		46FD397415F6310700CFA1D6 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		46FD397515F6310700CFA1D6 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -157,6 +154,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		462F88A215F88425007EC889 /* delegates */ = {
+			isa = PBXGroup;
+			children = (
+				46FD38E215F6054E00CFA1D6 /* AppDelegate.h */,
+				46FD38E315F6054E00CFA1D6 /* AppDelegate.m */,
+			);
+			name = delegates;
+			sourceTree = "<group>";
+		};
+		462F88A415F88434007EC889 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				466CA6FF15F79C6800E12D36 /* Constants.h */,
+				46FD396C15F6252500CFA1D6 /* Loginer.h */,
+				46FD396D15F6252500CFA1D6 /* Loginer.m */,
+				463D0A2715F7435F0007863D /* TweetsLoader.h */,
+				463D0A2815F743600007863D /* TweetsLoader.m */,
+				46F5633115F7727D00DB5647 /* Tweet.h */,
+				46F5633215F7727D00DB5647 /* Tweet.m */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		462F88A515F8843F007EC889 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				466CA6FB15F78ED200E12D36 /* ActivityView.h */,
+				466CA6FC15F78ED200E12D36 /* ActivityView.m */,
+				46F5633515F779D000DB5647 /* TweetViewCell.h */,
+				46F5633615F779D000DB5647 /* TweetViewCell.m */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		462F88A615F88445007EC889 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46FD38EC15F6190700CFA1D6 /* TweetViewController.h */,
+				46FD38ED15F6190700CFA1D6 /* TweetViewController.m */,
+				46FD399815F63B9100CFA1D6 /* WebViewController.h */,
+				46FD399915F63B9100CFA1D6 /* WebViewController.m */,
+			);
+			name = controllers;
+			sourceTree = "<group>";
+		};
 		463D09F315F731920007863D /* OAuthConsumerSrc */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,25 +279,10 @@
 		46FD38D915F6054E00CFA1D6 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				46FD396F15F62EE800CFA1D6 /* RequestSender.h */,
-				46FD397015F62EE800CFA1D6 /* RequestSender.m */,
-				46FD38E215F6054E00CFA1D6 /* AppDelegate.h */,
-				46FD38E315F6054E00CFA1D6 /* AppDelegate.m */,
-				46FD38EC15F6190700CFA1D6 /* TweetViewController.h */,
-				46FD38ED15F6190700CFA1D6 /* TweetViewController.m */,
-				46FD396C15F6252500CFA1D6 /* Loginer.h */,
-				46FD396D15F6252500CFA1D6 /* Loginer.m */,
-				46FD399815F63B9100CFA1D6 /* WebViewController.h */,
-				46FD399915F63B9100CFA1D6 /* WebViewController.m */,
-				463D0A2715F7435F0007863D /* TweetsLoader.h */,
-				463D0A2815F743600007863D /* TweetsLoader.m */,
-				46F5633115F7727D00DB5647 /* Tweet.h */,
-				46F5633215F7727D00DB5647 /* Tweet.m */,
-				46F5633515F779D000DB5647 /* TweetViewCell.h */,
-				46F5633615F779D000DB5647 /* TweetViewCell.m */,
-				466CA6FB15F78ED200E12D36 /* ActivityView.h */,
-				466CA6FC15F78ED200E12D36 /* ActivityView.m */,
-				466CA6FF15F79C6800E12D36 /* Constants.h */,
+				462F88A615F88445007EC889 /* controllers */,
+				462F88A515F8843F007EC889 /* views */,
+				462F88A415F88434007EC889 /* models */,
+				462F88A215F88425007EC889 /* delegates */,
 			);
 			name = src;
 			path = Twitter;
@@ -381,7 +408,6 @@
 				46FD38E415F6054E00CFA1D6 /* AppDelegate.m in Sources */,
 				46FD38EE15F6190700CFA1D6 /* TweetViewController.m in Sources */,
 				46FD396E15F6252500CFA1D6 /* Loginer.m in Sources */,
-				46FD397115F62EE800CFA1D6 /* RequestSender.m in Sources */,
 				46FD398C15F6310700CFA1D6 /* NSObject+SBJson.m in Sources */,
 				46FD398D15F6310700CFA1D6 /* SBJsonParser.m in Sources */,
 				46FD398E15F6310700CFA1D6 /* SBJsonStreamParser.m in Sources */,
