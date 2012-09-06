@@ -75,16 +75,11 @@
 
 - (void) getAccessTokenWithData:(NSString*)data
 {
-	NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/oauth/access_token?%@",data]];
     
-    self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:data];
-
-	//self.accessToken.pin = pinCode;
-	//NSLog(@"Using PIN %@", self.accessToken.pin);
-	
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
 																   consumer:[self consumer]
-																	  token:self.accessToken
+																	  token:nil
 																	  realm:nil
 														  signatureProvider:nil];
     
