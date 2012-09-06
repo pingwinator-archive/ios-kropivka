@@ -9,3 +9,4 @@
 
 #define kBackgroundQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)
 #define kTweetFont [UIFont systemFontOfSize:14]
+#define kUseLoginCache NO

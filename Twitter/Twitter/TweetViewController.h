@@ -11,7 +11,7 @@
 @protocol TweetViewControllerDelegate
 
 - (void) showLoginWindow:(NSString*)address;
-- (void) userLoggedIn;
+- (void) userLoggedIn:(BOOL)success;
 
 @end
 

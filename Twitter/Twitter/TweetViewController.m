@@ -122,7 +122,7 @@
 
     if (cell == nil) {
         cell = [[TweetViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle 
-                                      reuseIdentifier:CellIdentifier];
+                                    reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
 
@@ -147,12 +147,14 @@
     }
 }
 
-- (void) userLoggedIn
+- (void) userLoggedIn:(BOOL)success
 {
     [self.activityView stopActivity];
-    NSLog(@"User logged in");
-    [self.tweetsLoader loadTweets];
-    [self.tableView  reloadData];
+    if( success ) {
+        NSLog(@"User logged in");
+        [self.tweetsLoader loadTweets];
+        [self.tableView  reloadData];
+    }
 }
 
 - (void) tweetsLoaded

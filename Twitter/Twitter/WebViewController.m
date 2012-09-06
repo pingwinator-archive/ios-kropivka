@@ -10,6 +10,8 @@
 #import "Loginer.h"
 
 #define kTel @"tel:"
+#define kDeniedUrl @"http://google.com/?denied="
+#define kCancelUrl @"http://google.com/?cancel="
 
 @interface WebViewController () <UIWebViewDelegate>
 @property (strong, nonatomic) UIWebView* web;
@@ -69,8 +71,6 @@
 	[self performSelector: @selector(dismissModalViewControllerAnimated:) withObject:(id)kCFBooleanTrue afterDelay: 0.0];
 }
 
-#define kDeniedUrl @"http://google.com/?denied="
-#define kCancelUrl @"http://google.com/?cancel="
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
@@ -84,16 +84,21 @@
         return NO;
     }
     
-    
     //TODO: move to category
 	if([[urlStr substringToIndex:kDeniedUrl.length] isEqualToString:kDeniedUrl] ||
        [[urlStr substringToIndex:kCancelUrl.length] isEqualToString:kCancelUrl] ) {
 		[self hide];
+        [self.delegate webViewFinished];
 		return NO;
 	}
-    
+
 	return YES;
 }
 
+- (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [self hide];
+    [self.delegate webViewFinished];
+}
 
 @end
