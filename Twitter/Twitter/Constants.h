@@ -14,3 +14,5 @@
 #define kAvataraSize CGSizeMake(48,48)
 #define kOffset 4
 #define kNameLableSize CGSizeMake(320-(kAvataraSize.width+kOffset),20)
+
+#define kTweetsCountLeftForPreloading 10

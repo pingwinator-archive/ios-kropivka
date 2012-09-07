@@ -8,14 +8,18 @@
 
 #import "WebViewController.h"
 #import "Loginer.h"
+#import "ActivityView.h"
 
 #define kDeniedUrl @"http://kropivka.com/?denied="
 #define kCancelUrl @"http://kropivka.com/?cancel="
 #define kCallbackUrl @"http://kropivka.com/?"
+#define kValidPage @"https://api.twitter.com/oauth/authorize"
 
 @interface WebViewController () <UIWebViewDelegate>
+
 @property (strong, nonatomic) UIWebView* web;
 @property (strong, nonatomic) NSString* url;
+@property (strong, nonatomic) ActivityView* activityView;
 
 - (void) hide;
 - (void) clearCookies;
@@ -26,6 +30,8 @@
 
 @synthesize web;
 @synthesize url;
+@synthesize activityView;
+
 @synthesize token;
 @synthesize delegate;
 
@@ -34,7 +40,7 @@
     self.web = nil;
     self.url =  nil;
     self.token = nil;
-
+    self.activityView = nil;
     [super viewDidUnload];
 }
 
@@ -42,7 +48,8 @@
     self = [super init];
     if (self) {
         self.url = urlin;
-    }
+
+    }   
     return self;
 }
 
@@ -53,9 +60,11 @@
     self.web.delegate = self;
     [self.view addSubview:self.web];
     
-    NSURL *url1 = [NSURL URLWithString:self.url];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url1];
-    
+    self.activityView = [[ActivityView alloc] init];
+    [self.web addSubview:self.activityView];
+    self.activityView.center = self.view.center;
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
     [web loadRequest:request];
 }
 
@@ -75,26 +84,35 @@
     NSString *urlStr = [[request URL] absoluteString];
     NSLog(@"url = %@", urlStr);
     
+    
     if( [urlStr hasPrefix:kDeniedUrl] || [urlStr hasPrefix:kCancelUrl] ) {
-		[self hide];
+        [self hide];
         [self.delegate webViewFinished];
-		return NO;
-	}
+        return NO;
+    }
     
     if( [urlStr hasPrefix:kCallbackUrl] ) {
+
         [self.delegate getAccessTokenWithData:[urlStr substringFromIndex:kCallbackUrl.length]];
         [self hide];
         [self clearCookies];
         return NO;
     }
+    if( [urlStr hasPrefix:kValidPage] )        
+        return YES;
     
-
-
-	return YES;
+	return NO;
 }
 
-- (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [self.activityView startActivityWithMessage:@"Loading..."];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self.activityView stopActivity];
+}
+
+- (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self hide];
     [self.delegate webViewFinished];
 }

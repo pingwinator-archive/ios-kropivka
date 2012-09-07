@@ -35,13 +35,14 @@
     [self addSubview:self.message];
 }
 
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (id) init {
+    self = [super init];
     if (self) {
         
         [self setupActivityIndicator];
         [self setupMessage];
         
+        self.frame = CGRectMake(80, 80, 160, 160);
         self.hidden = YES;
         self.backgroundColor = [UIColor blackColor];
     }

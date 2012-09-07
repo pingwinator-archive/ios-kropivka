@@ -49,6 +49,12 @@
     [super viewDidUnload];
 }
 
+- (void)setupActivityIndicator {
+    self.activityView = [[ActivityView alloc] init];
+    [self.view addSubview:self.activityView];
+    self.activityView.center = self.view.center;
+}
+
 - (id) init {
     self = [super init];
     if(self)
@@ -59,8 +65,7 @@
         self.tweetsLoader = [[TweetsLoader alloc] initWithLoginer:self.log];
         self.tweetsLoader.delegate = self;
         
-        self.activityView = [[ActivityView alloc] initWithFrame:CGRectMake(80, 80, 160, 160)];
-        [self.view addSubview:self.activityView];
+        [self setupActivityIndicator];
         
         NSString* path = [[NSBundle  mainBundle] pathForResource:@"twitter-logo" ofType:@"jpg"];
         self.logo = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:path]];
@@ -76,10 +81,13 @@
     return self;
 }
 
+
+
+
 - (void)viewDidAppear:(BOOL)animated {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self loginAction];  
+        [self loginButtonAction];  
     });
 }
 
@@ -90,7 +98,7 @@
                                               initWithTitle:@"Login" 
                                               style:UIBarButtonItemStylePlain
                                               target:self 
-                                              action:@selector(loginAction)];
+                                              action:@selector(loginButtonAction)];
 }
 
 -(void) atLogouted {
@@ -105,7 +113,7 @@
     self.tableView.tableHeaderView = nil;
 }
 
-- (void) loginAction {
+- (void) loginButtonAction {
     if( !self.log.accessToken ) {
         [self.activityView startActivityWithMessage:@"Loading..."];
         [self.log startLogin];
@@ -134,7 +142,7 @@
     [cell setTweet:tw withImageCache:self.imageCache];
     [cell setRow:indexPath.row];
     
-    if( !self.isPreLoading && [self.tweetsLoader.tweets count] - indexPath.row < 20/2 ) {
+    if( !self.isPreLoading && [self.tweetsLoader.tweets count] - indexPath.row < kTweetsCountLeftForPreloading ) {
         self.isPreLoading = YES;
         [self.tweetsLoader silentPreload];
     }
