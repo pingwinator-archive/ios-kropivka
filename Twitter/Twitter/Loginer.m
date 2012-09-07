@@ -63,7 +63,7 @@
 														  signatureProvider:nil];
 	[request setHTTPMethod:@"POST"];
 	
-	NSLog(@"Getting request token...");
+	OXM_DLog(@"Getting request token...");
     
     OADataFetcher *fetcher = [[OADataFetcher alloc] init];
 	[fetcher fetchDataWithRequest:request 
@@ -74,7 +74,7 @@
 
 #pragma mark - LoginerDelegate
 - (void) webViewFinished {
-    NSLog(@"Web View finished");
+    OXM_DLog(@"Web View finished");
     [self.delegate userLoggedIn:NO];
 }
 
@@ -88,7 +88,7 @@
 														  signatureProvider:nil];
     
 	[request setHTTPMethod:@"POST"];
-	NSLog(@"Getting access token...");
+	OXM_DLog(@"Getting access token...");
     
     OADataFetcher *fetcher = [[OADataFetcher alloc] init];
 	[fetcher fetchDataWithRequest:request 
@@ -102,7 +102,7 @@
 		NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 		accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
 		
-		NSLog(@"Got request token. Redirecting to twitter auth page...");
+		OXM_DLog(@"Got request token. Redirecting to twitter auth page...");
 		
 		NSString* address = [NSString stringWithFormat:
 							 @"https://api.twitter.com/oauth/authorize?oauth_token=%@",
@@ -113,7 +113,7 @@
 }
 
 - (void) requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error {
-	NSLog(@"Getting request token failed: %@", [error localizedDescription]);
+	OXM_DLog(@"Getting request token failed: %@", [error localizedDescription]);
     [self.delegate userLoggedIn:NO];
 }
 
@@ -123,7 +123,7 @@
 		NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 		self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
 		
-		NSLog(@"Got access token. Ready to use Twitter API.");
+		OXM_DLog(@"Got access token. Ready to use Twitter API.");
         
         if(kUseLoginCache) {
             [[NSUserDefaults standardUserDefaults] setObject:responseBody forKey:kAccessTokenStr];
@@ -135,7 +135,7 @@
 }
 
 - (void) accessTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error {
-	NSLog(@"Getting access token failed: %@", [error localizedDescription]);
+	OXM_DLog(@"Getting access token failed: %@", [error localizedDescription]);
     [self.delegate userLoggedIn:NO];
 }
 

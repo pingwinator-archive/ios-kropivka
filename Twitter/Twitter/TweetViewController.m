@@ -129,7 +129,7 @@
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"tweets count %d",[self.tweetsLoader.tweets count]);
+    OXM_DLog(@"tweets count %d",[self.tweetsLoader.tweets count]);
     return [self.tweetsLoader.tweets count];
 }
 
@@ -179,7 +179,7 @@
 - (void) userLoggedIn:(BOOL)success {
     [self.activityView stopActivity];
     if( success ) {
-        NSLog(@"User logged in");
+        OXM_DLog(@"User logged in");
         [self.tweetsLoader refreshTweets];
         [self atLoginned];
     }else {
@@ -189,7 +189,7 @@
 
 - (void) tweetsLoaded {
     [self.activityView stopActivity];
-    NSLog(@"Tweets Loaded");
+    OXM_DLog(@"Tweets Loaded");
     self.isPreLoading = NO;
     [self.tableView reloadData];
 }
@@ -198,7 +198,7 @@
 
 - (void) refresh {
     [super refresh];
-    NSLog(@"Refresh...");
+    OXM_DLog(@"Refresh...");
     [self.tweetsLoader refreshTweets];
 }
 @end

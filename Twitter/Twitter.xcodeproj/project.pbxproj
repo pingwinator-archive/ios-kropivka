@@ -66,6 +66,7 @@
 		4631371815F9D2FA00180FD9 /* twitter-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "twitter-logo.jpg"; sourceTree = "<group>"; };
 		4631371B15F9EB9000180FD9 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
 		4631371C15F9EB9000180FD9 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
+		4631371E15F9EE5A00180FD9 /* Macrosses.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Macrosses.h; sourceTree = "<group>"; };
 		463D09F515F731920007863D /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
 		463D09F615F731920007863D /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
 		463D09F715F731920007863D /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
@@ -182,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				466CA6FF15F79C6800E12D36 /* Constants.h */,
+				4631371E15F9EE5A00180FD9 /* Macrosses.h */,
 				46FD396C15F6252500CFA1D6 /* Loginer.h */,
 				46FD396D15F6252500CFA1D6 /* Loginer.m */,
 				463D0A2715F7435F0007863D /* TweetsLoader.h */,

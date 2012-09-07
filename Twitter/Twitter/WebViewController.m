@@ -82,7 +82,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
     NSString *urlStr = [[request URL] absoluteString];
-    NSLog(@"url = %@", urlStr);
+    OXM_DLog(@"url = %@", urlStr);
     
     
     if( [urlStr hasPrefix:kDeniedUrl] || [urlStr hasPrefix:kCancelUrl] ) {

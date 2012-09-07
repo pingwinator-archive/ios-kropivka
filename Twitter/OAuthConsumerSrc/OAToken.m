@@ -67,7 +67,6 @@
 				self.secret = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			}
 		}
-        NSLog(@"key=%@ secret = %@",self.key, self.secret);
 	}    
     return self;
 }

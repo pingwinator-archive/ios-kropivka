@@ -72,7 +72,7 @@
 																	  token:self.loginer.accessToken
 																	  realm:nil
 														  signatureProvider:nil];
-	NSLog(@"Getting home timeline...");
+	OXM_DLog(@"Getting home timeline...");
     
     OADataFetcher *fetcher = [[OADataFetcher alloc] init];
     dispatch_async(kBackgroundQueue, ^{
@@ -85,7 +85,7 @@
 
 - (void) apiTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
 	if(ticket.didSucceed) {
-        NSLog( @"Got home timeline." );
+        OXM_DLog( @"Got home timeline." );
         
         if(self.refresh){
             [self.tweets removeAllObjects];
@@ -104,9 +104,6 @@
             tw.imgUrl = [[tweetDict objectForKey:@"user"] objectForKey:@"profile_image_url"];
             tw.text = [tweetDict objectForKey:@"text"];
             tw.id = [tweetDict objectForKey:@"id"];
-            
-            //NSLog(@"%@", tw.text );
-            
             [self.tweets addObject:tw];
         }
         self.refresh = NO;
@@ -116,7 +113,7 @@
 
 - (void) apiTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
 {
-	NSLog(@"Getting home timeline failed: %@", [error localizedDescription]);
+	OXM_DLog(@"Getting home timeline failed: %@", [error localizedDescription]);
     //add delegate
 }
 
