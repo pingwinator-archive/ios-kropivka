@@ -49,6 +49,7 @@
 }
 
 - (void) startActivityWithMessage:(NSString*)text {
+    [self.superview bringSubviewToFront:self];
     [self.activityIndicator startAnimating];
     self.message.text = text;
     self.hidden = NO;

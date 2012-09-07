@@ -9,8 +9,8 @@
 #import "WebViewController.h"
 #import "Loginer.h"
 
-#define kDeniedUrl @"http://google.com/?denied="
-#define kCancelUrl @"http://google.com/?cancel="
+#define kDeniedUrl @"http://kropivka.com/?denied="
+#define kCancelUrl @"http://kropivka.com/?cancel="
 #define kCallbackUrl @"http://kropivka.com/?"
 
 @interface WebViewController () <UIWebViewDelegate>
@@ -75,6 +75,12 @@
     NSString *urlStr = [[request URL] absoluteString];
     NSLog(@"url = %@", urlStr);
     
+    if( [urlStr hasPrefix:kDeniedUrl] || [urlStr hasPrefix:kCancelUrl] ) {
+		[self hide];
+        [self.delegate webViewFinished];
+		return NO;
+	}
+    
     if( [urlStr hasPrefix:kCallbackUrl] ) {
         [self.delegate getAccessTokenWithData:[urlStr substringFromIndex:kCallbackUrl.length]];
         [self hide];
@@ -82,11 +88,7 @@
         return NO;
     }
     
-	if( [urlStr hasPrefix:kDeniedUrl] || [urlStr hasPrefix:kCancelUrl] ) {
-		[self hide];
-        [self.delegate webViewFinished];
-		return NO;
-	}
+
 
 	return YES;
 }

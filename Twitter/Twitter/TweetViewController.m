@@ -70,12 +70,13 @@
         self.isPreLoading = NO;
         
         self.navigationItem.title = @"Twitter";
+        
+        [self atLogouted];
     }
     return self;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self.view bringSubviewToFront:self.activityView];
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [self loginAction];  
@@ -176,6 +177,8 @@
         NSLog(@"User logged in");
         [self.tweetsLoader refreshTweets];
         [self atLoginned];
+    }else {
+        [self.log logout];
     }
 }
 

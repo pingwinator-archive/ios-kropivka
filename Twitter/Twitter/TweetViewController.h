@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Pull2RefreshViewController.h"
 
+
 @protocol TweetViewControllerDelegate
 
 - (void) showLoginWindow:(NSString*)address;
 - (void) userLoggedIn:(BOOL)success;
 
 @end
+
 
 @protocol TweetsLoaderDelegate
 

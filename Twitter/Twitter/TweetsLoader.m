@@ -104,8 +104,9 @@
             tw.imgUrl = [[tweetDict objectForKey:@"user"] objectForKey:@"profile_image_url"];
             tw.text = [tweetDict objectForKey:@"text"];
             tw.id = [tweetDict objectForKey:@"id"];
-            //tw.date = NSDate ;
-            NSLog(@"%@", [tweetDict objectForKey:@"created_at"] );
+            
+            //NSLog(@"%@", tw.text );
+            
             [self.tweets addObject:tw];
         }
         self.refresh = NO;
