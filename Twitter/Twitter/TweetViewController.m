@@ -81,9 +81,6 @@
     return self;
 }
 
-
-
-
 - (void)viewDidAppear:(BOOL)animated {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

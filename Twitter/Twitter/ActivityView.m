@@ -7,6 +7,7 @@
 //
 
 #import "ActivityView.h"
+#import "UIView+Additions.h"
 
 @interface ActivityView ()
 
@@ -14,7 +15,6 @@
 - (void)setupMessage;
 
 @end
-
 
 @implementation ActivityView
 
@@ -28,7 +28,7 @@
 }
 
 - (void)setupMessage {
-    self.message = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 140, 20)];
+    self.message = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 120, 20)];
     self.message.text = @"";
     self.message.textColor = [UIColor whiteColor];
     self.message.backgroundColor = [UIColor blackColor];
@@ -42,7 +42,9 @@
         [self setupActivityIndicator];
         [self setupMessage];
         
-        self.frame = CGRectMake(80, 80, 160, 160);
+        self.frame = CGRectMake(0, 0, 160, 160);
+        [self roundCorners];
+        
         self.hidden = YES;
         self.backgroundColor = [UIColor blackColor];
     }
@@ -50,6 +52,7 @@
 }
 
 - (void) startActivityWithMessage:(NSString*)text {
+    self.center = self.superview.center;
     [self.superview bringSubviewToFront:self];
     [self.activityIndicator startAnimating];
     self.message.text = text;

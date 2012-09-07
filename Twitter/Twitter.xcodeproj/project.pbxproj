@@ -12,6 +12,7 @@
 		462F88AC15F88798007EC889 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 462F88AB15F88798007EC889 /* arrow.png */; };
 		462F88B215F88932007EC889 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 462F88B115F88932007EC889 /* QuartzCore.framework */; };
 		4631371915F9D2FA00180FD9 /* twitter-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4631371815F9D2FA00180FD9 /* twitter-logo.jpg */; };
+		4631371D15F9EB9000180FD9 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4631371C15F9EB9000180FD9 /* UIView+Additions.m */; };
 		463D0A1715F731920007863D /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 463D09F515F731920007863D /* Base64Transcoder.c */; };
 		463D0A1815F731920007863D /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 463D09F715F731920007863D /* hmac.c */; };
 		463D0A1915F731920007863D /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 463D09F915F731920007863D /* sha1.c */; };
@@ -63,6 +64,8 @@
 		462F88AB15F88798007EC889 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		462F88B115F88932007EC889 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4631371815F9D2FA00180FD9 /* twitter-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "twitter-logo.jpg"; sourceTree = "<group>"; };
+		4631371B15F9EB9000180FD9 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
+		4631371C15F9EB9000180FD9 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		463D09F515F731920007863D /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
 		463D09F615F731920007863D /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
 		463D09F715F731920007863D /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 		462F88B715F8A455007EC889 /* additionals */ = {
 			isa = PBXGroup;
 			children = (
+				4631371B15F9EB9000180FD9 /* UIView+Additions.h */,
+				4631371C15F9EB9000180FD9 /* UIView+Additions.m */,
 			);
 			name = additionals;
 			sourceTree = "<group>";
@@ -478,6 +483,7 @@
 				46F5633715F779D000DB5647 /* TweetViewCell.m in Sources */,
 				466CA6FD15F78ED200E12D36 /* ActivityView.m in Sources */,
 				462F88A915F88572007EC889 /* Pull2RefreshViewController.m in Sources */,
+				4631371D15F9EB9000180FD9 /* UIView+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

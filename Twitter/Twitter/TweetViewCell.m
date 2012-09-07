@@ -8,8 +8,7 @@
 
 #import "TweetViewCell.h"
 #import "Tweet.h"
-#import <QuartzCore/QuartzCore.h>
-
+#import "UIView+Additions.h"
 
 @interface TweetViewCell ()
 @property (strong, nonatomic) UILabel* nameLabel;
@@ -68,14 +67,7 @@
     return self;
 }
 
--(void)roundCorners {
-    
-    self.avatarView.layer.cornerRadius = 5.0;
-    self.avatarView.layer.masksToBounds = YES;
-    
-    self.avatarView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.avatarView.layer.borderWidth = 1.0;
-}
+
 
 - (void) setTweet:(Tweet*)tw withImageCache:(NSMutableDictionary*)imageCache {
     self.tweet = tw;
@@ -97,7 +89,7 @@
         });
     }
     
-    [self roundCorners];
+    [self.avatarView roundCorners];
     [self layoutSubviews];
 }
 
