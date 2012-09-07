@@ -10,14 +10,14 @@
 #import "Loginer.h"
 #import "ActivityView.h"
 
-#define kDeniedUrl @"http://kropivka.com/?denied="
-#define kCancelUrl @"http://kropivka.com/?cancel="
-#define kCallbackUrl @"http://kropivka.com/?"
-#define kValidPage @"https://api.twitter.com/oauth/authorize"
+#define kDeniedUrl      @"http://kropivka.com/?denied="
+#define kCancelUrl      @"http://kropivka.com/?cancel="
+#define kCallbackUrl    @"http://kropivka.com/?"
+#define kValidPage      @"https://api.twitter.com/oauth/authorize"
 
 @interface WebViewController () <UIWebViewDelegate>
 
-@property (strong, nonatomic) UIWebView* web;
+@property (strong, nonatomic) UIWebView* webView;
 @property (strong, nonatomic) NSString* url;
 @property (strong, nonatomic) ActivityView* activityView;
 
@@ -26,18 +26,18 @@
 
 @end
 
+
 @implementation WebViewController
 
-@synthesize web;
+@synthesize webView;
 @synthesize url;
 @synthesize activityView;
 
 @synthesize token;
 @synthesize delegate;
 
-
 - (void) viewDidUnload {
-    self.web = nil;
+    self.webView = nil;
     self.url =  nil;
     self.token = nil;
     self.activityView = nil;
@@ -48,24 +48,29 @@
     self = [super init];
     if (self) {
         self.url = urlin;
-
     }   
     return self;
+}
+
+- (void)setupWebView {
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
+}
+
+- (void)setupActivityView {
+    self.activityView = [[ActivityView alloc] init];
+    //[self.webView addSubview:self.activityView];
 }
 
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-    self.web = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-    self.web.delegate = self;
-    [self.view addSubview:self.web];
-    
-    self.activityView = [[ActivityView alloc] init];
-    [self.web addSubview:self.activityView];
-    self.activityView.center = self.view.center;
+    [self setupWebView];
+    [self setupActivityView];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
-    [web loadRequest:request];
+    [self.webView loadRequest:request];
 }
 
 - (void) hide {
@@ -105,7 +110,7 @@
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [self.activityView startActivityWithMessage:@"Loading..."];
+    [self.activityView startActivityWithMessage:@"Loading..." onView:self.view];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {

@@ -45,23 +45,21 @@
         self.frame = CGRectMake(0, 0, 160, 160);
         [self roundCorners];
         
-        self.hidden = YES;
         self.backgroundColor = [UIColor blackColor];
     }
     return self;
 }
 
-- (void) startActivityWithMessage:(NSString*)text {
-    self.center = self.superview.center;
-    [self.superview bringSubviewToFront:self];
+- (void) startActivityWithMessage:(NSString*)text onView:(UIView*)view {
+    self.center = view.center;
+    [view addSubview:self];
     [self.activityIndicator startAnimating];
     self.message.text = text;
-    self.hidden = NO;
 }
 
 - (void) stopActivity {
     [self.activityIndicator stopAnimating];
-    self.hidden = YES;
+    [self removeFromSuperview];
 }
 
 @end

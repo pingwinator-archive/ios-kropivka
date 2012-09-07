@@ -51,8 +51,7 @@
 
 - (void)setupActivityIndicator {
     self.activityView = [[ActivityView alloc] init];
-    [self.view addSubview:self.activityView];
-    self.activityView.center = self.view.center;
+    //[self.view addSubview:self.activityView];
 }
 
 - (id) init {
@@ -112,7 +111,7 @@
 
 - (void) loginButtonAction {
     if( !self.log.accessToken ) {
-        [self.activityView startActivityWithMessage:@"Loading..."];
+        [self.activityView startActivityWithMessage:@"Loading..." onView:self.view];
         [self.log startLogin];
     } else {
         [self atLogouted];
