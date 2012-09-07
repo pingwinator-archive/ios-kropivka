@@ -16,6 +16,11 @@
 
 @property (strong, nonatomic) Tweet* tweet;
 @property (strong, nonatomic) UIImageView* avatarView;
+
+- (void) setupAvatarView;
+- (void) setupNameLabel;
+- (void) setupTweetLabel;
+
 @end
 
 @implementation TweetViewCell
@@ -25,14 +30,14 @@
 @synthesize avatarView;
 @synthesize tweet;
 
--(void)dealloc{
+-(void) dealloc {
     self.tweetLabel = nil;
     self.nameLabel = nil;
     self.avatarView = nil;
     self.tweet = nil;
 }
 
-- (void)setupAvatarView {
+- (void) setupAvatarView {
     
     self.avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(kOffset, 
                                                                     kOffset, 
@@ -41,7 +46,7 @@
     [self.contentView addSubview:self.avatarView];
 }
 
-- (void)setupNameLabel {
+- (void) setupNameLabel {
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(kAvataraSize.width+2*kOffset, 
                                                                0, 
                                                                kNameLableSize.width, 
@@ -51,7 +56,7 @@
     self.nameLabel.textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.4 alpha:1];
 }
 
-- (void)setupTweetLabel {
+- (void) setupTweetLabel {
     self.tweetLabel = [[UILabel alloc] initWithFrame:CGRectMake(kAvataraSize.width+kOffset, 
                                                                 kNameLableSize.height+kOffset, 
                                                                 self.frame.size.width-(kAvataraSize.width+kOffset), 
@@ -62,7 +67,7 @@
     self.tweetLabel.font = kTweetFont;
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+- (id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
@@ -73,8 +78,6 @@
     }
     return self;
 }
-
-
 
 - (void) setTweet:(Tweet*)tw withImageCache:(NSMutableDictionary*)imageCache {
     self.tweet = tw;
@@ -113,7 +116,7 @@
     self.tweetLabel.backgroundColor = color;
 }
 
-- (void)layoutSubviews {
+- (void) layoutSubviews {
     [super layoutSubviews];
     
     self.tweetLabel.frame = CGRectMake(kAvataraSize.width + 2*kOffset,
@@ -121,4 +124,5 @@
                                        self.frame.size.width-(kAvataraSize.width + 3*kOffset), 
                                        self.tweet.tweetLabelHeight);
 }
+
 @end

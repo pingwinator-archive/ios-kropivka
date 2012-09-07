@@ -28,13 +28,14 @@
     self.activityIndicator = nil;
     self.message = nil;
 }
-- (void)setupActivityIndicator {
+
+- (void) setupActivityIndicator {
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activityIndicator.center = CGPointMake(80, 40);
     [self addSubview:self.activityIndicator];
 }
 
-- (void)setupMessage {
+- (void) setupMessage {
     self.message = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 120, 20)];
     self.message.text = @"";
     self.message.textColor = [UIColor whiteColor];
