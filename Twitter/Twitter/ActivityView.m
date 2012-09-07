@@ -36,6 +36,7 @@
     self.message.text = @"";
     self.message.textColor = [UIColor whiteColor];
     self.message.backgroundColor = [UIColor blackColor];
+    self.message.textAlignment = UITextAlignmentCenter;
     [self addSubview:self.message];
 }
 

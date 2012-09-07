@@ -13,11 +13,14 @@
 #import "Tweet.h"
 #import "TweetViewController.h"
 #import "NSDictionary+RequestAssitant.h"
+#import "TweetViewCell.h"
 
 @interface TweetsLoader ()
 
 @property (strong, nonatomic) Loginer* loginer;
 @property (assign, nonatomic) BOOL isRefreshing;
+@property (strong, nonatomic) NSMutableDictionary* imageCache;
+@property (assign, nonatomic) BOOL isPreLoading;
 
 - (void) loadTweetsForNextPage;
 
@@ -29,10 +32,13 @@
 @synthesize tweets;
 @synthesize delegate;
 @synthesize isRefreshing;
+@synthesize imageCache;
+@synthesize isPreLoading;
 
 - (void)dealloc {
     self.loginer = nil;
     self.tweets = nil;
+    self.imageCache = nil;
 }
 
 - (id) initWithLoginer:(Loginer*)log {
@@ -41,6 +47,8 @@
     {
         self.loginer = log;
         self.tweets = [NSMutableArray array];
+        self.isPreLoading = NO;
+        self.imageCache = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -104,6 +112,7 @@
             [self.tweets addObject:tw];
         }
         self.isRefreshing = NO;
+        self.isPreLoading = NO;
         [self.delegate performSelectorOnMainThread:@selector(tweetsLoaded) withObject:nil waitUntilDone:YES];
 	}
 }
@@ -111,6 +120,42 @@
 - (void) apiTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error {
 	OXM_DLog(@"Getting home timeline failed: %@", [error localizedDescription]);
     //add delegate
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    OXM_DLog(@"tweets count %d",[self.tweets count]);
+    return [self.tweets count];
+}
+
+- (TweetViewCell*) configureCell:(TweetViewCell*)cell withIndexPath:(NSIndexPath *)indexPath {
+    Tweet* tw = [self.tweets objectAtIndex:indexPath.row];
+    [cell setTweet:tw withImageCache:self.imageCache];
+    [cell setRow:indexPath.row];
+    
+    if( !self.isPreLoading && [self.tweets count] - indexPath.row < kTweetsCountLeftForPreloading ) {
+        self.isPreLoading = YES;
+        [self silentPreload];
+    }
+    
+    return cell;
+}
+
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"Cell";
+    TweetViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[TweetViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle 
+                                    reuseIdentifier:CellIdentifier];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    return [self configureCell:cell withIndexPath:indexPath];
 }
 
 

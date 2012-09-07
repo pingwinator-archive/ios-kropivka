@@ -12,7 +12,7 @@
 @protocol TweetsLoaderDelegate;
 
 
-@interface TweetsLoader : NSObject
+@interface TweetsLoader : NSObject <UITableViewDataSource>
 
 @property (strong, nonatomic) NSMutableArray* tweets;
 @property (unsafe_unretained, nonatomic) NSObject<TweetsLoaderDelegate>* delegate;

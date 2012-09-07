@@ -54,7 +54,7 @@
 - (void)setupTweetLabel {
     self.tweetLabel = [[UILabel alloc] initWithFrame:CGRectMake(kAvataraSize.width+kOffset, 
                                                                 kNameLableSize.height+kOffset, 
-                                                                320-(kAvataraSize.width+kOffset), 
+                                                                self.frame.size.width-(kAvataraSize.width+kOffset), 
                                                                 100-20)]; // will be setted later
     self.tweetLabel.numberOfLines = 10;
     self.tweetLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -118,7 +118,7 @@
     
     self.tweetLabel.frame = CGRectMake(kAvataraSize.width + 2*kOffset,
                                        kNameLableSize.height + kOffset, 
-                                       320-(kAvataraSize.width + 2*kOffset), 
+                                       self.frame.size.width-(kAvataraSize.width + 3*kOffset), 
                                        self.tweet.tweetLabelHeight);
 }
 @end

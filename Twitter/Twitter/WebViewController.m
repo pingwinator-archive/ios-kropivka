@@ -58,7 +58,6 @@
 
 - (void)setupActivityView {
     self.activityView = [[ActivityView alloc] init];
-    //[self.webView addSubview:self.activityView];
 }
 
 - (void) viewDidLoad {
@@ -75,43 +74,43 @@
 	[self performSelector: @selector(dismissModalViewControllerAnimated:) withObject:(id)kCFBooleanTrue afterDelay: 0.0];
 }
 
--(void)clearCookies {
+-(void) clearCookies {
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (NSHTTPCookie *cookie in [storage cookies]) {
         [storage deleteCookie:cookie];
     }
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+- (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
     NSString *urlStr = [[request URL] absoluteString];
-    OXM_DLog(@"url = %@", urlStr);
+    OXM_DLog(@"Url = %@", urlStr);
     
+    BOOL res = NO;
     
     if( [urlStr hasPrefix:kDeniedUrl] || [urlStr hasPrefix:kCancelUrl] ) {
         [self hide];
         [self.delegate webViewFinished];
-        return NO;
-    }
-    
-    if( [urlStr hasPrefix:kCallbackUrl] ) {
-
+        res = NO;
+    } else if( [urlStr hasPrefix:kCallbackUrl] ) {
         [self.delegate getAccessTokenWithData:[urlStr substringFromIndex:kCallbackUrl.length]];
         [self hide];
         [self clearCookies];
-        return NO;
+        res = NO;
+    } else if( [urlStr hasPrefix:kValidPage] ) {
+        res = YES;
     }
-    if( [urlStr hasPrefix:kValidPage] )        
-        return YES;
     
-	return NO;
+	return res;
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView {
+#pragma mark - UIWebViewDelegate
+
+- (void) webViewDidStartLoad:(UIWebView *)webView {
     [self.activityView startActivityWithMessage:@"Loading..." onView:self.view];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
+- (void) webViewDidFinishLoad:(UIWebView *)webView {
     [self.activityView stopActivity];
 }
 

@@ -24,7 +24,7 @@
 
 - (CGFloat)tweetLabelHeight {
     return [self.text sizeWithFont:kTweetFont 
-                 constrainedToSize:CGSizeMake(320-(kAvataraSize.width + 2*kOffset), CGFLOAT_MAX) 
+                 constrainedToSize:CGSizeMake(320-(kAvataraSize.width + 3*kOffset), CGFLOAT_MAX) 
                      lineBreakMode:UILineBreakModeWordWrap].height;
 }
 

@@ -21,9 +21,7 @@
 @property (strong, nonatomic) RequestSender* requestSender;
 @property (strong, nonatomic) TweetsLoader* tweetsLoader;
 @property (strong, nonatomic) Loginer* loginer;
-@property (strong, nonatomic) NSMutableDictionary* imageCache;
 @property (strong, nonatomic) ActivityView* activityView;
-@property (assign, nonatomic) BOOL isPreLoading;
 @property (strong, nonatomic) UIImageView* twitterLogo;
 
 @end
@@ -34,16 +32,13 @@
 @synthesize requestSender;
 @synthesize tweetsLoader;
 @synthesize loginer;
-@synthesize imageCache;
 @synthesize activityView;
-@synthesize isPreLoading;
 @synthesize twitterLogo;
 
 - (void) viewDidUnload {
     self.requestSender = nil;
     self.tweetsLoader = nil;
     self.loginer = nil;
-    self.imageCache = nil;
     self.activityView = nil;
     
     [super viewDidUnload];
@@ -68,12 +63,10 @@
         
         self.tweetsLoader = [[TweetsLoader alloc] initWithLoginer:self.loginer];
         self.tweetsLoader.delegate = self;
+        self.tableView.dataSource = self.tweetsLoader;
         
         [self setupActivityIndicator];
         [self setupTwitterLogo];
-
-        self.imageCache = [NSMutableDictionary dictionary];
-        self.isPreLoading = NO;
         
         self.navigationItem.title = @"Twitter";
         
@@ -123,42 +116,6 @@
     }
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    OXM_DLog(@"tweets count %d",[self.tweetsLoader.tweets count]);
-    return [self.tweetsLoader.tweets count];
-}
-
-- (TweetViewCell*) configureCell:(TweetViewCell*)cell withIndexPath:(NSIndexPath *)indexPath {
-    Tweet* tw = [self.tweetsLoader.tweets objectAtIndex:indexPath.row];
-    [cell setTweet:tw withImageCache:self.imageCache];
-    [cell setRow:indexPath.row];
-    
-    if( !self.isPreLoading && [self.tweetsLoader.tweets count] - indexPath.row < kTweetsCountLeftForPreloading ) {
-        self.isPreLoading = YES;
-        [self.tweetsLoader silentPreload];
-    }
-
-    return cell;
-}
-
-- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
-    TweetViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
-    if (cell == nil) {
-        cell = [[TweetViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle 
-                                    reuseIdentifier:CellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    return [self configureCell:cell withIndexPath:indexPath];
-}
-
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -170,6 +127,7 @@
 
 - (void) showLoginWindow:(NSString*)address {
     if( [address length] ) {
+        [self.activityView stopActivity];
         WebViewController *web = [[WebViewController alloc] initWithUrl:address];
         web.delegate = self.loginer;
         [self presentViewController:web animated:YES completion:nil];
@@ -189,7 +147,6 @@
 
 - (void) tweetsLoaded {
     OXM_DLog(@"Tweets Loaded");
-    self.isPreLoading = NO;
     [self.tableView reloadData];
 }
 
