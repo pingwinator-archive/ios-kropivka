@@ -24,6 +24,12 @@
 @property (strong, nonatomic) ActivityView* activityView;
 @property (strong, nonatomic) UIImageView* twitterLogo;
 
+- (void)setupActivityIndicator;
+- (void)setupTwitterLogo;
+- (void)atLogouted;
+- (void)atLoginned;
+- (void)loginButtonAction;
+
 @end
 
 

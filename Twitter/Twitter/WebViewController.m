@@ -21,6 +21,9 @@
 @property (strong, nonatomic) NSString* url;
 @property (strong, nonatomic) ActivityView* activityView;
 
+- (void)setupWebView;
+- (void)setupActivityView;
+
 - (void) hide;
 - (void) clearCookies;
 
