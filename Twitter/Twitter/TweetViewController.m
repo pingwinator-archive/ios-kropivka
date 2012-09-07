@@ -62,17 +62,12 @@
         self.activityView = [[ActivityView alloc] initWithFrame:CGRectMake(80, 80, 160, 160)];
         [self.view addSubview:self.activityView];
         
-        NSString* path = [[NSBundle  mainBundle] pathForResource:@"twitter" ofType:@"png"];
+        NSString* path = [[NSBundle  mainBundle] pathForResource:@"twitter-logo" ofType:@"jpg"];
         self.logo = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:path]];
-        //self.logo.frame = CGRectMake(0, 0, 320, 480);
-        //[self.view.superview insertSubview:self.logo atIndex:0];
-        //self.logo.hidden = YES;
-        //[self hideEmptySeparators];
-        
+        self.logo.frame = CGRectMake(0, 0, 320, 480);
+
         self.imageCache = [NSMutableDictionary dictionary];
         self.isPreLoading = NO;
-        
-        self.tableView.hidden = YES;
         
         self.navigationItem.title = @"Twitter";
     }
@@ -97,16 +92,27 @@
                                               action:@selector(loginAction)];
 }
 
+-(void) atLogouted {
+    self.navigationItem.rightBarButtonItem.title = @"Login";
+    self.tableView.userInteractionEnabled = NO;
+    self.tableView.tableHeaderView = self.logo;
+}
+
+-(void) atLoginned {
+    self.navigationItem.rightBarButtonItem.title = @"Logout";
+    self.tableView.userInteractionEnabled = YES;
+    self.tableView.tableHeaderView = nil;
+}
+
 - (void) loginAction {
     if( !self.log.accessToken ) {
         [self.activityView startActivityWithMessage:@"Loading..."];
         [self.log startLogin];
     } else {
+        [self atLogouted];
         [self.log logout];
         [self.tweetsLoader.tweets removeAllObjects];
         [self.tableView reloadData];
-        self.navigationItem.rightBarButtonItem.title = @"Login";
-        self.tableView.hidden = YES;
     }
 }
 
@@ -157,8 +163,7 @@
 #pragma mark - TweetViewControllerDelegate
 
 - (void) showLoginWindow:(NSString*)address {
-    if( [address length] )
-    {
+    if( [address length] ) {
         WebViewController *web = [[WebViewController alloc] initWithUrl:address];
         web.delegate = self.log;
         [self presentViewController:web animated:YES completion:nil];
@@ -169,8 +174,8 @@
     [self.activityView stopActivity];
     if( success ) {
         NSLog(@"User logged in");
-        self.navigationItem.rightBarButtonItem.title = @"Logout";
         [self.tweetsLoader refreshTweets];
+        [self atLoginned];
     }
 }
 
@@ -179,7 +184,6 @@
     NSLog(@"Tweets Loaded");
     self.isPreLoading = NO;
     [self.tableView reloadData];
-    self.tableView.hidden = NO;
 }
 
 #pragma mark - Pull2RefreshViewController
@@ -187,7 +191,6 @@
 - (void) refresh {
     [super refresh];
     NSLog(@"Refresh...");
-
     [self.tweetsLoader refreshTweets];
 }
 @end
