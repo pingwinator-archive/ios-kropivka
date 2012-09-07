@@ -11,6 +11,9 @@
 
 @interface ActivityView ()
 
+@property (strong, nonatomic) UIActivityIndicatorView* activityIndicator;
+@property (strong, nonatomic) UILabel* message;
+
 - (void)setupActivityIndicator;
 - (void)setupMessage;
 

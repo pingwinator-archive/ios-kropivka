@@ -92,7 +92,7 @@
                                               action:@selector(loginButtonAction)];
 }
 
--(void) atLogouted {
+- (void) atLogouted {
     self.navigationItem.rightBarButtonItem.title = @"Login";
     self.tableView.userInteractionEnabled = NO;
     self.tableView.tableHeaderView = self.twitterLogo;

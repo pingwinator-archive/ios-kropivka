@@ -10,8 +10,6 @@
 
 @interface ActivityView : UIView
 
-@property (strong, nonatomic) UIActivityIndicatorView* activityIndicator;
-@property (strong, nonatomic) UILabel* message;
 
 - (void) startActivityWithMessage:(NSString*)text onView:(UIView*)view; 
 - (void) stopActivity;
