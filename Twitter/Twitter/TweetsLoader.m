@@ -23,8 +23,10 @@
 @property (assign, nonatomic) BOOL isPreLoading;
 
 - (void) loadTweetsForNextPage;
+- (TweetViewCell*) configureCell:(TweetViewCell*)cell withIndexPath:(NSIndexPath *)indexPath;
 
 @end
+
 
 @implementation TweetsLoader
 
@@ -59,6 +61,7 @@
 }
 
 - (void) silentPreload {
+    self.isPreLoading = YES;
     [self loadTweetsForNextPage];
 }
 
@@ -139,7 +142,6 @@
     [cell setRow:indexPath.row];
     
     if( !self.isPreLoading && [self.tweets count] - indexPath.row < kTweetsCountLeftForPreloading ) {
-        self.isPreLoading = YES;
         [self silentPreload];
     }
     

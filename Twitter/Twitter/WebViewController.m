@@ -53,13 +53,13 @@
     return self;
 }
 
-- (void)setupWebView {
+- (void) setupWebView {
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
 }
 
-- (void)setupActivityView {
+- (void) setupActivityView {
     self.activityView = [[ActivityView alloc] init];
 }
 
@@ -77,7 +77,7 @@
 	[self performSelector: @selector(dismissModalViewControllerAnimated:) withObject:(id)kCFBooleanTrue afterDelay: 0.0];
 }
 
--(void) clearCookies {
+- (void) clearCookies {
     NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     for (NSHTTPCookie *cookie in [storage cookies]) {
         [storage deleteCookie:cookie];
