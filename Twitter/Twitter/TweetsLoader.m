@@ -17,7 +17,7 @@
 @interface TweetsLoader ()
 
 @property (strong, nonatomic) Loginer* loginer;
-@property (assign, nonatomic) BOOL refresh;
+@property (assign, nonatomic) BOOL isRefreshing;
 
 - (void) loadTweetsForNextPage;
 
@@ -28,14 +28,14 @@
 @synthesize loginer;
 @synthesize tweets;
 @synthesize delegate;
-@synthesize refresh;
+@synthesize isRefreshing;
 
--(void)dealloc{
+- (void)dealloc {
+    self.loginer = nil;
     self.tweets = nil;
 }
 
-- (id) initWithLoginer:(Loginer*)log
-{
+- (id) initWithLoginer:(Loginer*)log {
     self = [super init];
     if(self)
     {
@@ -46,12 +46,11 @@
 }
 
 - (void) refreshTweets {
-    self.refresh = YES;
+    self.isRefreshing = YES;
     [self loadTweetsForNextPage];
 }
 
-- (void) silentPreload
-{
+- (void) silentPreload {
     [self loadTweetsForNextPage];
 }
 
@@ -59,15 +58,12 @@
     NSString* baseUrl =  @"http://api.twitter.com/1/statuses/home_timeline.json%@"; 
 
     NSString* parameters = @"";
-    if( [self.tweets count] && !refresh )
-    {
+    if( [self.tweets count] && !self.isRefreshing ) {
         parameters = [NSString stringWithFormat:@"?max_id=%@",[[self.tweets lastObject] id]];
     }
     
-    NSString* str = [NSString stringWithFormat:baseUrl, parameters];
-    
-    NSURL *url = [NSURL URLWithString:str];
-	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
+    NSString* url = [NSString stringWithFormat:baseUrl, parameters];
+	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]
 																   consumer:[self.loginer consumer]
 																	  token:self.loginer.accessToken
 																	  realm:nil
@@ -87,7 +83,7 @@
 	if(ticket.didSucceed) {
         OXM_DLog( @"Got home timeline." );
         
-        if(self.refresh){
+        if(self.isRefreshing) {
             [self.tweets removeAllObjects];
         }
         
@@ -104,15 +100,15 @@
             tw.imgUrl = [[tweetDict objectForKey:@"user"] objectForKey:@"profile_image_url"];
             tw.text = [tweetDict objectForKey:@"text"];
             tw.id = [tweetDict objectForKey:@"id"];
+            
             [self.tweets addObject:tw];
         }
-        self.refresh = NO;
+        self.isRefreshing = NO;
         [self.delegate performSelectorOnMainThread:@selector(tweetsLoaded) withObject:nil waitUntilDone:YES];
 	}
 }
 
-- (void) apiTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
-{
+- (void) apiTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error {
 	OXM_DLog(@"Getting home timeline failed: %@", [error localizedDescription]);
     //add delegate
 }

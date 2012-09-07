@@ -20,11 +20,11 @@
 
 @property (strong, nonatomic) RequestSender* requestSender;
 @property (strong, nonatomic) TweetsLoader* tweetsLoader;
-@property (strong, nonatomic) Loginer* log;
+@property (strong, nonatomic) Loginer* loginer;
 @property (strong, nonatomic) NSMutableDictionary* imageCache;
 @property (strong, nonatomic) ActivityView* activityView;
 @property (assign, nonatomic) BOOL isPreLoading;
-@property (strong, nonatomic) UIImageView* logo;
+@property (strong, nonatomic) UIImageView* twitterLogo;
 
 @end
 
@@ -33,42 +33,44 @@
 
 @synthesize requestSender;
 @synthesize tweetsLoader;
-@synthesize log;
+@synthesize loginer;
 @synthesize imageCache;
 @synthesize activityView;
 @synthesize isPreLoading;
-@synthesize logo;
+@synthesize twitterLogo;
 
 - (void) viewDidUnload {
     self.requestSender = nil;
     self.tweetsLoader = nil;
-    self.log = nil;
+    self.loginer = nil;
     self.imageCache = nil;
     self.activityView = nil;
     
     [super viewDidUnload];
 }
 
-- (void)setupActivityIndicator {
+- (void) setupActivityIndicator {
     self.activityView = [[ActivityView alloc] init];
-    //[self.view addSubview:self.activityView];
+}
+
+- (void)setupTwitterLogo {
+    NSString* path = [[NSBundle  mainBundle] pathForResource:@"twitter-logo" ofType:@"jpg"];
+    self.twitterLogo = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:path]];
+    self.twitterLogo.frame = CGRectMake(0, 0, 320, 480);
 }
 
 - (id) init {
     self = [super init];
     if(self)
     {
-        self.log = [[Loginer alloc] init];
-        self.log.delegate = self;
+        self.loginer = [[Loginer alloc] init];
+        self.loginer.delegate = self;
         
-        self.tweetsLoader = [[TweetsLoader alloc] initWithLoginer:self.log];
+        self.tweetsLoader = [[TweetsLoader alloc] initWithLoginer:self.loginer];
         self.tweetsLoader.delegate = self;
         
         [self setupActivityIndicator];
-        
-        NSString* path = [[NSBundle  mainBundle] pathForResource:@"twitter-logo" ofType:@"jpg"];
-        self.logo = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:path]];
-        self.logo.frame = CGRectMake(0, 0, 320, 480);
+        [self setupTwitterLogo];
 
         self.imageCache = [NSMutableDictionary dictionary];
         self.isPreLoading = NO;
@@ -80,7 +82,7 @@
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void) viewDidAppear:(BOOL)animated {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         [self loginButtonAction];  
@@ -100,7 +102,7 @@
 -(void) atLogouted {
     self.navigationItem.rightBarButtonItem.title = @"Login";
     self.tableView.userInteractionEnabled = NO;
-    self.tableView.tableHeaderView = self.logo;
+    self.tableView.tableHeaderView = self.twitterLogo;
 }
 
 -(void) atLoginned {
@@ -110,12 +112,12 @@
 }
 
 - (void) loginButtonAction {
-    if( !self.log.accessToken ) {
+    if( !self.loginer.accessToken ) {
         [self.activityView startActivityWithMessage:@"Loading..." onView:self.view];
-        [self.log startLogin];
+        [self.loginer startLogin];
     } else {
         [self atLogouted];
-        [self.log logout];
+        [self.loginer logout];
         [self.tweetsLoader.tweets removeAllObjects];
         [self.tableView reloadData];
     }
@@ -132,8 +134,7 @@
     return [self.tweetsLoader.tweets count];
 }
 
-- (TweetViewCell*) configureCell:(TweetViewCell*)cell withIndexPath:(NSIndexPath *)indexPath
-{
+- (TweetViewCell*) configureCell:(TweetViewCell*)cell withIndexPath:(NSIndexPath *)indexPath {
     Tweet* tw = [self.tweetsLoader.tweets objectAtIndex:indexPath.row];
     [cell setTweet:tw withImageCache:self.imageCache];
     [cell setRow:indexPath.row];
@@ -161,7 +162,7 @@
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Tweet* tw = [self.tweetsLoader.tweets objectAtIndex:[indexPath row]];
+    Tweet* tw = [self.tweetsLoader.tweets objectAtIndex:indexPath.row];
     return tw.fullHeight;
 }
 
@@ -170,7 +171,7 @@
 - (void) showLoginWindow:(NSString*)address {
     if( [address length] ) {
         WebViewController *web = [[WebViewController alloc] initWithUrl:address];
-        web.delegate = self.log;
+        web.delegate = self.loginer;
         [self presentViewController:web animated:YES completion:nil];
     }
 }
@@ -182,12 +183,11 @@
         [self.tweetsLoader refreshTweets];
         [self atLoginned];
     }else {
-        [self.log logout];
+        [self.loginer logout];
     }
 }
 
 - (void) tweetsLoaded {
-    [self.activityView stopActivity];
     OXM_DLog(@"Tweets Loaded");
     self.isPreLoading = NO;
     [self.tableView reloadData];

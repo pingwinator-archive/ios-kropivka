@@ -27,7 +27,7 @@
 @synthesize delegate;
 @synthesize accessToken;
 
--(void)dealloc {
+- (void)dealloc {
     self.accessToken = nil;
 }
 
@@ -73,6 +73,7 @@
 }
 
 #pragma mark - LoginerDelegate
+
 - (void) webViewFinished {
     OXM_DLog(@"Web View finished");
     [self.delegate userLoggedIn:NO];

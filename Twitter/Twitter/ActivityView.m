@@ -21,6 +21,10 @@
 @synthesize activityIndicator;
 @synthesize message;
 
+- (void) dealloc {
+    self.activityIndicator = nil;
+    self.message = nil;
+}
 - (void)setupActivityIndicator {
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activityIndicator.center = CGPointMake(80, 40);

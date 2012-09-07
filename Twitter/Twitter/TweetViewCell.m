@@ -25,6 +25,13 @@
 @synthesize avatarView;
 @synthesize tweet;
 
+-(void)dealloc{
+    self.tweetLabel = nil;
+    self.nameLabel = nil;
+    self.avatarView = nil;
+    self.tweet = nil;
+}
+
 - (void)setupAvatarView {
     
     self.avatarView = [[UIImageView alloc] initWithFrame:CGRectMake(kOffset, 
@@ -109,9 +116,9 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.tweetLabel.frame = CGRectMake(kAvataraSize.width+2*kOffset,
-                                       kNameLableSize.height+kOffset, 
-                                       320-(kAvataraSize.width+kOffset), 
+    self.tweetLabel.frame = CGRectMake(kAvataraSize.width + 2*kOffset,
+                                       kNameLableSize.height + kOffset, 
+                                       320-(kAvataraSize.width + 2*kOffset), 
                                        self.tweet.tweetLabelHeight);
 }
 @end

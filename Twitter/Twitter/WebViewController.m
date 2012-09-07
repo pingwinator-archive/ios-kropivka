@@ -33,13 +33,11 @@
 @synthesize url;
 @synthesize activityView;
 
-@synthesize token;
 @synthesize delegate;
 
 - (void) viewDidUnload {
     self.webView = nil;
     self.url =  nil;
-    self.token = nil;
     self.activityView = nil;
     [super viewDidUnload];
 }
