@@ -46,9 +46,9 @@ void defSelector(id me, SEL cmd)
     NSLog(@"I am task2");
 }
 
-+ (BOOL) resolveInstanceMethod:(SEL)sel{
-    class_addMethod([TestClass class], sel, (IMP)defSelector, "v@:");
-    return [super resolveInstanceMethod:sel];
++ (BOOL) resolveInstanceMethod:(SEL)cmd{
+    class_addMethod([TestClass class], cmd, (IMP)defSelector, "v@:");
+    return [super resolveInstanceMethod:cmd];
 }
 
 @end
@@ -63,14 +63,6 @@ void fixedTask(id me, SEL cmd)
     [me fixedTask];
 }
 
-BOOL resolveInstanceMethod_(id me, SEL cmd){
-    class_addMethod([TestClass class], cmd, (IMP)defSelector, "v@:");
-    return [[me superclass] resolveInstanceMethod:cmd];
-}
-
-void makeClassImmortal(Class class){
-    class_addMethod(class, @selector(resolveInstanceMethod), (IMP)resolveInstanceMethod_, "b@:");
-}
 
 @implementation ViewController
 - (void)viewDidLoad
@@ -84,7 +76,6 @@ void makeClassImmortal(Class class){
     if(myClass)
     {
         class_addMethod(myClass, @selector(fixedTask), (IMP)fixedTask, "v@:");
-        makeClassImmortal(myClass);
 
         Method m1 = class_getInstanceMethod(myClass, @selector(task1));
         Method m2 = class_getInstanceMethod(myClass, @selector(fixedTask));
