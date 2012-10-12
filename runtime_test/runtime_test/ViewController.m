@@ -7,23 +7,72 @@
 //
 
 #import "ViewController.h"
+#import <QuartzCore/QuartzCore.h>
+
+#if TARGET_IPHONE_SIMULATOR
+    #import <objc/objc-runtime.h>
+#else
+    #import <objc/runtime.h>
+    #import <objc/message.h>
+#endif
 
 @interface ViewController ()
+@end
+
+
+@interface TestClass : NSObject
+- (void)fire;
+- (void)task1;
+- (void)task2;
+@end
+
+
+@implementation TestClass 
+
+- (void)fire{
+    [self task1];
+    [self task2];
+}
+
+- (void)task1{
+    NSLog(@"I am task1");
+}
+
+- (void)task2{
+    NSLog(@"I am task2");
+}
 
 @end
 
-@implementation ViewController
+@protocol TestProtocol <NSObject>
+- (void)fixedTask;
+@end
 
+void fixedTask(id me, SEL cmd)
+{
+    NSLog(@"fixed task");
+    [me fixedTask];
+}
+
+@implementation ViewController
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
+    NSLog(@"hi!");
+    
+    TestClass* t = [[TestClass alloc] init];
+    [t fire];
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+    
+    Class myClass = NSClassFromString(@"TestClass");
+    if(myClass)
+    {
+        class_addMethod(myClass, @selector(fixedTask), (IMP)fixedTask, "v@:");
+        Method m1 = class_getInstanceMethod(myClass, @selector(task1));
+        Method m2 = class_getInstanceMethod(myClass, @selector(fixedTask));
+        method_exchangeImplementations(m1, m2);
+    }
 
+    [t fire];
+}
 @end
