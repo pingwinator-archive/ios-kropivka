@@ -50,8 +50,8 @@ void defSelector(id me, SEL cmd)
     class_addMethod([TestClass class], sel, (IMP)defSelector, "v@:");
     return [super resolveInstanceMethod:sel];
 }
-@end
 
+@end
 
 @protocol TestProtocol <NSObject>
 - (void)fixedTask;
@@ -63,7 +63,14 @@ void fixedTask(id me, SEL cmd)
     [me fixedTask];
 }
 
+BOOL resolveInstanceMethod_(id me, SEL cmd){
+    class_addMethod([TestClass class], cmd, (IMP)defSelector, "v@:");
+    return [[me superclass] resolveInstanceMethod:cmd];
+}
 
+void makeClassImmortal(Class class){
+    class_addMethod(class, @selector(resolveInstanceMethod), (IMP)resolveInstanceMethod_, "b@:");
+}
 
 @implementation ViewController
 - (void)viewDidLoad
@@ -72,19 +79,22 @@ void fixedTask(id me, SEL cmd)
     NSLog(@"hi!");
     
     TestClass* t = [[TestClass alloc] init];
-    [t fire];
 
     Class myClass = NSClassFromString(@"TestClass");
     if(myClass)
     {
         class_addMethod(myClass, @selector(fixedTask), (IMP)fixedTask, "v@:");
+        makeClassImmortal(myClass);
+
         Method m1 = class_getInstanceMethod(myClass, @selector(task1));
         Method m2 = class_getInstanceMethod(myClass, @selector(fixedTask));
         method_exchangeImplementations(m1, m2);
     }
-    
-    [t fire];
-    [t performSelector:@selector(helloNEO)];
+
+    [t performSelector:@selector(fcccire)];
+    [t performSelector:@selector(sss123123)];
+    [t performSelector:@selector(ssssfire)];
+    [t performSelector:@selector(fire)];
 }
 
 @end
