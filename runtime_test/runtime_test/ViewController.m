@@ -19,6 +19,10 @@
 @interface ViewController ()
 @end
 
+void defSelector(id me, SEL cmd)
+{
+    NSLog(@"selector %@ called", NSStringFromSelector(cmd));
+}
 
 @interface TestClass : NSObject
 - (void)fire;
@@ -42,7 +46,12 @@
     NSLog(@"I am task2");
 }
 
++ (BOOL) resolveInstanceMethod:(SEL)sel{
+    class_addMethod([TestClass class], sel, (IMP)defSelector, "v@:");
+    return [super resolveInstanceMethod:sel];
+}
 @end
+
 
 @protocol TestProtocol <NSObject>
 - (void)fixedTask;
@@ -54,6 +63,8 @@ void fixedTask(id me, SEL cmd)
     [me fixedTask];
 }
 
+
+
 @implementation ViewController
 - (void)viewDidLoad
 {
@@ -63,7 +74,6 @@ void fixedTask(id me, SEL cmd)
     TestClass* t = [[TestClass alloc] init];
     [t fire];
 
-    
     Class myClass = NSClassFromString(@"TestClass");
     if(myClass)
     {
@@ -72,7 +82,9 @@ void fixedTask(id me, SEL cmd)
         Method m2 = class_getInstanceMethod(myClass, @selector(fixedTask));
         method_exchangeImplementations(m1, m2);
     }
-
+    
     [t fire];
+    [t performSelector:@selector(helloNEO)];
 }
+
 @end
